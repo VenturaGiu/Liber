@@ -12,10 +12,8 @@ async function register(req, res) {
     try {
         const { name, email, password, confirmPass } = req.body;
 
-        if (!name && !email && !password) return Promise.reject(new BadRequestError('Fill datas'));
-        if (!name) return Promise.reject(new BadRequestError('Please, insert your name!'));
-        if (!email) return Promise.reject(new BadRequestError('Please, insert your email!'));
-        if (!password) return Promise.reject(new BadRequestError('Please, insert your password!'));
+        if (!name || !email || !password) return Promise.reject(new BadRequestError('Fill datas'));
+        if (password !== confirmPass) return Promise.reject(new BadRequestError('Please, passwords must be the same!'));
 
         const user = new User(obj);
         const resp = await user.save();
