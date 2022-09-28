@@ -7,9 +7,6 @@ module.exports = {
     server: {
       host: process.env.HOST || 'localhost',
       port: process.env.PORT || '3000',
-      session: {
-        secret: process.env.SESSION_ENCRYPTION || '1GcMr0cK1$',
-      },
     },
   
     db: {
