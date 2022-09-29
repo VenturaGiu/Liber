@@ -1,13 +1,16 @@
 const User = require('../models/User')
 
-async function list(req, res) {
-    try {
-        return res.status(201).json({ message: `Alou` });
-    } catch (error) {
-        return Promise.reject(new HttpError(error));
-    }
-}
+/*
+    𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
+*/
 
+/** Recuperar usuário através do e-mail
+ * @author Giulia Ventura
+ * @date 29/09/2022
+ * @param {String} email
+ * @return {Object} dados do usuário
+ * @return {Boolean} false caso não encontre o usuário 
+ */
 async function getByEmail(email) {
     try {
         const user = await User.findOne({ email })
@@ -17,6 +20,29 @@ async function getByEmail(email) {
         return res.status(500).json({ message: `Api app error route User (getByEmail)` });
     }
 }
+
+/*
+    𝘼𝙋𝙄
+*/
+
+/** 
+ * @author Giulia Ventura
+ * @date 29/09/2022
+ * @param {Request} req requisição node
+ * @param {Response} res resposta node
+ * @return {Object} dados do usuário
+ * @return {String} erro caso o usuário não esteja devidamente credenciado 
+ */
+async function list(req, res) {
+    try {
+        const { email, password } = req.body;
+        
+        return res.status(201).json({ message: `Alou` });
+    } catch (error) {
+        return Promise.reject(new HttpError(error));
+    }
+}
+
 
 async function register(req, res) {
     try {
