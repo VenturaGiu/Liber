@@ -1,12 +1,19 @@
 const router = require('express').Router();
 
 const {
-    list,
-    register
+    listAll,
+    register,
+    login
 } = require('../controllers/UserController');
+const { 
+    requiresLogin
+} = require('../../../lib/routeIntercept');
 
 router.route('/')
-    .get(list)
+    .get(requiresLogin, listAll)
     .post(register);
+
+router.route('/login')
+    .post(login);
 
 module.exports = router;

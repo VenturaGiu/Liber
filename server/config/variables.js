@@ -7,6 +7,9 @@ module.exports = {
     server: {
       host: process.env.HOST || 'localhost',
       port: process.env.PORT || '3000',
+      session: {
+        secret: process.env.SESSION_ENCRYPTION || '1GcMr0cK1$',
+      },
     },
   
     db: {
@@ -19,7 +22,7 @@ module.exports = {
     },
   
     jwt: {
-      encryption: process.env.JWT_ENCRYPTION || '9bIopuq2ea5gDTspoDzQHTdXFTZJgQFfsNKY',
+      secret: process.env.JWT_SECRET || '9bIopuq2ea5gDTspoDzQHTdXFTZJgQFfsNKY',
       expiration: process.env.JWT_EXPIRATION || 86400,
     },
   
