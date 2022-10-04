@@ -3,7 +3,8 @@ const router = require('express').Router();
 const {
     listAll,
     register,
-    login
+    login,
+    validate
 } = require('../controllers/UserController');
 const { 
     requiresLogin
@@ -15,5 +16,8 @@ router.route('/')
 
 router.route('/login')
     .post(login);
+
+router.route('/validate')
+    .get(validate);
 
 module.exports = router;

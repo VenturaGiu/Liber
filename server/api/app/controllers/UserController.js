@@ -20,7 +20,7 @@ async function getByEmail(email) {
         if (user) return user
         return false
     } catch (error) {
-        return res.status(500).json({ message: `Api app error route User (getByEmail)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (getByEmail)` });
     }
 }
 
@@ -30,29 +30,33 @@ async function getByEmail(email) {
  * @param {Object} user dados do usuário
  */
 async function sendConfirmationMail(user) {
-    const token = jwt.sign({ email: user.email });
-    const messages = {
-      confirmation: {
-        subject: 'Bem-vindo ao Liber',
-        message: "Muito obrigada por se inscrever!",
-        message2: "Primeiro você precisa confirmar sua conta. Apenas clique no botão abaixo!",
-        link: `http://${config.server.host}:${config.server.port}/api/app_user/validate?token=${token}`,
-        username: `${user.name}`,
-      },
-    };
-  
-    const m = new Mailer();
-    await m.setTo(user.email)
-      .setSubject(`${messages.confirmation.subject}, ${user.name}`)
-      .setHTML('welcome', messages.confirmation)
-      .send();
+    try {
+        const token = jwt.sign({ email: user.email });
+        const messages = {
+            confirmation: {
+                subject: 'Bem-vindo ao Liber',
+                message: "Muito obrigada por se inscrever!",
+                message2: "Primeiro você precisa confirmar sua conta. Apenas clique no botão abaixo!",
+                link: `http://${config.server.host}:${config.server.port}/api/app_user/validate?token=${token}`,
+                username: `${user.name}`,
+            },
+        };
+        
+        const m = new Mailer();
+        await m.setTo(user.email)
+        .setSubject(`${messages.confirmation.subject}, ${user.name}`)
+        .setHTML('welcome', messages.confirmation)
+        .send();
+    } catch (error) {
+        return res.status(500).json({ message: `Erro na rota api/app_user (sendConfirmationMail)` });
+    }
 }
 
 /*
     𝘼𝙋𝙄
 */
 
-/** 
+/**  Listar todos os usuário cadastrados
  * @author Giulia Ventura
  * @date 29/09/2022
  * @param {Request} req requisição node
@@ -69,7 +73,7 @@ async function listAll(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Api app error route User (ListAll)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (ListAll)` });
     }
 }
 
@@ -97,10 +101,17 @@ async function register(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Api app error route User (register)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (register)` });
     }
 }
 
+/** Acessar conta
+ * @author Giulia Ventura
+ * @date 04/10/2022
+ * @param {Request} req requisição node
+ * @param {Response} res resposta node
+ * @return {Json} token e nome de usuário ou mensagem de erro 
+ */
 async function login(req, res){
     try {
         const { email, password } = req.body;
@@ -108,19 +119,37 @@ async function login(req, res){
         
         const user = await User.findOne({email, password});
         if (user.length === 0) return res.status(400).json({ message: `E-mail ou senha errado!` });
+        if(user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
 
         return res.status(200).json({ token: jwt.sign({ email: user.email }), name: user.name });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Api app error route User (Login)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (Login)` });
+    }
+}
+
+async function validate(req, res){
+    try {
+        const { token } = req.query
+        const userVerified = jwt.verify(token);
+        if (!userVerified || !userVerified.email) return res.status(403).json({ message: `Token de validação inválido!` });
+        const user = await User.findOneAndUpdate({ email: userVerified.email }, { verified: true });
+        if (!user) return res.status(406).json({ message: `Usuário inválido!` });
+        return res.status(200).json({ message: `E-mail verificado com sucesso!` });
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (validate)` });
     }
 }
 
 module.exports = {
+    getByEmail,
     listAll,
     register,
     login,
-    getByEmail,
+    validate,
 }
