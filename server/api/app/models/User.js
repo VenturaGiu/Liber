@@ -24,15 +24,24 @@ const UserSchema = Schema({
     type: Boolean,
     default: false,
   },
+  activated: {
+    type: Boolean,
+    default: true,
+  },
+  account_type: {
+    type: String,
+    default: 'standard',
+    lowercase: true,
+  }
 },
 {
   timestamps: true,
 });
 
-UserSchema.statics.partialUpdate = async function partialUpdate(id, obj) {
-  const omittedAttributes = ['email', '_id'];
+UserSchema.statics.partialUpdate = async function partialUpdate(email, obj) {
+  const omittedAttributes = ['email', '_id', 'verified', 'account_type', 'activated'];
   const cleanObj = _.omit(obj, omittedAttributes);
-  const res = await this.findByIdAndUpdate(id, cleanObj);
+  const res = await this.findOneAndUpdate(email, cleanObj);
   return res;
 };
 
