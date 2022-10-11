@@ -32,3 +32,6 @@ O contexto atual do Brasil em relação a leitura é preocupante, o interesse pe
     Rodar o projeto: npm run watch ou npm start
   </li>
 </ol>
+
+# Rotas do aplicativo
+## Get
