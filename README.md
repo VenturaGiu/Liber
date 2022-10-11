@@ -33,5 +33,44 @@ O contexto atual do Brasil em relação a leitura é preocupante, o interesse pe
   </li>
 </ol>
 
-# Rotas do aplicativo
-## Get
+# Requisitos
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        Ferramenta
+      </td>
+      <th>
+        Versão
+      </th>
+      <th>
+        Observação
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        NodeJs
+      </td>
+      <td>
+        = ou > 16 
+      </td>
+      <td>
+        Plataforma de execução utilizada para o BackEnd
+      </td>
+    </tr>
+    <tr>
+      <td>
+        MongoDB
+      </td>
+      <td>
+        = ou > 3.6 
+      </td>
+      <td>
+        Banco de dados NoSQL
+      </td>
+    </tr>
+  </tbody>
+</table>
