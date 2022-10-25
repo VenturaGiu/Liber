@@ -22,7 +22,7 @@
 				<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</a>.</Helper>
 				<Button gradient color="cyanToBlue">Cyan</Button>
 				<Helper class="pt-2" style="text-align: right;">Ainda não tem uma conta?</Helper>
-				<Button class="b-button-cyan" color="alternative">Criar Conta</Button>
+				<Button outline gradient color="cyanToBlue">Criar Conta</Button>
 			</div>
 		</div>
 	</div>
