@@ -19,10 +19,10 @@
 			<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1">
 				<FloatingLabelInput style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
 				<FloatingLabelInput style="outlined" id="password" name="floating_outlined" type="text" label="Senha" />
-				<Helper class="pt-2" style="float:right">Esqueceu sua senha? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</a>.</Helper>
-				<Button class="bg-azul dark:bg-azul hover:bg-azul_claro dark:hover:bg-azul_claro" >Entrar</Button>
-				<Helper class="pt-2" style="float:right">Ainda não tem uma conta?</Helper>
-				<Button class="button2">Criar Conta</Button>
+				<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</a>.</Helper>
+				<Button gradient color="cyanToBlue">Cyan</Button>
+				<Helper class="pt-2" style="text-align: right;">Ainda não tem uma conta?</Helper>
+				<Button class="b-button-cyan" color="alternative">Criar Conta</Button>
 			</div>
 		</div>
 	</div>
