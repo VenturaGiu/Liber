@@ -4,7 +4,6 @@ const {
     listAll,
     register,
     login,
-    validate,
     updateUserInformation,
     forgotPassword,
     changePass,
@@ -21,9 +20,6 @@ router.route('/')
 
 router.route('/login')
     .post(login);
-
-router.route('/validate')
-    .get(validate);
 
 router.route('/forgotpassword')
     .post(forgotPassword);
