@@ -23,7 +23,7 @@ router.route('/login')
     .post(login);
 
 router.route('/validate')
-    .get(validate);
+    .post(validate);
 
 router.route('/forgotpassword')
     .post(forgotPassword);

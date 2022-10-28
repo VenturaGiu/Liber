@@ -84,7 +84,7 @@ async function register(req, res) {
 
         const user = new User(obj);
         const resp = await user.save()
-        const toke = 1234;
+        const toke = '1234';
         // Envio de e-mail para confirmação
         const messages = {
             confirmation: {
@@ -97,7 +97,7 @@ async function register(req, res) {
             },
         };
         await sendConfirmationMail(user, messages);
-        return res.status(201).json(toke, { message: `Enviamos um código para: ${resp.email}, por favor confirme seu e-mail antes de realizar o login` });
+        return res.status(201).json({toke, message: `Enviamos um código para: ${resp.email}, por favor confirme seu e-mail antes de realizar o login` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -122,7 +122,7 @@ async function login(req, res){
         if (!user || user === null || user.length === 0) return res.status(400).json({ message: `E-mail ou senha errado!` });
         if(user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
 
-        return res.status(200).json({ token: jwt.sign({ email: user.email }), name: user.name });
+        return res.status(200).json({ name: user.name });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -140,7 +140,7 @@ async function login(req, res){
  */
 async function validate(req, res){
     try {
-        const { email } = req.query
+        const { email } = req.body
         if (!email) return res.status(403).json({ message: `Token de validação inválido!` });
         const user = await User.findOneAndUpdate({ email }, { verified: true });
         if (!user) return res.status(406).json({ message: `Usuário inválido!` });
@@ -218,7 +218,7 @@ async function forgotPassword(req, res){
         if(user.verified === false) return res.status(403).json({ message: `Verifique seu e-mail primeiro!` })
         
         // Envio de e-mail para confirmação
-        const token = 1234;
+        const token = '1234';
         const messages = {
             confirmation: {
                 subject: 'Esqueceu sua senha?',
@@ -230,7 +230,7 @@ async function forgotPassword(req, res){
             },
         };
         await sendConfirmationMail(user, messages);
-        return res.status(201).json(token, { message: `Enviamos um e-mail para: ${user.email} :)` });
+        return res.status(201).json({token, message: `Enviamos um e-mail para: ${user.email} :)` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -269,6 +269,7 @@ module.exports = {
     listAll,
     register,
     login,
+    validate,
     updateUserInformation,
     forgotPassword,
     changePass,
