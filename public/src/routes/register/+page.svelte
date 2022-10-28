@@ -1,10 +1,36 @@
-<script>
+<script type="ts">
     import { 
 		FloatingLabelInput,
 		Helper,
 		Button,
 		Heading, 
+		Alert
 	} from '../../../node_modules/flowbite-svelte'
+
+	import {postData} from '../+page' 
+
+	interface Resp {
+		message: String
+	}
+
+	/**
+	 * @type {Object}
+	 */
+	let resp:Resp = {
+		message: '',
+	};
+	function register() {
+		postData('http://localhost:3000/api/app_user/', {
+		"name": "teste31",
+		"email": "venturagiulia09@gmail.com",
+		"password": "teste31",
+		"confirmPass": "teste31"
+	})
+		.then((data) => {
+			console.log(data); // JSON data parsed by `data.json()` call
+			resp = data
+		});
+	}
 </script>
 
 <main>
@@ -14,9 +40,16 @@
             <FloatingLabelInput style="outlined" id="name" name="floating_outlined" type="text" label="Nome completo" />
 			<FloatingLabelInput style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
 			<FloatingLabelInput style="outlined" id="password" name="floating_outlined" type="text" label="Senha" />
-            <FloatingLabelInput style="outlined" id="confir_password" name="floating_outlined" type="text" label="Confirme Senha" />
+            <FloatingLabelInput style="outlined" id="confirm_password" name="floating_outlined" type="text" label="Confirme Senha" />
 			<Helper class="pt-2" style="text-align: right;">Já possui uma conta? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Faça login aqui</a>.</Helper>
-			<Button outline gradient color="cyanToBlue" href="/register">Criar Conta</Button>
+			{#if resp.message.includes('já cadastrado')}
+			<Alert color="yellow">
+				<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+				</span>
+				<span class="font-medium">{resp.message}</span>
+			</Alert>
+			{/if}
+			<Button on:click={register} outline gradient color="cyanToBlue" href="/register">Criar Conta</Button>
 		</div>
 	</div>
 </main>
