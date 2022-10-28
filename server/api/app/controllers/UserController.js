@@ -131,6 +131,28 @@ async function login(req, res){
     }
 }
 
+/** Rota de validação do e-mail fornecido pelo usuário
+ * @author Giulia Ventura
+ * @date 11/10/2022
+ * @param {Request} req requisição node
+ * @param {Response} res resposta node
+ * @return {Json} mensagem de sucesso caso de certo ou de erro
+ */
+async function validate(req, res){
+    try {
+        const { email } = req.query
+        if (!email) return res.status(403).json({ message: `Token de validação inválido!` });
+        const user = await User.findOneAndUpdate({ email }, { verified: true });
+        if (!user) return res.status(406).json({ message: `Usuário inválido!` });
+        return res.status(200).json({ message: `E-mail verificado com sucesso!` });
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (validate)` });
+    }
+}
+
 /** Atualizar informações básicas do usuário
  * OBS: os campos 'email', '_id', 'verified' e 'account_type' não poderão ser modificados através dessa rota
  * @author Giulia Ventura
@@ -168,6 +190,7 @@ async function changePass(req, res){
     try {
         const { email } = req.query
         const { password } = req.body
+        if (!email) return res.status(403).json({ message: `Token de validação inválido!` });
         const user = await User.findOneAndUpdate({ email }, { password });
         if(!user) return res.status(403).json({ message: `E-mail não encontrado!` })
         return res.status(200).json({ message: `Senha alterada com sucesso!` })
