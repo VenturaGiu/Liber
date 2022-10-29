@@ -34,7 +34,7 @@ async function sendConfirmationMail(user, messages) {
         const m = new Mailer();
         await m.setTo(String(user.email))
         .setSubject(`${messages.confirmation.subject}`)
-        .setHTML('welcome', messages.confirmation)
+        .setHTML('welcome_app', messages.confirmation)
         .send();
     } catch (error) {
         return res.status(500).json({ message: `Erro na rota api/app_user (sendConfirmationMail) \n ${error}` });
@@ -84,20 +84,19 @@ async function register(req, res) {
 
         const user = new User(obj);
         const resp = await user.save()
-        const toke = '1234';
+        const token = '1234';
         // Envio de e-mail para confirmação
         const messages = {
             confirmation: {
                 subject: `Bem-vindo ao Liber, ${user.name}!`,
                 message: "Muito obrigada por se inscrever!",
-                message2: "Primeiro você precisa confirmar sua conta. Apenas clique no botão abaixo!",
-                link: toke,
+                message2: "Confirme o token recebido no aplicativo!",
+                link: token,
                 username: `${user.name}`,
-                button: `Confirmar E-mail`,
             },
         };
         await sendConfirmationMail(user, messages);
-        return res.status(201).json({toke, message: `Enviamos um código para: ${resp.email}, por favor confirme seu e-mail antes de realizar o login` });
+        return res.status(201).json({token, message: `Enviamos um código para: ${resp.email}, por favor confirme seu e-mail antes de realizar o login` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });

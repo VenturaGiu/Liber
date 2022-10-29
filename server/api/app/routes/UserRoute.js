@@ -10,12 +10,9 @@ const {
     changePass,
     settingsAccount
 } = require('../controllers/UserController');
-const { 
-    requiresLogin
-} = require('../../../lib/routeIntercept');
 
 router.route('/')
-    .get(requiresLogin, listAll)
+    .get(listAll)
     .post(register)
     .put(updateUserInformation);
 
