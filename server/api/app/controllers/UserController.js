@@ -2,7 +2,7 @@ const User = require('../models/User')
 const jwt = require('../../../config/jwt') 
 const config = require('../../../config/variables')
 const Mailer = require('../../../lib/mailer/Mailer')
-
+const fs = require('fs');
 /*
     𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -38,6 +38,26 @@ async function sendConfirmationMail(user, messages) {
         .send();
     } catch (error) {
         return res.status(500).json({ message: `Erro na rota api/app_user (sendConfirmationMail) \n ${error}` });
+    }
+}
+
+// save_fakeDatas('/home/giulia/Documentos/Liber/scripts/fake_datas.json')
+/** Salvar dados fake de usuário no banco
+ * @author Giulia Ventura
+ * @date 01/11/2022
+ * @param {String} pathFile caminho completo do arquivo JSON
+ */
+async function save_fakeDatas(pathFile){
+    try {
+        const rawdata = fs.readFileSync(pathFile);
+        const users = JSON.parse(rawdata);
+        for(const user of users){
+            const userSave = new User(user)
+            const resp = await userSave.save()
+            console.log(resp)
+        } 
+    } catch (error) {
+        console.log(error)
     }
 }
 
