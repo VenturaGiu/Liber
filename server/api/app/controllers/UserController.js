@@ -61,6 +61,20 @@ async function save_fakeDatas(pathFile){
     }
 }
 
+registera('/home/giulia/Documentos/Liber/scripts/genres.txt')
+async function registera(pathFile){
+    try {
+        const rawdata = fs.readFileSync(pathFile);
+        for(const genre of rawdata.toJSON()){
+            // const userSave = new User(user)
+            // const resp = await userSave.save()
+            console.log(genre)
+        } 
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 /*
     𝘼𝙋𝙄
 */
