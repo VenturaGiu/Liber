@@ -3,6 +3,7 @@ const jwt = require('../../../config/jwt')
 const config = require('../../../config/variables')
 const Mailer = require('../../../lib/mailer/Mailer')
 const fs = require('fs');
+const Genre = require('../models/Genre');
 /*
     𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -55,20 +56,6 @@ async function save_fakeDatas(pathFile){
             const userSave = new User(user)
             const resp = await userSave.save()
             console.log(resp)
-        } 
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-registera('/home/giulia/Documentos/Liber/scripts/genres.txt')
-async function registera(pathFile){
-    try {
-        const rawdata = fs.readFileSync(pathFile);
-        for(const genre of rawdata.toJSON()){
-            // const userSave = new User(user)
-            // const resp = await userSave.save()
-            console.log(genre)
         } 
     } catch (error) {
         console.log(error)
