@@ -14,17 +14,20 @@ const BookSchema = Schema({
     required: true,
     unique: true,
   },
-  author: {
+  authors: [{
     type: String,
     required: true,
-  },
+  }],
   synopsis:{
     type: String,
   },
-  company:{
+  publisher:{
     type: String
   },
   year: {
+    type: Number
+  },
+  page_count: {
     type: Number
   },
   genre: [{
