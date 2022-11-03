@@ -30,10 +30,19 @@ const BookSchema = Schema({
   page_count: {
     type: Number
   },
+  location: {
+    type: String
+  },
+  language: {
+    type: String
+  },
   genre: [{
     type: Schema.Types.ObjectId,
     ref: 'Genre',
   }],
+  key_words: [{
+    type: String
+  }]
 },
 {
   timestamps: true,

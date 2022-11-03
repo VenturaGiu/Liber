@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const Genre = require('../models/Genre')
 
 async function translate_word(word) {
     const resp = await fetch("http://localhost:5000/translate", {
@@ -16,17 +17,43 @@ async function translate_word(word) {
     return translate.translatedText
 }
 
-async function subject(subject) {
-    return subject === 'ficction' ? 'ficção'
+async function generateBookDefault(objBook) {
+    const authors = [] 
+    objBook.contribuicao.forEach(con => {
+        authors.push(con.tipo_de_contribuicao === 'Autor' ? `${con.nome} ${con.sobrenome}`: next)
+    });
+    const id_gerne = []
+    const genre = await Genre.findOne({ name: objBook.catalogacao.areas })
+    console.log(authors)
+    const book = {
+        title: objBook.titulo,
+        isbn: objBook.isbn,
+        authors: authors,
+        synopsis: objBook.sinopse,
+        publisher: objBook.editora.nome_fantasia,
+        year: objBook.ano_edicao,
+        location: objBook.origem,
+        language: objBook.idioma,
+        page_count: Number(objBook.medidas.paginas),
+        keyword: objBook.catalogacao.palavras_chave.split(', '),
+        genre: genre._id,
+    }
+    return book
 }
 
 async function getBookByISBN(req, res) {
     try {
         const { isbn } = req.params
-        const response = await fetch(`https://brasilapi.com.br/api/isbn/v1/${isbn}`);
-        const book = await response.json()
-        if(book.message === 'ISBN inválido') return res.status(200).json({ message: 'ISBN inválido '})
-        return res.status(200).json(book)
+        let response = await fetch(`https://api.mercadoeditorial.org/api/v1.2/book?isbn=${isbn}`);
+        let book = await response.json()
+        if (book.status.message === "Nenhum registro foi encontrado") {
+            response = await fetch(`https://brasilapi.com.br/api/isbn/v1/${isbn}`);
+            book = await response.json()
+            if(book.message === 'ISBN inválido') return res.status(200).json({ message: 'Não encontramos esse ISBN em nossa base de dados!'})
+            return res.status(200).json(book)
+        }
+        let objBook = await generateBookDefault(book.books[0])
+        return res.status(200).json(objBook)
     } catch (error) {
         return res.status(500).json(error)
     }
