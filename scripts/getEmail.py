@@ -9,6 +9,7 @@ file = open('scripts/names.txt', 'r', encoding="utf-8")
 names = file.read().split(',')
 fake_datas = []
 emails = []
+
 def removerAcentosECaracteresEspeciais(palavra):
     # Unicode normalize transforma um caracter em seu equivalente em latin.
     nfkd = unicodedata.normalize('NFKD', palavra)

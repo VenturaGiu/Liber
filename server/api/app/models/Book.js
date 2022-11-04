@@ -9,6 +9,9 @@ const BookSchema = Schema({
     type: String,
     required: true,
   },
+  subtitle: {
+    type: String,
+  },
   isbn: {
     type: String,
     required: true,
@@ -27,14 +30,22 @@ const BookSchema = Schema({
   year: {
     type: Number
   },
-  page_count: {
-    type: Number
-  },
   location: {
     type: String
   },
   language: {
     type: String
+  },
+  page_count: {
+    type: Number
+  },
+  dimensions: {
+    height: {
+      type: String
+    },
+    width:{
+      type: String
+    }
   },
   genre: [{
     type: Schema.Types.ObjectId,

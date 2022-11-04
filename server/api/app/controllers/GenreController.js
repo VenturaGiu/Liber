@@ -6,7 +6,7 @@ const fs = require('fs');
 */
 
 async function createTag(name) {
-    const tag = name.toLowerCase().replaceAll(' ', '_').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const tag = name.toLowerCase().replaceAll(' ', '_').replaceAll('-', '_').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     return tag
 }
 
@@ -66,4 +66,5 @@ module.exports = {
     register,
     saveGenreByName,
     getGenreByTag,
+    createTag,
 } ;
