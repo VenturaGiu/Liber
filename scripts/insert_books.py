@@ -10,9 +10,12 @@ file = open('scripts/list_isbn.txt', 'r', encoding="utf-8")
 isbns = file.readlines()
 
 for key, isbn in enumerate(isbns):
-    if isbn != '\n':
-        print(str(key) + ' ' + isbn)
-        resp = requests.get(base_url+isbn, headers=headers)
-        # resp = json.loads(str(resp.text))
-    if key == 500: break;
-
+    try:
+        if isbn != '\n':
+            print(str(key) + ' ' + isbn)
+            resp = requests.get(base_url+isbn.replace('\n', ''), headers=headers)
+            # resp = json.loads(str(resp.text))
+    
+        if key == 1000: break;
+    except:
+        print('erro')
