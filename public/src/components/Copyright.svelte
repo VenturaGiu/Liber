@@ -5,13 +5,13 @@
 </script>
 
 <footer class="copy_login">
-    <P size="lg" >Todos os direitos reservados &#169; 2022. Liber</P> 
+    <P size="sm" >Todos os direitos reservados &#169; 2022. Liber</P> 
 </footer>
 
 <style>
     footer{
         position: relative;
-        top: 95%;
+        top: 96%;
         width: 100%;
         height: auto;
     }

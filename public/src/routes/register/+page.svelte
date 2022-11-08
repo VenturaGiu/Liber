@@ -4,11 +4,15 @@
 		Helper,
 		Button,
 		Heading, 
-		Alert
+		Alert,
+		Checkbox,
+		A,
+		P,
 	} from '../../../node_modules/flowbite-svelte'
 
 	import {postData} from '../+page' 
 
+	let name = '', email = '', password = '', confirm_password= '';
 	interface Resp {
 		message: String
 	}
@@ -20,13 +24,12 @@
 		message: '',
 	};
 	function register() {
-		postData('http://localhost:3000/api/app_user/', {
-		"name": "teste31",
-		"email": "venturagiulia09@gmail.com",
-		"password": "teste31",
-		"confirmPass": "teste31"
-	})
-		.then((data) => {
+		postData('http://localhost:3000/api/dash_user/', {
+		"name": name,
+		"email": email,
+		"password": password,
+		"confirmPass": confirm_password
+	}).then((data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 			resp = data
 		});
@@ -36,17 +39,26 @@
 <main>
     <div id="" class="grid gap-12 items-end md:grid-cols-1">
 		<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Crie um conta para gerenciar os dados do Liber!</Heading>
-		<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1">
-            <FloatingLabelInput style="outlined" id="name" name="floating_outlined" type="text" label="Nome completo" />
-			<FloatingLabelInput style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
-			<FloatingLabelInput style="outlined" id="password" name="floating_outlined" type="text" label="Senha" />
-            <FloatingLabelInput style="outlined" id="confirm_password" name="floating_outlined" type="text" label="Confirme Senha" />
-			<Helper class="pt-2" style="text-align: right;">Já possui uma conta? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Faça login aqui</a>.</Helper>
-			{#if resp.message.includes('já cadastrado')}
+		<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1" >
+            <FloatingLabelInput bind:value={name} style="outlined" id="name" name="floating_outlined" type="text" label="Nome completo" />
+			<FloatingLabelInput bind:value={email} style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
+			<FloatingLabelInput bind:value={password} style="outlined" id="password" name="floating_outlined" type="password" label="Senha" />
+            <FloatingLabelInput bind:value={confirm_password} style="outlined" id="confirm_password" name="floating_outlined" type="password" label="Confirme a Senha" />
+			<Checkbox class="space-x-1 flex_contet" required><P size="sm" align="right" >Eu concordo com os <A href="/"> termos e condições</A>.</P></Checkbox>
+			
+			{#if resp.message.includes('já cadastrado') || resp.message.includes('preencha todos os campos')}
 			<Alert color="yellow">
 				<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
 				</span>
-				<span class="font-medium">{resp.message}</span>
+				<span class="font-small">{resp.message}</span>
+			</Alert>
+			{/if}
+			
+			{#if resp.message.includes('Enviamos um e-mail')}
+			<Alert color="green">
+				<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+				</span>
+				<span class="font-small">{resp.message}</span>
 			</Alert>
 			{/if}
 			<Button on:click={register} outline gradient color="cyanToBlue" href="/register">Criar Conta</Button>
@@ -55,5 +67,7 @@
 </main>
 
 <style>
-
+	#exampleWrapper{
+		margin-bottom: 4%;
+	}
 </style>

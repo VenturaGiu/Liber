@@ -1,4 +1,4 @@
-import requests, pprint, json
+import requests, time
 
 headers = {
     'origin': 'https://www.saraiva.com.br',
@@ -16,6 +16,5 @@ for key, isbn in enumerate(isbns):
             resp = requests.get(base_url+isbn.replace('\n', ''), headers=headers)
             # resp = json.loads(str(resp.text))
     
-        if key == 1000: break;
     except:
         print('erro')
