@@ -121,8 +121,12 @@ async function login(req, res){
         const user = await User.findOne({email, password});
         if (!user || user === null || user.length === 0) return res.status(400).json({ message: `E-mail ou senha errado!` });
         if(user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
+        
+        const token = jwt.sign({ email: user.email })
 
-        return res.status(200).json({ token: jwt.sign({ email: user.email }), name: user.name });
+        res.cookie('token', token)
+        
+        return res.status(200).json({ token, name: user.name });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
