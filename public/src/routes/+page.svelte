@@ -14,6 +14,10 @@
 	import {  
 		Img
 	} from 'flowbite-svelte'
+	import { DarkMode } from "flowbite-svelte";
+	
+	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
+	
 	const imgUrl = new URL('../lib/images/logo_white.png', import.meta.url).href
 	let email = '', password = '';
 	interface Resp {
@@ -41,6 +45,8 @@
 			const location = '/logged';
 			console.log(resp.token.length)
 			if(resp.token.length > 0){
+				document.cookie = `token=${resp.token}`
+				document.cookie = `user=${resp.name}`
 				if (browser) return await goto(location);
 				else throw redirect(302, location);
 			}
@@ -54,6 +60,7 @@
 <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
+<DarkMode {btnClass} />
 <section>
 	<div id="img_fundo" class="content">
 		<Img src={imgUrl} alt="sample 1" size="max-w-xl" id="img_logo_login" />

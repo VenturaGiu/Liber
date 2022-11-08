@@ -1,4 +1,8 @@
 <script>
+	import { requiresLogin } from "./+page";
+
+
+	requiresLogin()
 </script>
 
 <svelte:head>
@@ -8,7 +12,7 @@
 
 <section>
 
-
+	<p>a</p>
 </section>
 
 <style>
