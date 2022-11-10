@@ -91,7 +91,7 @@ async function register(req, res) {
                 subject: `Bem-vindo a Dashboard do Liber, ${user.name}!`,
                 message: "Muito obrigada por se cadastrar!",
                 message2: "Primeiro você precisa confirmar sua conta. Apenas clique no botão abaixo!",
-                link: `http://${config.server.host}:${config.server.port}/api/dash_user/validate?token=${token}`,
+                link: `http://${config.server.host}:5173/verified?token=${token}`,
                 username: `${user.name}`,
                 button: `Confirmar E-mail`,
             },

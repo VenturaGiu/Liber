@@ -29,7 +29,7 @@ export async function getData(url = '') {
 
 export async function requiresLogin() {
   if (browser) {
-    const token = document.cookie.split(';').filter(value => value.includes('token'))[0] === undefined ? '' : document.cookie.split(';').filter(value => value.includes('token'))[0].replace('token=', '')
+    const token = window.sessionStorage.getItem('token') === undefined ? '' : window.sessionStorage.getItem('token')
     if (!token) {
       const location = '/'
       if (browser) return await goto(location);

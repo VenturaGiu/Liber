@@ -14,12 +14,9 @@
 	import {  
 		Img
 	} from 'flowbite-svelte'
-	import { DarkMode } from "flowbite-svelte";
 
 	ifLogged()
-	
-	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
-	
+		
 	const imgUrl = new URL('../lib/images/logo_white.png', import.meta.url).href
 	let email = '', password = '';
 	interface Resp {
@@ -62,7 +59,6 @@
 <meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<DarkMode {btnClass} />
 <section>
 	<div id="img_fundo" class="content">
 		<Img src={imgUrl} alt="sample 1" size="max-w-xl" id="img_logo_login" />
@@ -70,7 +66,7 @@
 	</div>
 	<div class="content form">
 		<div class="vertical_center">
-			<div id="" class="grid gap-12 items-end md:grid-cols-1">
+			<div class="grid gap-12 items-end md:grid-cols-1">
 				<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Acesse para gerenciar os dados do Liber!</Heading>
 				<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1">
 					<FloatingLabelInput bind:value={email} style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
@@ -78,7 +74,7 @@
 					<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</a>.</Helper>
 					
 					{#if resp && resp.message}
-						{#if resp.message.includes('já cadastrado') || resp.message.includes('preencha todos os campos') || resp.message.includes('Confirme seu e-mail antes de acessar')}
+						{#if resp.message.includes('já cadastrado') || resp.message.includes('preencha todos os campos') || resp.message.includes('Confirme seu e-mail antes de acessar'), resp.message.includes('E-mail ou senha errado!')}
 						<Alert color="yellow">
 							<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
 							</span>

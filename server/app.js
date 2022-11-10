@@ -10,8 +10,8 @@ const cookieParser = require("cookie-parser");
 
 // Connect to database.
 
-const url = `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`;
-// const url = `mongodb+srv://giulia:senha@liber.1re6hip.mongodb.net/test`;
+// const url = `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`;
+const url = `mongodb+srv://giulia:senha@liber.1re6hip.mongodb.net/test`;
 mongoose.Promise = global.Promise;
 mongoose.connect(url, { useNewUrlParser: true });
 // Init Express 

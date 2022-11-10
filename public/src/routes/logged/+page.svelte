@@ -12,7 +12,6 @@
 
 <section>
 
-	<p>a</p>
 </section>
 
 <style>

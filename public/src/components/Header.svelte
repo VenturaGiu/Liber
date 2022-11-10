@@ -3,6 +3,9 @@
 	import { DarkMode } from "flowbite-svelte";
 	import { browser } from '$app/environment';
 	import { getData } from '../routes/+page';
+	import { goto } from '$app/navigation';
+	import { redirect } from '@sveltejs/kit';
+	import logo_icon from '../lib/images/icon.png'
 	
 	let name = ''
 	if(browser){ 
@@ -14,6 +17,9 @@
 	async function logout() {
 		if(browser) {
 			window.sessionStorage.clear()
+			const location = '/'
+			if (browser) return await goto(location);
+			else throw redirect(302, location);
 		}
 	}
 
@@ -23,12 +29,12 @@
 <Navbar let:hidden let:toggle>
 	<NavBrand href="/">
 		<img
-		src="https://flowbite.com/docs/images/logo.svg"
-		class="mr-3 h-6 sm:h-9"
+		src={logo_icon}
+		class="mr-3 h-8 sm:h-12"
 		alt="Flowbite Logo"
 		/>
 		<span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-			Flowbite
+			Liber
 		</span>
 	</NavBrand>
 	<div class="flex md:order-2" style="text-align: center !important;">
@@ -42,11 +48,10 @@
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden} class="order-1">
-		<NavLi href="/" active={true}>Home</NavLi>
-		<NavLi href="/about">About</NavLi>
-		<NavLi href="/services">Services</NavLi>
-		<NavLi href="/pricing">Pricing</NavLi>
-		<NavLi href="/contact">Contact</NavLi>
+		<NavLi href="/" active={true}>Início</NavLi>
+		<NavLi href="/about">Usuários</NavLi>
+		<NavLi href="/services">Anúncios</NavLi>
+		<NavLi href="/pricing">Livros</NavLi>
 	</NavUl>
 </Navbar>
 
