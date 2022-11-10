@@ -6,7 +6,7 @@
 		Heading,
 		Alert, 
 	} from '../../node_modules/flowbite-svelte'
-	import {postData} from './+page' 
+	import {ifLogged, postData} from './+page' 
 	import { redirect } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
@@ -15,6 +15,8 @@
 		Img
 	} from 'flowbite-svelte'
 	import { DarkMode } from "flowbite-svelte";
+
+	ifLogged()
 	
 	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
 	
@@ -45,8 +47,8 @@
 			const location = '/logged';
 			console.log(resp.token.length)
 			if(resp.token.length > 0){
-				document.cookie = `token=${resp.token}`
-				document.cookie = `user=${resp.name}`
+				window.sessionStorage.setItem('token', resp.token as string)
+				window.sessionStorage.setItem('name', resp.name as string)
 				if (browser) return await goto(location);
 				else throw redirect(302, location);
 			}
@@ -75,12 +77,14 @@
 					<FloatingLabelInput bind:value={password} style="outlined" id="password" name="floating_outlined" type="password" label="Senha" />
 					<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</a>.</Helper>
 					
-					{#if resp && resp.message && resp.message.includes('já cadastrado') || resp && resp.message && resp.message.includes('preencha todos os campos')}
-					<Alert color="yellow">
-						<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-						</span>
-						<span class="font-small">{resp.message}</span>
-					</Alert>
+					{#if resp && resp.message}
+						{#if resp.message.includes('já cadastrado') || resp.message.includes('preencha todos os campos') || resp.message.includes('Confirme seu e-mail antes de acessar')}
+						<Alert color="yellow">
+							<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+							</span>
+							<span class="font-small">{resp.message}</span>
+						</Alert>
+						{/if}
 					{/if}
 					
 					<Button on:click={login} gradient color="cyanToBlue">Entrar</Button>

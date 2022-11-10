@@ -279,5 +279,5 @@ module.exports = {
     updateUserInformation,
     forgotPassword,
     changePass,
-    settingsAccount
+    settingsAccount,
 }

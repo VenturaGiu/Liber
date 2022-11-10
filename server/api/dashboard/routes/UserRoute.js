@@ -8,7 +8,7 @@ const {
     updateUserInformation,
     forgotPassword,
     changePass,
-    settingsAccount
+    settingsAccount,
 } = require('../controllers/UserController');
 const { 
     requiresLogin

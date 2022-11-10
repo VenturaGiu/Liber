@@ -1,15 +1,22 @@
 <script>
-	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
-	import github from '$lib/images/github.svg';
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button, P } from 'flowbite-svelte'
 	import { DarkMode } from "flowbite-svelte";
 	import { browser } from '$app/environment';
+	import { getData } from '../routes/+page';
 	
 	let name = ''
-	if(browser) name = document.cookie.split(';')[1].replace('user=', '') 
+	if(browser){ 
+		name = document.cookie.split(';').filter(value => value.includes('user'))[0] === undefined ? '' : document.cookie.split(';').filter(value => value.includes('user'))[0].replace('user=', '')
+	}
 
 	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
+
+	async function logout() {
+		if(browser) {
+			window.sessionStorage.clear()
+		}
+	}
+
 </script>
 
 <DarkMode {btnClass} />
@@ -25,8 +32,13 @@
 		</span>
 	</NavBrand>
 	<div class="flex md:order-2" style="text-align: center !important;">
-		<P size="lg">{ name }</P>
-		<Button size="sm">Sair</Button>
+		<P style="    
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-right: 15px;" 
+		size="lg">{ name }</P>
+		<Button on:click={logout} gradient color="cyanToBlue" size="sm">Sair</Button>
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden} class="order-1">
