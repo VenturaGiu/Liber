@@ -4,7 +4,8 @@
 		Helper,
 		Button,
 		Heading,
-		Alert, 
+		Alert,
+		Spinner, 
 	} from '../../node_modules/flowbite-svelte'
 	import {ifLogged, postData} from './+page' 
 	import { redirect } from '@sveltejs/kit';
@@ -19,8 +20,7 @@
 		
 	const imgUrl = new URL('../lib/images/logo_white.png', import.meta.url).href
 
-	let forgout = true
-	let email = '', password = '';
+	let email = '', password = '', forgout = true, loading = false;
 	interface Resp {
 		message: String,
 		name: String,
@@ -45,14 +45,17 @@
 	}
 
 	async function resetPass() {
+		loading = true
 		postData('http://localhost:3000/api/dash_user/forgotpassword', {
 			"email": email,
 		}).then(async (data) => {
+			loading = false
 			resp = data
 		});
 	}
 	
 	async function login() {
+		loading = true
 		postData('http://localhost:3000/api/dash_user/login', {
 			"email": email,
 			"password": password,
@@ -92,12 +95,18 @@
 						<FloatingLabelInput bind:value={password} style="outlined" id="password" name="floating_outlined" type="password" label="Senha" />
 						<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <button on:click={forgoutPass} class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</button>.</Helper>
 					{/if}
+					
+					{#if loading}
+						<div class="text-center"><Spinner/></div>
+					{/if}
+					
 					{#if resp && resp.message}
 						{#if resp.message.includes('já cadastrado') 
 						|| resp.message.includes('preencha todos os campos') 
 						|| resp.message.includes('Confirme seu e-mail antes de acessar') 
 						|| resp.message.includes('E-mail ou senha errado!') 
-						|| resp.message.includes('E-mail não cadastrado!')}
+						|| resp.message.includes('E-mail não cadastrado!')
+						|| resp.message.includes('Enviamos um e-mail')}
 						<Alert color="yellow">
 							<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
 							</span>

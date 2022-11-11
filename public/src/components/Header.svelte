@@ -9,7 +9,10 @@
 	
 	let name = ''
 	if(browser){ 
-		name = document.cookie.split(';').filter(value => value.includes('user'))[0] === undefined ? '' : document.cookie.split(';').filter(value => value.includes('user'))[0].replace('user=', '')
+		name = document.cookie.split(';').filter(value => value.includes('user'))[0] === undefined ? '' 
+		: document.cookie.split(';').filter(value => value.includes('user'))[0].replace('user=', '').includes('%20') === true 
+		? document.cookie.split(';').filter(value => value.includes('user'))[0].replace('user=', '').split('%20')[0]
+		: document.cookie.split(';').filter(value => value.includes('user'))[0].replace('user=', '')
 	}
 
 	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
