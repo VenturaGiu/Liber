@@ -102,7 +102,8 @@ async function register(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/dash_user (register)` });
+        console.log(error)
+        return res.status(500).json({ message: error });
     }
 }
 
@@ -204,6 +205,7 @@ async function changePass(req, res){
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
+        console.log(error)
         return res.status(500).json({ message: `Erro na rota api/dash_user (changePass)` });
     }
 }
@@ -230,7 +232,7 @@ async function forgotPassword(req, res){
                 subject: 'Esqueceu sua senha?',
                 message: "Se você não solicitou a alteração de senha desconsidere essa mensagem!",
                 message2: "Caso você tenha solicitado, clique no link abaixo para alterar sua senha:",
-                link: `link do app (da página de alterar senha)`,
+                link: `http://${config.server.host}:5173/reset?token=${token}`,
                 username: `${user.name}`,
                 button: `Alterar senha`,
             },

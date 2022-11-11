@@ -18,6 +18,8 @@
 	ifLogged()
 		
 	const imgUrl = new URL('../lib/images/logo_white.png', import.meta.url).href
+
+	let forgout = true
 	let email = '', password = '';
 	interface Resp {
 		message: String,
@@ -33,6 +35,22 @@
 		name: '',
 		token: '',
 	};
+
+	async function doLogin() {
+		forgout = true
+	}
+
+	async function forgoutPass() {
+		forgout = false
+	}
+
+	async function resetPass() {
+		postData('http://localhost:3000/api/dash_user/forgotpassword', {
+			"email": email,
+		}).then(async (data) => {
+			resp = data
+		});
+	}
 	
 	async function login() {
 		postData('http://localhost:3000/api/dash_user/login', {
@@ -70,11 +88,16 @@
 				<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Acesse para gerenciar os dados do Liber!</Heading>
 				<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1">
 					<FloatingLabelInput bind:value={email} style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
-					<FloatingLabelInput bind:value={password} style="outlined" id="password" name="floating_outlined" type="password" label="Senha" />
-					<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <a href="/" class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</a>.</Helper>
-					
+					{#if forgout}
+						<FloatingLabelInput bind:value={password} style="outlined" id="password" name="floating_outlined" type="password" label="Senha" />
+						<Helper class="pt-2" style="text-align: right;">Esqueceu sua senha? <button on:click={forgoutPass} class="text-blue-600 dark:text-blue-500 hover:underline">Clique aqui</button>.</Helper>
+					{/if}
 					{#if resp && resp.message}
-						{#if resp.message.includes('já cadastrado') || resp.message.includes('preencha todos os campos') || resp.message.includes('Confirme seu e-mail antes de acessar'), resp.message.includes('E-mail ou senha errado!')}
+						{#if resp.message.includes('já cadastrado') 
+						|| resp.message.includes('preencha todos os campos') 
+						|| resp.message.includes('Confirme seu e-mail antes de acessar') 
+						|| resp.message.includes('E-mail ou senha errado!') 
+						|| resp.message.includes('E-mail não cadastrado!')}
 						<Alert color="yellow">
 							<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
 							</span>
@@ -82,9 +105,16 @@
 						</Alert>
 						{/if}
 					{/if}
-					
-					<Button on:click={login} gradient color="cyanToBlue">Entrar</Button>
-					<Helper class="pt-2" style="text-align: right;">Ainda não tem uma conta?</Helper>
+
+					{#if forgout}
+						<Button on:click={login} gradient color="cyanToBlue">Entrar</Button>
+						<Helper class="pt-2" style="text-align: right;">Ainda não tem uma conta?</Helper>
+					{/if}
+
+					{#if !forgout}
+						<Button on:click={resetPass} gradient color="cyanToBlue">Enviar</Button>
+						<Helper class="pt-2" style="text-align: right;">Fazer <button on:click={doLogin} class="text-blue-600 dark:text-blue-500 hover:underline">Login</button>.</Helper>
+					{/if}
 					<Button outline gradient color="cyanToBlue" href="/register">Criar Conta</Button>
 				</div>
 			</div>
