@@ -13,13 +13,14 @@
 	import {  
 		Img
 	} from 'flowbite-svelte'
-	import {postData} from '../+page' 
+	import { putData} from '../+page' 
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
+	import { redirect } from '@sveltejs/kit';
 	
 	const imgUrl = new URL('../../lib/images/logo_white.png', import.meta.url).href
 	
-	let password = '', confirm_password= '';
+	let password = '', confirm_password = '', token = '';
 	interface Resp {
 		message: String
 	}
@@ -33,7 +34,7 @@
 	if(browser){
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
-		const token = urlParams.get('token')
+		token = urlParams.get('token') as string
 
 		if(!token){
 			const location = '/';
@@ -42,7 +43,15 @@
 	}
 
 	async function resetPass() {
-		
+		putData('http://localhost:3000/api/dash_user/changePass', {
+			"token": token,
+			"password": password,
+		}).then(async (data) => {
+			console.log(data); // JSON data parsed by `data.json()` call
+			const location = '/'
+			if (browser) return await goto(location);
+			else throw redirect(302, location);
+		});
 	}
 </script>
 

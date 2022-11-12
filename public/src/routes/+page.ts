@@ -42,6 +42,24 @@ export async function getData(url = '') {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
+export async function putData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'PUT',
+    mode: 'cors', 
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', 
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify(data)
+  });
+  return response.json(); 
+}
+
 export async function ifLogged() {
   if (browser) {
     const token = window.sessionStorage.getItem('token') === undefined ? '' : window.sessionStorage.getItem('token')

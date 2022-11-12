@@ -194,7 +194,7 @@ async function updateUserInformation(req, res){
  */
 async function changePass(req, res){
     try {
-        const { token } = req.query
+        const { token } = req.body
         const { password } = req.body
         const userVerified = jwt.verify(token);
         if (!userVerified || !userVerified.email) return res.status(403).json({ message: `Token de validação inválido!` });
