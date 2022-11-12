@@ -48,19 +48,21 @@ async function sendConfirmationMail(user, messages) {
  * @date 01/11/2022
  * @param {String} pathFile caminho completo do arquivo JSON
  */
-async function save_fakeDatas(pathFile){
-    try {
-        const rawdata = fs.readFileSync(pathFile);
-        const users = JSON.parse(rawdata);
-        for(const user of users){
-            const userSave = new User(user)
-            const resp = await userSave.save()
-            console.log(resp)
-        } 
-    } catch (error) {
-        console.log(error)
-    }
-}
+//  save_users('scripts\\datas\\fake_datas.json')
+ async function save_users(path) {
+     try {
+         let rawdata = fs.readFileSync(path);
+         const users = JSON.parse(rawdata);
+         for(const user of users){
+             const userModel = new User(user)
+             const resp = await userModel.save()
+             console.log(resp)
+         }
+         console.log(users)
+     } catch (error) {
+          return error
+     }
+ }
 
 /*
     𝘼𝙋𝙄

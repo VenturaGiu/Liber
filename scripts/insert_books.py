@@ -6,7 +6,7 @@ headers = {
 }
 base_url = 'http://localhost:3000/api/app_book/'
 
-file = open('scripts/list_isbn.txt', 'r', encoding="utf-8")
+file = open('datas/list_isbn.txt', 'r', encoding="utf-8")
 isbns = file.readlines()
 
 for key, isbn in enumerate(isbns):

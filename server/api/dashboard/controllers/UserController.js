@@ -2,6 +2,7 @@ const User = require('../models/User')
 const jwt = require('../../../config/jwt') 
 const config = require('../../../config/variables')
 const Mailer = require('../../../lib/mailer/Mailer')
+const fs = require('fs');
 
 /*
     𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
