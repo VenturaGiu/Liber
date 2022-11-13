@@ -1,6 +1,10 @@
 import unicodedata, re, json
 from pymongo import MongoClient
 
+client = MongoClient('localhost', 27017)
+db = client.liber
+user = db['users']
+
 file = open('datas/names.txt', 'r', encoding="utf-8")
 names = file.read().split(',')
 fake_datas = []
