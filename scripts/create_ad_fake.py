@@ -16,16 +16,58 @@ db = client.liber
 userC = db['users']
 bookC = db['books']
 
-users = userC.find({ 'account_type': 'premium' })
+# users = userC.find({ 'account_type': 'premium' })
+users = userC.aggregate([
+    {
+        '$match': {
+            'account_type': 'standard'
+        }
+    }, {
+        '$sample': {
+            'size': 25
+        }
+    }
+])
 
-ad_type = ['sale', 'swap']
+ad_type = [['sale'], ['swap'], [ 'sale', 'swap' ]]
+fake_datas = []
 
-for user in users:
+def get_random_user(id_user):
+    user = userC.aggregate([
+        {
+            '$sample': {
+                'size': 1
+            }
+        }
+    ])
+    user = list(user)[0]['_id']
+    if str(user) == str(id_user): get_random_user(id_user)
+    else: return str(user)
+
+for key, user in enumerate(users):
     id_user = user['_id']
     book = bookC.aggregate([
         {'$sample': { 'size': 1 }}
     ])
-    # print(list(book)[0]['_id'])
+    book = list(book)[0]['_id']
     price = round(uniform(10.00,60.00), 1)
-    
-    print(price)
+    ad_type_position = randint(0, 2)
+    type_ad = ad_type[ad_type_position]
+
+    if key % 5 == 0: id_user_buy = get_random_user(id_user)
+    else: id_user_buy = ''
+
+    fake_datas.append(
+        {
+            'id_user': str(id_user),
+            'id_book': str(book),
+            'price': price,
+            'type_ad': type_ad,
+            'id_user_buy': id_user_buy
+        }
+    )
+
+for fake_data in fake_datas:
+    json_object = json.dumps(fake_data, indent=4, ensure_ascii=False)
+    with open("scripts/datas/fake_datas_AD.json", "a", encoding="utf-8") as outfile:
+        outfile.write(json_object)

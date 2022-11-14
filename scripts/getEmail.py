@@ -5,7 +5,7 @@ client = MongoClient('localhost', 27017)
 db = client.liber
 user = db['users']
 
-file = open('datas/names.txt', 'r', encoding="utf-8")
+file = open('scripts/datas/names.txt', 'r', encoding="utf-8")
 names = file.read().split(',')
 fake_datas = []
 emails = []
@@ -43,7 +43,7 @@ for key, name in enumerate(names):
 
 for fake_data in fake_datas:
     json_object = json.dumps(fake_data, indent=4, ensure_ascii=False)
-    with open("datas\\fake_datas.json", "a", encoding="utf-8") as outfile:
+    with open("scripts/datas/fake_datas.json", "a", encoding="utf-8") as outfile:
         outfile.write(json_object)
 
 print(fake_datas)

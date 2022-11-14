@@ -1,9 +1,11 @@
 const User = require('../models/User')
 const jwt = require('../../../config/jwt') 
+const { ObjectId } = require('mongoose').Types;
 const config = require('../../../config/variables')
 const Mailer = require('../../../lib/mailer/Mailer')
 const fs = require('fs');
 const Genre = require('../models/Genre');
+const Ad = require('../models/Ad');
 /*
     𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -48,7 +50,7 @@ async function sendConfirmationMail(user, messages) {
  * @date 01/11/2022
  * @param {String} pathFile caminho completo do arquivo JSON
  */
-//  save_users('scripts\\datas\\fake_datas.json')
+//  save_users('scripts/datas/fake_datas.json')
  async function save_users(path) {
      try {
          let rawdata = fs.readFileSync(path);
