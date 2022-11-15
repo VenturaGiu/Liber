@@ -1,1066 +1,733 @@
 [{
     "id_user": "63729f16011783b55d9423f5",
-    "id_book": "6368dff6324a004df4f6558c",
-    "price": 13.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942513",
-    "type_buy": "venda"
+    "id_book": "6369bfa9b6dd7079da53602e",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942401",
-    "id_book": "6369bfefb6dd7079da536250",
-    "price": 19.6,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369bf9ab6dd7079da535fa9",
+    "price": 12.5,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942409",
-    "id_book": "6369bfceb6dd7079da536140",
-    "price": 37.7,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c010b6dd7079da53634e",
+    "price": 25.2,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942469"
 },{
     "id_user": "63729f17011783b55d942411",
-    "id_book": "6369c1ffb6dd7079da53696a",
-    "price": 56.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c02cb6dd7079da53646a",
+    "price": 60.0,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942419",
-    "id_book": "6369c011b6dd7079da53635d",
-    "price": 31.8,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c217b6dd7079da5369af",
+    "price": 18.1,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942481"
 },{
     "id_user": "63729f17011783b55d942421",
-    "id_book": "6369bfc6b6dd7079da5360fa",
-    "price": 23.7,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f17011783b55d94242d",
-    "type_buy": "venda"
+    "id_book": "6368713f324a004df4f64fe4",
+    "price": 33.4,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942429",
-    "id_book": "63686d9b324a004df4f64cdd",
-    "price": 19.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "63687105324a004df4f64f8e",
+    "price": 55.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f18011783b55d9424ff"
 },{
     "id_user": "63729f17011783b55d942431",
-    "id_book": "6369c068b6dd7079da536661",
-    "price": 55.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c17cb6dd7079da5368e9",
+    "price": 14.3,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942439",
-    "id_book": "6369c024b6dd7079da536405",
-    "price": 55.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c233b6dd7079da5369f4",
+    "price": 52.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942485"
 },{
     "id_user": "63729f17011783b55d942441",
-    "id_book": "6369c217b6dd7079da5369af",
-    "price": 39.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6368dff0324a004df4f65577",
+    "price": 24.9,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942449",
-    "id_book": "6369bfd0b6dd7079da53615e",
-    "price": 58.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d942471",
-    "type_buy": "troca"
+    "id_book": "6369bfedb6dd7079da536236",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d94244f",
-    "id_book": "6369c072b6dd7079da53669b",
-    "price": 14.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c01db6dd7079da5363c8",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942457",
-    "id_book": "6369c222b6dd7079da5369cf",
-    "price": 33.2,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c063b6dd7079da53663c",
+    "price": 19.5,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942451"
 },{
     "id_user": "63729f17011783b55d94245f",
-    "id_book": "6369c06bb6dd7079da53667d",
-    "price": 26.4,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c0b2b6dd7079da536753",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942467",
-    "id_book": "6369ae060c9fec6fa482e421",
-    "price": 30.1,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c01bb6dd7079da5363bd",
+    "price": 46.4,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d94243d"
 },{
     "id_user": "63729f17011783b55d94246f",
-    "id_book": "6369bf7ab6dd7079da535ee3",
-    "price": 30.7,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d942473",
-    "type_buy": "troca"
+    "id_book": "6369b0a20c9fec6fa482e7f2",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942477",
-    "id_book": "6369c010b6dd7079da536349",
-    "price": 19.0,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c0acb6dd7079da536744",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d94247f",
-    "id_book": "6369bfefb6dd7079da536250",
-    "price": 52.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "636871e8324a004df4f65056",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942487",
-    "id_book": "6369bf91b6dd7079da535f72",
-    "price": 20.6,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c00eb6dd7079da536339",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d94248f",
-    "id_book": "6369bf96b6dd7079da535fa1",
-    "price": 16.3,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369b0ab0c9fec6fa482e83c",
+    "price": 41.6,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d942497",
-    "id_book": "63686867d1986ec3db795be6",
-    "price": 22.3,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f16011783b55d9423f5",
-    "type_buy": "troca"
+    "id_book": "6369bf87b6dd7079da535f30",
+    "price": 16.0,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942463"
 },{
     "id_user": "63729f17011783b55d94249f",
-    "id_book": "6369c024b6dd7079da536405",
-    "price": 36.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369b07d0c9fec6fa482e719",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424a7",
-    "id_book": "6369c021b6dd7079da5363e6",
-    "price": 37.6,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369bf9db6dd7079da535fc2",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424af",
-    "id_book": "6369c094b6dd7079da5366f0",
-    "price": 22.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369bf57b6dd7079da535ec4",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424b7",
-    "id_book": "6369bfb8b6dd7079da53608c",
-    "price": 26.6,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "636867c078e69acb0d0a7fb5",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424bf",
-    "id_book": "6369c038b6dd7079da5364cd",
-    "price": 36.3,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d942429",
-    "type_buy": "troca"
+    "id_book": "6369c010b6dd7079da53634e",
+    "price": 30.0,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424c7",
-    "id_book": "6369c099b6dd7079da536702",
-    "price": 27.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c0a1b6dd7079da53670f",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424e1",
-    "id_book": "6369c011b6dd7079da536358",
-    "price": 30.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c17ab6dd7079da5368d0",
+    "price": 18.1,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424e9",
-    "id_book": "6369c179b6dd7079da5368cb",
-    "price": 43.0,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369bf96b6dd7079da535f9c",
+    "price": 13.4,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424d1"
 },{
     "id_user": "63729f18011783b55d9424f1",
-    "id_book": "6369bfa9b6dd7079da536028",
-    "price": 23.5,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c043b6dd7079da53652f",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d9424f9",
-    "id_book": "6369b0bc0c9fec6fa482e899",
-    "price": 59.9,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d9424ff",
-    "type_buy": "venda"
+    "id_book": "6369c170b6dd7079da536899",
+    "price": 43.3,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9423fb"
 },{
     "id_user": "63729f18011783b55d942501",
-    "id_book": "6369b0860c9fec6fa482e75c",
-    "price": 45.8,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c111b6dd7079da53681f",
+    "price": 32.7,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942507",
-    "id_book": "6369bf9eb6dd7079da535fd6",
-    "price": 54.7,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c048b6dd7079da536551",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d94250f",
-    "id_book": "6369c170b6dd7079da536899",
-    "price": 35.0,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c03db6dd7079da5364f6",
+    "price": 49.0,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942517",
-    "id_book": "6369c009b6dd7079da5362fd",
-    "price": 33.7,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369b0ab0c9fec6fa482e83c",
+    "price": 31.8,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424bb"
 },{
     "id_user": "63729f18011783b55d94251f",
-    "id_book": "636870bc324a004df4f64f3e",
-    "price": 53.3,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d942449",
-    "type_buy": "troca"
+    "id_book": "63686ea5324a004df4f64d9a",
+    "price": 37.7,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942527",
-    "id_book": "6369c031b6dd7079da536487",
-    "price": 23.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c093b6dd7079da5366e6",
+    "price": 25.3,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424d9"
 },{
     "id_user": "63729f18011783b55d94252f",
-    "id_book": "6369b0590c9fec6fa482e6d4",
-    "price": 36.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "63686ea5324a004df4f64d9a",
+    "price": 40.0,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942537",
-    "id_book": "6369b07e0c9fec6fa482e721",
-    "price": 20.7,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6368df9d324a004df4f65519",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d94253f",
-    "id_book": "6369bfa5b6dd7079da536009",
-    "price": 37.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369a80a324a004df4f66864",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942547",
-    "id_book": "6369c039b6dd7079da5364d2",
-    "price": 18.8,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f17011783b55d9424e7",
-    "type_buy": "venda"
+    "id_book": "6369c1ffb6dd7079da536965",
+    "price": 29.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f18011783b55d94253d"
 },{
     "id_user": "63729f18011783b55d94254f",
-    "id_book": "6369bf89b6dd7079da535f3f",
-    "price": 17.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369b07e0c9fec6fa482e721",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942557",
-    "id_book": "6369c17eb6dd7079da536902",
-    "price": 28.3,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c200b6dd7079da536970",
+    "price": 26.0,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424c1"
 },{
     "id_user": "63729f18011783b55d94255f",
-    "id_book": "6369c014b6dd7079da53637b",
-    "price": 49.0,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c17bb6dd7079da5368df",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942567",
-    "id_book": "6369c069b6dd7079da53666b",
-    "price": 46.6,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369bfedb6dd7079da536236",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d94256f",
-    "id_book": "6369bfbab6dd7079da5360a0",
-    "price": 55.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942553",
-    "type_buy": "troca"
+    "id_book": "6369c231b6dd7079da5369ec",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942577",
-    "id_book": "6369c020b6dd7079da5363dc",
-    "price": 29.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c065b6dd7079da536647",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942477",
+    "id_book": "6369c094b6dd7079da5366eb",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94255f",
+    "id_book": "6369bfe5b6dd7079da5361f3",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942401",
+    "id_book": "6369b0a00c9fec6fa482e7e5",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424af",
+    "id_book": "6369bfecb6dd7079da536231",
+    "price": 15.8,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d942537",
+    "id_book": "6369bf9cb6dd7079da535fbd",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94252f",
+    "id_book": "6369b07d0c9fec6fa482e719",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942439",
+    "id_book": "6369c056b6dd7079da5365c9",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94256f",
+    "id_book": "6369c017b6dd7079da536399",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d942501",
+    "id_book": "6369b0800c9fec6fa482e734",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94253f",
+    "id_book": "6369c04eb6dd7079da536596",
+    "price": 39.1,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d9424f9",
+    "id_book": "6369bfdcb6dd7079da5361b7",
+    "price": 41.7,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942413"
+},{
+    "id_user": "63729f17011783b55d942467",
+    "id_book": "6369c06bb6dd7079da536682",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d9424f1",
+    "id_book": "6369bfd5b6dd7079da53618d",
+    "price": 45.8,
+    "type_ad": "venda",
+    "id_user_buy": "63729f18011783b55d942529"
+},{
+    "id_user": "63729f17011783b55d9424b7",
+    "id_book": "6369c08fb6dd7079da5366d9",
+    "price": 13.2,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424bf",
+    "id_book": "6369c054b6dd7079da5365c2",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942457",
+    "id_book": "6369bf87b6dd7079da535f30",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d942547",
+    "id_book": "6369c069b6dd7079da536677",
+    "price": 13.0,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424c5"
+},{
+    "id_user": "63729f18011783b55d94251f",
+    "id_book": "6369c043b6dd7079da53652a",
+    "price": 46.2,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942487",
+    "id_book": "6369c038b6dd7079da5364c8",
+    "price": 21.2,
+    "type_ad": "venda",
+    "id_user_buy": "63729f18011783b55d942517"
+},{
+    "id_user": "63729f18011783b55d942567",
+    "id_book": "6369c018b6dd7079da5363a3",
+    "price": 35.2,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f16011783b55d9423f5",
-    "id_book": "6369c02bb6dd7079da53645b",
-    "price": 48.0,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942519",
-    "type_buy": "troca"
-},{
-    "id_user": "63729f17011783b55d942401",
-    "id_book": "6369c022b6dd7079da5363f1",
-    "price": 46.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942409",
-    "id_book": "6368e305324a004df4f65885",
-    "price": 48.7,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942411",
-    "id_book": "636867e078e69acb0d0a7ff5",
-    "price": 11.1,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942419",
-    "id_book": "6369bfb8b6dd7079da536087",
-    "price": 35.1,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942421",
-    "id_book": "6369933f324a004df4f66633",
-    "price": 20.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942565",
-    "type_buy": "venda"
-},{
-    "id_user": "63729f17011783b55d942429",
-    "id_book": "6369b0920c9fec6fa482e7c5",
-    "price": 40.9,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942431",
-    "id_book": "6369bfd8b6dd7079da5361ab",
-    "price": 42.7,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942439",
-    "id_book": "6369c006b6dd7079da5362de",
-    "price": 47.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942441",
-    "id_book": "6369c063b6dd7079da53663c",
-    "price": 38.8,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942449",
-    "id_book": "6369c045b6dd7079da53653b",
-    "price": 44.2,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f17011783b55d9424e5",
-    "type_buy": "venda"
-},{
-    "id_user": "63729f17011783b55d94244f",
-    "id_book": "6369bfceb6dd7079da536145",
-    "price": 52.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942457",
-    "id_book": "6369c0e8b6dd7079da5367d4",
-    "price": 39.3,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c01fb6dd7079da5363d2",
+    "price": 49.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f18011783b55d942565"
 },{
     "id_user": "63729f17011783b55d94245f",
-    "id_book": "6369c05cb6dd7079da5365fd",
-    "price": 48.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c00bb6dd7079da536311",
+    "price": 58.6,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d942467",
-    "id_book": "6369c04db6dd7079da536591",
-    "price": 44.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d94246f",
-    "id_book": "6369c052b6dd7079da5365b2",
-    "price": 22.0,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d94242b",
-    "type_buy": "venda"
-},{
-    "id_user": "63729f17011783b55d942477",
-    "id_book": "6369c010b6dd7079da53634e",
-    "price": 16.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d94247f",
-    "id_book": "6369bfd6b6dd7079da536197",
-    "price": 39.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942487",
-    "id_book": "6369c06bb6dd7079da53667d",
-    "price": 51.0,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d94248f",
-    "id_book": "6369c00db6dd7079da53632f",
-    "price": 33.3,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d942497",
-    "id_book": "6369c00eb6dd7079da536339",
-    "price": 20.0,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942553",
-    "type_buy": "venda"
-},{
-    "id_user": "63729f17011783b55d94249f",
-    "id_book": "6369c0a3b6dd7079da53671a",
-    "price": 26.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424a7",
-    "id_book": "6369c093b6dd7079da5366e1",
-    "price": 15.8,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424af",
-    "id_book": "6369c018b6dd7079da5363a3",
-    "price": 35.1,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424b7",
-    "id_book": "6369bfc2b6dd7079da5360db",
-    "price": 39.4,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424bf",
-    "id_book": "6369b0a70c9fec6fa482e81d",
-    "price": 57.0,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f17011783b55d942427",
-    "type_buy": "venda"
+    "id_user": "63729f17011783b55d942431",
+    "id_book": "6369c0bfb6dd7079da536785",
+    "price": 18.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424c9"
 },{
     "id_user": "63729f17011783b55d9424c7",
-    "id_book": "6369b08b0c9fec6fa482e787",
-    "price": 11.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424e1",
-    "id_book": "6369c007b6dd7079da5362e8",
-    "price": 53.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424e9",
-    "id_book": "6369bfa5b6dd7079da53600e",
-    "price": 28.0,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d9424f1",
-    "id_book": "6369b0b80c9fec6fa482e88d",
-    "price": 37.7,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d9424f9",
-    "id_book": "6369c035b6dd7079da5364b5",
-    "price": 39.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f17011783b55d9424c9",
-    "type_buy": "venda"
-},{
-    "id_user": "63729f18011783b55d942501",
-    "id_book": "6368e300324a004df4f6584b",
-    "price": 44.0,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d942507",
-    "id_book": "6369b10b0c9fec6fa482e91d",
-    "price": 26.2,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d94250f",
-    "id_book": "6369c039b6dd7079da5364d2",
-    "price": 55.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d942517",
-    "id_book": "6369c03cb6dd7079da5364ec",
-    "price": 58.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d94251f",
-    "id_book": "6369c050b6dd7079da5365a7",
-    "price": 46.1,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d94247b",
-    "type_buy": "venda"
-},{
-    "id_user": "63729f18011783b55d942527",
-    "id_book": "6369bc58b6dd7079da535c5a",
-    "price": 16.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d94252f",
-    "id_book": "6369bc75b6dd7079da535c79",
-    "price": 41.1,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d942537",
-    "id_book": "6369c010b6dd7079da536353",
-    "price": 15.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d94253f",
-    "id_book": "6368e375324a004df4f658ef",
-    "price": 34.5,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d942547",
-    "id_book": "6368679678e69acb0d0a7f59",
-    "price": 34.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942523",
-    "type_buy": "troca"
-},{
-    "id_user": "63729f18011783b55d94254f",
-    "id_book": "6369c094b6dd7079da5366f0",
-    "price": 26.7,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c03fb6dd7079da536510",
+    "price": 14.4,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942557",
-    "id_book": "6369bfc0b6dd7079da5360cf",
-    "price": 46.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c17db6dd7079da5368f8",
+    "price": 18.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f18011783b55d94254f"
 },{
-    "id_user": "63729f18011783b55d94255f",
+    "id_user": "63729f17011783b55d94249f",
+    "id_book": "6369c05ab6dd7079da5365f6",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d94247f",
+    "id_book": "6369bf9eb6dd7079da535fd6",
+    "price": 28.2,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424bf"
+},{
+    "id_user": "63729f17011783b55d94246f",
     "id_book": "6369c02db6dd7079da53646f",
-    "price": 35.5,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d942567",
-    "id_book": "6368df8d324a004df4f65502",
-    "price": 54.0,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f17011783b55d942497",
+    "id_book": "6369bf87b6dd7079da535f30",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d94256f",
-    "id_book": "636867a178e69acb0d0a7f7c",
-    "price": 20.9,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f18011783b55d942571",
-    "type_buy": "venda"
+    "id_user": "63729f17011783b55d9424e9",
+    "id_book": "63687113324a004df4f64fab",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942411",
+    "id_book": "6369bf96b6dd7079da535fa1",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424e1",
+    "id_book": "6369bf82b6dd7079da535f01",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94250f",
+    "id_book": "6369c03fb6dd7079da53650a",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f18011783b55d942577",
-    "id_book": "6369bff9b6dd7079da53629f",
-    "price": 30.0,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c006b6dd7079da5362d9",
+    "price": 49.5,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d942519",
-    "id_book": "6369c077b6dd7079da5366b3",
-    "price": 35.8,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942511",
-    "type_buy": "troca"
+    "id_user": "63729f17011783b55d9424a7",
+    "id_book": "6369c03db6dd7079da5364f6",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d94242b",
-    "id_book": "6369c04eb6dd7079da536596",
-    "price": 25.2,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f17011783b55d94245f",
+    "id_book": "6369c068b6dd7079da536666",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d9424e7",
-    "id_book": "6369bfbfb6dd7079da5360c9",
-    "price": 33.0,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f16011783b55d9423f5",
+    "id_book": "6369bfeeb6dd7079da536246",
+    "price": 56.9,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d94255d",
-    "id_book": "6369c022b6dd7079da5363f1",
-    "price": 17.3,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f18011783b55d94251f",
+    "id_book": "6369bf7ab6dd7079da535ee3",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d94255b",
-    "id_book": "6369bf7bb6dd7079da535ee8",
-    "price": 59.1,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f18011783b55d9424f9",
+    "id_book": "6369bf93b6dd7079da535f7d",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d9424fb",
-    "id_book": "6369b0cf0c9fec6fa482e8c7",
-    "price": 45.5,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "63729f18011783b55d942513",
-    "type_buy": "venda"
+    "id_user": "63729f18011783b55d94254f",
+    "id_book": "6369bfd1b6dd7079da536168",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d94242f",
-    "id_book": "6369bff2b6dd7079da536265",
-    "price": 20.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f17011783b55d94248f",
+    "id_book": "6369c016b6dd7079da53638f",
+    "price": 22.6,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d9424ed",
-    "id_book": "6369b08f0c9fec6fa482e7ad",
-    "price": 10.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f18011783b55d942567",
+    "id_book": "6369c0a5b6dd7079da536722",
+    "price": 53.9,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d94248f"
 },{
-    "id_user": "63729f17011783b55d942455",
-    "id_book": "636871e8324a004df4f65056",
-    "price": 45.4,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f17011783b55d942441",
+    "id_book": "6369c0f0b6dd7079da5367e1",
+    "price": 37.7,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d942435",
-    "id_book": "6369c076b6dd7079da5366ad",
-    "price": 21.9,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424b3",
-    "id_book": "6369bfc2b6dd7079da5360d5",
-    "price": 31.7,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f18011783b55d942515",
-    "type_buy": "troca"
-},{
-    "id_user": "63729f17011783b55d9424e5",
-    "id_book": "6369bff2b6dd7079da536265",
-    "price": 43.9,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f17011783b55d9424cd",
-    "id_book": "6369c043b6dd7079da53652a",
-    "price": 39.2,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d942535",
-    "id_book": "6369c2d2b6dd7079da536aa5",
+    "id_user": "63729f17011783b55d942467",
+    "id_book": "6369c06bb6dd7079da536682",
     "price": 31.8,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942489"
+},{
+    "id_user": "63729f17011783b55d94249f",
+    "id_book": "6369bbc5b6dd7079da535c26",
+    "price": 15.7,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424e9",
+    "id_book": "6369c049b6dd7079da53655d",
+    "price": 59.6,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424ad"
+},{
+    "id_user": "63729f17011783b55d942411",
+    "id_book": "6369b0800c9fec6fa482e734",
+    "price": 41.7,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d942537",
+    "id_book": "6369bfc7b6dd7079da536104",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94256f",
+    "id_book": "6369c027b6dd7079da53642d",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942431",
+    "id_book": "6369c034b6dd7079da5364a1",
+    "price": 31.0,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9423ff"
+},{
+    "id_user": "63729f17011783b55d94241d",
+    "id_book": "6369c0ceb6dd7079da5367aa",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d94251d",
+    "id_book": "6369bff6b6dd7079da536284",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424c5",
+    "id_book": "6369bfa9b6dd7079da536028",
+    "price": 21.2,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d942405"
+},{
+    "id_user": "63729f17011783b55d9424b5",
+    "id_book": "6368e35f324a004df4f658d3",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942493",
+    "id_book": "6369bc58b6dd7079da535c5a",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424c9",
+    "id_book": "6369c034b6dd7079da5364a6",
+    "price": 52.0,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942413",
+    "id_book": "6369bfa5b6dd7079da536009",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942425",
+    "id_book": "6369b07b0c9fec6fa482e710",
+    "price": 57.3,
+    "type_ad": "venda",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424a3",
+    "id_book": "6369bf57b6dd7079da535ec4",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d9424f5",
+    "id_book": "6369c17bb6dd7079da5368df",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942451",
+    "id_book": "6369c04bb6dd7079da536576",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d9424bb",
+    "id_book": "6369b0850c9fec6fa482e754",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
     "id_user": "63729f17011783b55d9424d7",
-    "id_book": "6368dfec324a004df4f6556a",
-    "price": 15.6,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369b08e0c9fec6fa482e7a6",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d942453",
-    "id_book": "6369b08c0c9fec6fa482e793",
-    "price": 28.4,
-    "type_ad": [
-        "troca"
-    ],
-    "id_user_buy": "63729f17011783b55d9424ef",
-    "type_buy": "troca"
+    "id_user": "63729f18011783b55d942553",
+    "id_book": "6369c076b6dd7079da5366ad",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f17011783b55d9424b1",
-    "id_book": "6368dff1324a004df4f6557d",
-    "price": 46.8,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
-},{
-    "id_user": "63729f18011783b55d942529",
-    "id_book": "636871d7324a004df4f6503a",
-    "price": 43.2,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f18011783b55d942513",
+    "id_book": "6369bfe6b6dd7079da536202",
+    "price": 37.5,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424bd"
 },{
     "id_user": "63729f17011783b55d9424dd",
-    "id_book": "6369bf91b6dd7079da535f77",
-    "price": 25.4,
-    "type_ad": [
-        "venda"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_book": "6369c054b6dd7079da5365c2",
+    "price": 33.1,
+    "type_ad": "venda",
+    "id_user_buy": ""
 },{
-    "id_user": "63729f18011783b55d942549",
-    "id_book": "6368e32a324a004df4f658bc",
-    "price": 22.4,
-    "type_ad": [
-        "venda",
-        "troca"
-    ],
-    "id_user_buy": "",
-    "type_buy": ""
+    "id_user": "63729f18011783b55d942555",
+    "id_book": "6369c0fbb6dd7079da5367f8",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d942525",
+    "id_book": "6369c0c8b6dd7079da5367a0",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942405",
+    "id_book": "6369b0a20c9fec6fa482e7fc",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d94247b",
+    "id_book": "6369c01fb6dd7079da5363d7",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f18011783b55d942521",
+    "id_book": "63686ffc324a004df4f64e58",
+    "price": 45.6,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424bb"
+},{
+    "id_user": "63729f18011783b55d942571",
+    "id_book": "6369bfe5b6dd7079da5361f3",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d942463",
+    "id_book": "63686da8324a004df4f64ce8",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d94243b",
+    "id_book": "6369c094b6dd7079da5366f0",
+    "price": "",
+    "type_ad": "troca",
+    "id_user_buy": ""
+},{
+    "id_user": "63729f17011783b55d94249b",
+    "id_book": "6369c06bb6dd7079da536682",
+    "price": 28.1,
+    "type_ad": "venda",
+    "id_user_buy": "63729f17011783b55d9424d3"
 }]

@@ -15,10 +15,7 @@ const AdSchema = Schema({
   price: {
     type: String
   },
-  type_ad: [{
-    type: String
-  }],
-  type_buy:{
+  type_ad: {
     type: String
   },
   id_user_buy: {

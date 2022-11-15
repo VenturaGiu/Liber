@@ -24,12 +24,12 @@ users = userC.aggregate([
         }
     }, {
         '$sample': {
-            'size': 10
+            'size': 25
         }
     }
 ])
 
-ad_type = [['venda'], ['troca'], [ 'venda', 'troca' ]]
+ad_type = ['venda', 'troca']
 fake_datas = []
 
 def get_random_user(id_user):
@@ -51,15 +51,13 @@ for key, user in enumerate(users):
     ])
     book = list(book)[0]['_id']
     price = round(uniform(10.00,60.00), 1)
-    ad_type_position = randint(0, 2)
+    ad_type_position = randint(0, 1)
     type_ad = ad_type[ad_type_position]
-
-    if key % 5 == 0: 
-        id_user_buy = get_random_user(id_user)
-        type_buy = type_ad[0]
+    id_user_buy = ''
+    if type_ad == 'troca': price = ''
     else: 
-        id_user_buy = ''
-        type_buy = ''
+        if key % 2 == 0: 
+            id_user_buy = get_random_user(id_user)
 
     fake_datas.append(
         {
@@ -67,8 +65,7 @@ for key, user in enumerate(users):
             'id_book': str(book),
             'price': price,
             'type_ad': type_ad,
-            'id_user_buy': id_user_buy,
-            'type_buy': type_buy
+            'id_user_buy': id_user_buy
         }
     )
 
