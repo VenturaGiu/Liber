@@ -18,6 +18,9 @@ const AdSchema = Schema({
   type_ad: [{
     type: String
   }],
+  type_buy:{
+    type: String
+  },
   id_user_buy: {
       type: Schema.Types.ObjectId,
       ref: 'User',
