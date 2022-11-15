@@ -8,6 +8,7 @@ const Genre = require('../models/Genre');
 const Ad = require('../models/Ad');
 const _ = require('underscore');
 const Address = require('../models/Address');
+const Card = require('../models/Card');
 
 /*
 𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
@@ -325,6 +326,56 @@ async function settingsAccount(req, res) {
     }
 }
 
+async function listAllIfosUser(req, res) {
+    try {
+        const { email } = req.params
+        const address = await User.aggregate([
+            {
+                '$match': {
+                  'email': email
+                }
+            },
+            {
+              '$lookup': {
+                'from': 'address', 
+                'localField': 'address', 
+                'foreignField': '_id', 
+                'as': 'address'
+              }
+            }, {
+              '$unwind': {
+                'path': '$address'
+              }
+            }, {
+              '$match': {
+                'address.main': true
+              }
+            }, {
+              '$lookup': {
+                'from': 'cards', 
+                'localField': 'cards', 
+                'foreignField': '_id', 
+                'as': 'cards'
+              }
+            }, {
+              '$unwind': {
+                'path': '$cards'
+              }
+            }, {
+              '$match': {
+                'cards.main': true
+              }
+            }
+          ])
+        return res.status(200).json(address); 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+    }
+}
+
 /** 
  * ADDRESS
 */
@@ -365,6 +416,108 @@ async function updateAddress(req, res) {
     }
 }
 
+async function listAddressByUser(req, res) {
+    try {
+        const { email } = req.params
+        const address = await User.aggregate([
+            {
+                '$match': {
+                  'email': email
+                }
+            },
+            {
+              '$project': {
+                'address': 1
+              }
+            }, {
+              '$lookup': {
+                'from': 'address', 
+                'localField': 'address', 
+                'foreignField': '_id', 
+                'as': 'address'
+              }
+            }
+        ])
+        return res.status(200).json(address); 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+    }
+}
+
+/** 
+ * CARD
+*/
+async function saveNewCard(req, res) {
+    try {
+        const card = req.body
+        const { email } = req.body
+        const cleanObj = _.omit(card, ['email']);
+        const addC = new Card(cleanObj)
+        await addC.save()
+
+        const userCard = await User.findOne({ email })
+        const obj = userCard.cards === 0 ? [] : userCard.cards
+        obj.push(addC._id) 
+
+        const user = await User.findOneAndUpdate({ email }, { cards: obj }, { new: true })
+        return res.status(200).json(user);
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+    }
+}
+
+async function updateCard(req, res) {
+    try {
+        const card = req.body
+        const { _id } = req.body
+        const cleanObj = _.omit(card, ['_id']);
+        const newCard = await Card.findOneAndUpdate({ _id: ObjectId(_id) }, cleanObj, { new: true })
+        return res.status(200).json(newCard); 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+    }
+}
+
+async function listCardsByUser(req, res) {
+    try {
+        const { email } = req.params
+        const cards = await User.aggregate([
+            {
+                '$match': {
+                  'email': email
+                }
+            },
+            {
+              '$project': {
+                'cards': 1
+              }
+            }, {
+              '$lookup': {
+                'from': 'cards', 
+                'localField': 'cards', 
+                'foreignField': '_id', 
+                'as': 'cards'
+              }
+            }
+          ])
+        return res.status(200).json(cards); 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+    }
+}
+
 module.exports = {
     getByEmail,
     listAll,
@@ -375,6 +528,11 @@ module.exports = {
     forgotPassword,
     changePass,
     settingsAccount,
+    listAllIfosUser,
     saveNewAddress,
     updateAddress,
+    listAddressByUser,
+    saveNewCard,
+    updateCard,
+    listCardsByUser,
 }
