@@ -13,9 +13,11 @@ const {
     saveNewAddress,
     updateAddress,
     listAddressByUser,
+    deleteAddressById,
     saveNewCard,
     updateCard,
     listCardsByUser,
+    deleteCardById,
 } = require('../controllers/UserController');
 
 router.route('/')
@@ -43,14 +45,16 @@ router.route('/settings')
 
 router.route('/address')
     .post(saveNewAddress)
-    .put(updateAddress);
+    .put(updateAddress)
+    .delete(deleteAddressById);
 
 router.route('/address/:email')
     .get(listAddressByUser)
 
 router.route('/card')
     .post(saveNewCard)
-    .put(updateCard);
+    .put(updateCard)
+    .delete(deleteCardById);
 
 router.route('/card/:email')
     .get(listCardsByUser)

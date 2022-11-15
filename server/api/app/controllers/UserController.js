@@ -412,7 +412,7 @@ async function updateAddress(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (updateAddress)` });
     }
 }
 
@@ -443,7 +443,45 @@ async function listAddressByUser(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (listAddressByUser)` });
+    }
+}
+
+async function deleteAddressById(req, res) {
+    try {
+        const { _id } = req.body
+        await Address.findByIdAndDelete(_id)
+        const user = await User.findOne({ address: ObjectId(_id) })
+        const cleanObj = []
+        for(const a of user.address){
+            if(String(a) !== _id) cleanObj.push(a)
+        }
+        await User.findOneAndUpdate({ email: user.email }, { address: cleanObj })
+        const addressUp = await User.aggregate([
+            {
+                '$match': {
+                  'email': user.email
+                }
+            },
+            {
+              '$project': {
+                'address': 1
+              }
+            }, {
+              '$lookup': {
+                'from': 'address', 
+                'localField': 'address', 
+                'foreignField': '_id', 
+                'as': 'address'
+              }
+            }
+        ])
+        return res.status(200).json(addressUp)
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (deleteAddressByUser)` });
     }
 }
 
@@ -483,7 +521,7 @@ async function updateCard(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (updateCard)` });
     }
 }
 
@@ -514,7 +552,45 @@ async function listCardsByUser(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (listCardsByUser)` });
+    }
+}
+
+async function deleteCardById(req, res) {
+    try {
+        const { _id } = req.body
+        await Card.findByIdAndDelete(_id)
+        const user = await User.findOne({ cards: ObjectId(_id) })
+        const cleanObj = []
+        for(const c of user.cards){
+            if(String(c) !== _id) cleanObj.push(c)
+        }
+        await User.findOneAndUpdate({ email: user.email }, { cards: cleanObj })
+        const cardsUp = await User.aggregate([
+            {
+                '$match': {
+                  'email': user.email
+                }
+            },
+            {
+              '$project': {
+                'cards': 1
+              }
+            }, {
+              '$lookup': {
+                'from': 'cards', 
+                'localField': 'cards', 
+                'foreignField': '_id', 
+                'as': 'cards'
+              }
+            }
+        ])
+        return res.status(200).json(cardsUp)
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (deleteAddressByUser)` });
     }
 }
 
@@ -532,7 +608,9 @@ module.exports = {
     saveNewAddress,
     updateAddress,
     listAddressByUser,
+    deleteAddressById,
     saveNewCard,
     updateCard,
     listCardsByUser,
+    deleteCardById,
 }
