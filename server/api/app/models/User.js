@@ -32,7 +32,15 @@ const UserSchema = Schema({
     type: String,
     default: 'standard',
     lowercase: true,
-  }
+  },
+  genres: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Genre',
+  }],
+  address: [{
+    type: Schema.Types.ObjectId,
+    ref: 'address',
+  }],
 },
 {
   timestamps: true,

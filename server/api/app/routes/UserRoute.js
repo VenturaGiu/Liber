@@ -8,7 +8,9 @@ const {
     updateUserInformation,
     forgotPassword,
     changePass,
-    settingsAccount
+    settingsAccount,
+    saveNewAddress,
+    updateAddress,
 } = require('../controllers/UserController');
 
 router.route('/')
@@ -30,5 +32,9 @@ router.route('/changePass')
 
 router.route('/settings')
     .put(settingsAccount);
+
+router.route('/address')
+    .post(saveNewAddress)
+    .put(updateAddress);
 
 module.exports = router;
