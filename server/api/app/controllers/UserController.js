@@ -10,6 +10,8 @@ const _ = require('underscore');
 const Address = require('../models/Address');
 const Card = require('../models/Card');
 
+const { spawn } = require('child_process')
+const child = spawn('pwd');
 /*
 𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -594,6 +596,35 @@ async function deleteCardById(req, res) {
     }
 }
 
+
+/** CHAMANDO SISTEMA DE RECOMENDAÇÃO
+* OBS: o usuário precisa estar logado
+* @author Arthur Rocha
+* @date 15/11/2022
+* @param {Request} req requisição node
+* @param {Response} res resposta node
+* @return {Json} mensagem de sucesso caso de certo ou de erro
+*/
+async function getRecommendations(req, res) {
+    try {
+        const { _id } = req.body
+        const user = await User.findOne({ id: ObjectId(_id) })
+        const python = spawn('python', ['/scripts/recommendation.py', '-uid', String(user._id)])
+        const result = python.stdout.on('recommends', (recommends) => {
+            console.log(`child stdout:\n${data}`);
+            });
+        res.type('application/json')
+        res.send(result)
+        
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        /*deixei essa linha pq n sabia oq significava :)*/ 
+        return res.status(500).json({ message: `Erro na rota api/app_user (getRecommendations)` });
+    }
+}
+
 module.exports = {
     getByEmail,
     listAll,
@@ -613,4 +644,5 @@ module.exports = {
     updateCard,
     listCardsByUser,
     deleteCardById,
+    getRecommendations
 }

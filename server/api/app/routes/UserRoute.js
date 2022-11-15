@@ -18,6 +18,7 @@ const {
     updateCard,
     listCardsByUser,
     deleteCardById,
+    getRecommendations
 } = require('../controllers/UserController');
 
 router.route('/')
@@ -59,4 +60,6 @@ router.route('/card')
 router.route('/card/:email')
     .get(listCardsByUser)
 
+router.route('/getRecommendations')
+    .get(getRecommendations)
 module.exports = router;

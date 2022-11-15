@@ -4,11 +4,19 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 import argparse
+import pprint
 
+#RECEBE O ID DO USUÁRIO
+    #O id do usuário deve ser passado como string 
+    #EXEMPLO DE CHAMADA 'python recommendation.py -uid {id_usuario}'
 parser = argparse.ArgumentParser()
-parser.add_argument("-uid", '--userId', type='str')
-id = parser.userId
+parser.add_argument("-uid", '--userId',type=str)
+args = parser.parse_args()
+
+id = args.userId
+id= ObjectId(id)
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -17,7 +25,7 @@ books = db.books
 users = db.users
 ads = db.ads
 
-user_id = db.users.find({'_id': id})
+user_id = users.find_one({'_id': id})
 id = user_id['_id']
 
 
@@ -103,7 +111,6 @@ for a in (books.aggregate(pipeline_books)):
         if feature == 'result':
             a[feature] =  take_genre(a[feature])
         a[feature] = clean_data(a[feature])
-    print('o')
     a['sopa'] = create_soup(a)
     bank.append(a)
 
@@ -150,14 +157,19 @@ ads_pipeline = [
 
 def get_ads_recommendations(query=ads.aggregate(ads_pipeline)):
     premium_recommend = []
-    recommendation =[]
+    rest_recommendation =[]
     for  ad in query:
         if len(premium_recommend) <=14:
             if ad['user'][0]['account_type']=='premium':
                 premium_recommend.append(ad)
         elif ad['user'][0]['account_type']=='standard' or ad['user'][0]['account_type']=='premium':
-            recommendation.append(a)     
-    return {'premium': premium_recommend, 'recommend':recommendation}
+            rest_recommendation.append(a)     
+    return {'premium': premium_recommend, 'res_recommend':rest_recommendation}
 
 reco = get_ads_recommendations()
-print(reco)
+
+
+
+pprint.pprint(reco['premium'])
+print("___"*30)
+pprint.pprint(reco['res_recommend'])
