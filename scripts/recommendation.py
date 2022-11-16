@@ -6,17 +6,17 @@ import pandas as pd
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import argparse
-import pprint
+import json
 
 #RECEBE O ID DO USUÁRIO
     #O id do usuário deve ser passado como string 
     #EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
-parser = argparse.ArgumentParser()
-parser.add_argument("-uid", "--userId",type=str)
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-uid", "--userId",type=str)
+# args = parser.parse_args()
 
-id = args.userId
-id= ObjectId(id)
+# id = args.userId
+id= ObjectId('63729f16011783b55d9423f5')
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -38,6 +38,13 @@ pipeline_books = [
             "foreignField": "_id", 
             "as": "result"
         }
+    }, {
+        '$project': {
+            'createdAt': 0, 
+            'updatedAt': 0, 
+            'result.createdAt': 0, 
+            'result.updatedAt': 0
+        }
     }
 ]
 
@@ -52,6 +59,13 @@ pipeline_users = [
             "localField": "genres", 
             "foreignField": "_id", 
             "as": "result"
+        }
+    }, {
+        '$project': {
+            'createdAt': 0, 
+            'updatedAt': 0, 
+            'result.createdAt': 0, 
+            'result.updatedAt': 0
         }
     }
 ]
@@ -152,6 +166,13 @@ ads_pipeline = [
                 }
             ]
         }
+    }, {
+        '$project': {
+            'createdAt': 0, 
+            'updatedAt': 0, 
+            'user.createdAt': 0, 
+            'user.updatedAt': 0
+        }
     }
 ]
 
@@ -159,10 +180,20 @@ def get_ads_recommendations(query=ads.aggregate(ads_pipeline)):
     premium_recommend = []
     rest_recommendation =[]
     for  ad in query:
+        ad['_id'] = str(ad['_id'])
+        ad['id_user'] = str(ad['id_user'])
+        ad['id_book'] = str(ad['id_book'])
+        ad['user'][0]['_id'] = str(ad['user'][0]['_id'])
+        if "id_user_buy" in ad != None: ad['id_user_buy'] = str(ad['id_user_buy'])
+        for key,adUser in enumerate(ad['user'][0]['genres']):
+            ad['user'][0]['genres'][key] = str(adUser)
         if len(premium_recommend) <=14:
             if ad["user"][0]["account_type"]=="premium":
                 premium_recommend.append(ad)
         elif ad["user"][0]["account_type"]=="standard" or ad["user"][0]["account_type"]=="premium":
+            a['_id'] = str(ad['_id'])
+            for key,genre in enumerate(a['genre']):
+                a['genre'][key] = str(genre)
             rest_recommendation.append(a)     
     return {"premium": premium_recommend, "res_recommend":rest_recommendation}
 
@@ -173,6 +204,6 @@ reco = get_ads_recommendations()
 
 
 
-print(reco['premium'])
+print(json.dumps(reco))
 # print("___"*30)
-# print(reco["res_recommend"])
+# print(json.dumps(reco["res_recommend"]))

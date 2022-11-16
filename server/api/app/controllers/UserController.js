@@ -609,17 +609,14 @@ async function getRecommendations(req, res) {
     try {
         const { _id } = req.body
         const user = await User.findOne({ id: ObjectId(_id) })
-        const py = spawn('python3.10', ['/home/giulia/Documentos/liber/scripts/recommendation.py', '-uid', String(user._id)])
-
-        // const py = await spawn('python3.8', ['./doc.py', '--info', req.query.i], {
-        //     //stdio:[null,null,null,'ipc']
-        // })
+        const py = spawn('python3.8', ['/home/giulia/Documentos/Liber/scripts/recommendation.py', '-uid', String(user._id)], {
+        });
         py.stdout
             .on('data', async(data) => {
-                let json = data.toString('utf8');
+                const json = JSON.parse(data.toString())
                 console.log(json);
                 res.type('application/json')
-                res.send(temp)
+                res.send(json)
             })
         py.stderr
             .on('data', async(data) => {
@@ -630,16 +627,6 @@ async function getRecommendations(req, res) {
 
         // python.stdout.on('recommends', (recommends) => {
         //     res.send(recommends);
-        // });
-        // python.stdout.on('recommends', function (recommends) {
-        //     console.log('Pipe data from python script ...');
-        //     dataToSend = recommends.toString();
-        // });
-        // in close event we are sure that stream from child process is closed
-        // python.on('close', (code) => {
-        //     console.log(`child process close all stdio with code ${code}`);
-        //     // send data to browser
-        //     res.send(dataToSend)
         // });
         // return res.status(200).json(result)
     } catch (error) {
