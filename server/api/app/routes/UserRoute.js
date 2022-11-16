@@ -60,6 +60,7 @@ router.route('/card')
 router.route('/card/:email')
     .get(listCardsByUser)
 
-router.route('/getRecommendations')
+router.route('/ia/recommendations')
     .get(getRecommendations)
+
 module.exports = router;

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { spawn } = require('child_process')
+
 // APP
 const userApp = require('./app/routes/UserRoute');
 const genreApp = require('./app/routes/GenreRoute');
