@@ -167,12 +167,12 @@ def get_ads_recommendations(query=ads.aggregate(ads_pipeline)):
     return {'premium': premium_recommend, 'res_recommend':rest_recommendation}
 
 
-get_ads_recommendations()
+# get_ads_recommendations()
 
-# reco = get_ads_recommendations()
+reco = get_ads_recommendations()
 
 
 
-# pprint.pprint(reco['premium'])
-# print("___"*30)
-# pprint.pprint(reco['res_recommend'])
+pprint.pprint(reco['premium'])
+print("___"*30)
+pprint.pprint(reco['res_recommend'])
