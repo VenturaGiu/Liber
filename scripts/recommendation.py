@@ -11,12 +11,14 @@ import json
 #RECEBE O ID DO USUÁRIO
     #O id do usuário deve ser passado como string 
     #EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
-parser = argparse.ArgumentParser()
-parser.add_argument("-uid", "--userId",type=str)
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-uid", "--userId",type=str)
+# args = parser.parse_args()
 
-id = args.userId
-id= ObjectId(id)
+# id = args.userId
+# id= ObjectId(id)
+
+id= ObjectId('63729f16011783b55d9423f5')
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -25,8 +27,8 @@ books = db.books
 users = db.users
 ads = db.ads
 
-user_id = users.find_one({"_id": id})
-id = user_id["_id"]
+# user_id = users.find_one({"_id": id})
+# id = user_id["_id"]
 
 
 #PIPELINES
@@ -97,16 +99,16 @@ def get_books_recommendations(user_id, cosine_sim):
 
     # Get the pairwsie similarity scores of all movies with that movie
     # Sort the movies based on the similarity scores
-    sim_scores = df2[idx].rank(ascending=0, method="first")
+    sim_scores = df2[idx].sort_values(ascending=False)
 
     # Get the scores of the 10 most similar movies
-    sim_scores = sim_scores
+    sim_scores = sim_scores[1:60]
 
     # Get the movie indices
-    movie_indices = [i for i in sim_scores.index]
+    books_indices = [i for i in sim_scores.index]
 
     # Return the top 10 most similar movies
-    return movie_indices
+    return books_indices
 
 
 bank = []
@@ -140,38 +142,38 @@ cosine_sim2 = cosine_similarity(count_matrix)
 indices = pd.Series(df.index, index=df.index)
 df2 = pd.DataFrame(cosine_sim2, columns=df.index, index=df.index)
 
-movie_id = get_books_recommendations(id, df2)
+book_id = get_books_recommendations(id, df2)
 
 ads_pipeline = [
     {
-        "$lookup": {
-            "from": "users", 
-            "localField": "id_user", 
-            "foreignField": "_id", 
-            "as": "user"
+        '$lookup': {
+            'from': 'users', 
+            'localField': 'id_user', 
+            'foreignField': '_id', 
+            'as': 'user'
         }
     }, {
-        "$match": {
-            "id_book": {
-                "$in": movie_id
+        '$lookup': {
+            'from': 'books', 
+            'localField': 'id_book', 
+            'foreignField': '_id', 
+            'as': 'book'
+        }
+    }, {
+        '$match': {
+            'id_book': {
+                '$in': book_id
             }
         }
     }, {
-        "$match": {
-            "$or": [
+        '$match': {
+            '$or': [
                 {
-                    "user.account_type": "premium"
+                    'user.account_type': 'premium'
                 }, {
-                    "user.account_type": "standard"
+                    'user.account_type': 'standard'
                 }
             ]
-        }
-    }, {
-        '$project': {
-            'createdAt': 0, 
-            'updatedAt': 0, 
-            'user.createdAt': 0, 
-            'user.updatedAt': 0
         }
     }
 ]
