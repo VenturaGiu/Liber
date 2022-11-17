@@ -20,11 +20,11 @@ bookC = db['books']
 users = userC.aggregate([
     {
         '$match': {
-            'account_type': 'standard'
+            'account_type': 'premium'
         }
     }, {
         '$sample': {
-            'size': 25
+            'size': 50
         }
     }
 ])
@@ -55,9 +55,9 @@ for key, user in enumerate(users):
     type_ad = ad_type[ad_type_position]
     id_user_buy = ''
     if type_ad == 'troca': price = ''
-    else: 
-        if key % 2 == 0: 
-            id_user_buy = get_random_user(id_user)
+    # else: 
+    #     if key % 2 == 0: 
+    #         id_user_buy = get_random_user(id_user)
 
     fake_datas.append(
         {
