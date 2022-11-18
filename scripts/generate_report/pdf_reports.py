@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -277,6 +278,6 @@ def analisys_pdf():
     # pdf.set_font('Times', size = 8)
     # pdf.cell(w=0,h=3,ln=True, align='L')
     pdf.ln(2)
-    pdf.output(f'analysis_report_{datetime_str}.pdf','F')
+    pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}analysis_report_{datetime_str}.pdf','F')
 
 analisys_pdf()
