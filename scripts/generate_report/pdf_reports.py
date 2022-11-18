@@ -133,7 +133,7 @@ def analisys_pdf():
 
     class MyFPDF(FPDF, HTMLMixin):
         def header(self):
-            self.image('logo.png',10,6,22)
+            self.image('logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
             self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
