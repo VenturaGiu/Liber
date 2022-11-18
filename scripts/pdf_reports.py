@@ -133,7 +133,7 @@ def analisys_pdf():
 
     class MyFPDF(FPDF, HTMLMixin):
         def header(self):
-            self.image('logo.png',10,6,22)
+            self.image('public\src\lib\images\logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
             self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
@@ -278,6 +278,6 @@ def analisys_pdf():
     # pdf.set_font('Times', size = 8)
     # pdf.cell(w=0,h=3,ln=True, align='L')
     pdf.ln(2)
-    pdf.output(f'analysis_report_{datetime_str}.pdf','F')
+    pdf.output(f'scripts\\generate_report\\reports\\adsReports_{datetime_str}.pdf','F')
 
 analisys_pdf()
