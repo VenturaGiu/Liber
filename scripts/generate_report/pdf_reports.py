@@ -257,7 +257,6 @@ def analisys_pdf():
     pdf.cell(190, 5, txt = 'Livros mais caros anunciados pelos usuários', align='C')
     pdf.ln(2)
 
-
     #Quarto- Distribuição Trocas x vendas
     pdf.add_page()
     troca_venda = df['type_ad'].value_counts()

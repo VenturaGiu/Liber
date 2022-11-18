@@ -18,10 +18,6 @@ book_pipeline= [
             'as': 'result'
         }
     }, {
-        '$unwind': {
-            'path': '$result'
-        }
-    }, {
         '$project': {
             '_id': 0, 
             'title': 1, 
@@ -48,18 +44,14 @@ user_pipeline=[
             'as': 'result'
         }
     }, {
-        '$unwind': {
-            'path': '$result'
-        }
-    }, {
         '$project': {
-            '_id': 0, 
+           '_id': 0, 
             'name': 1, 
             'email': 1, 
             'verified': 1, 
             'activated': 1, 
-            'account_type': 1, 
-            'genres': '$result.name'
+            'account_type': 1,
+            'genre':'$result.name'
         }
     }
 ]
@@ -146,6 +138,20 @@ book_list=[]
 for book in books.aggregate(book_pipeline):
     book_list.append(book)
 df_books = pd.json_normalize(book_list, max_level=0)
+
+clean_book_col = ['authors','genres']
+for col in clean_book_col:
+    for ind,x in enumerate(df_books[col]):
+            df_books.at[ind,col] = x[0]
+
+for ind,x in enumerate(df_books['location']):
+    if isinstance(x, str):
+        if 'Rio' == x[0:3]:
+            df_books.at[ind,'location'] = x.replace(x, 'Rio de Janeiro')
+        if 'São' == x[0:3]:
+            df_books.at[ind,'location'] = x.replace(x, 'São Paulo')
+
+
 profile_books = ProfileReport(df_books, title='Books overview')
 
 
@@ -156,8 +162,11 @@ profile_books = ProfileReport(df_books, title='Books overview')
 user_list=[]
 for use in users.aggregate(user_pipeline):
     user_list.append(use)
-
 df_users = pd.json_normalize(user_list, max_level=0)
+
+for ind, x in enumerate(df_users['genre']):
+    df_users.at[ind, 'genre'] = x[0]
+
 profile_users = ProfileReport(df_users, title='Users overview')
 
 
@@ -166,6 +175,13 @@ ads_list=[]
 for ad in ads.aggregate(ads_pipelina):
     ads_list.append(ad)
 df_ads = pd.json_normalize(ads_list, max_level=0)
+
+for ind,x in enumerate(df_ads['book_location']):
+    if isinstance(x, str):
+        if 'Rio' == x[0:3]:
+            df_ads.at[ind,'book_location'] = x.replace(x, 'Rio de Janeiro')
+        if 'São' == x[0:3]:
+            df_ads.at[ind,'book_location'] = x.replace(x, 'São Paulo')
 profile_ads = ProfileReport(df_ads , title='Ads overview')
 
 # profile_books.to_file('booksReport.html')
