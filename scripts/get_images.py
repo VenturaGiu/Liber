@@ -25,8 +25,8 @@ def downloadImg(url, path):
 
 def get_book():
     books = db.books
-    books = books.find({})
-    for key,book in enumerate(books):
+    booksFind = books.find({})
+    for key, book in enumerate(booksFind):
         try:
             print(str(key)+ ' ' +book['isbn'])
             resp = requests.get(url1 + book['isbn'], headers=headers)
@@ -35,6 +35,7 @@ def get_book():
                 if 'imagens' in resp['books'][0]:
                     url = resp['books'][0]['imagens']['imagem_primeira_capa']['media']
                     downloadImg(url, 'images/books/'+book['isbn']+'.png')
+                    books.update_one({ 'isbn': book['isbn'] }, { '$set': { 'path_img': 'images/books/'+book['isbn']+'.png'} } )
             else:
                 resp = requests.get(url2 + book['isbn'], headers=headers)
                 resp = json.loads(str(resp.text))
