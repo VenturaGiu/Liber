@@ -53,7 +53,10 @@ const BookSchema = Schema({
   }],
   key_words: [{
     type: String
-  }]
+  }],
+  path_img: {
+    type: String
+  }
 },
 {
   timestamps: true,

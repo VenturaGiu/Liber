@@ -3,10 +3,11 @@ const express = require('express')
 const cors = require('cors');
 const parser = require('body-parser')
 const api = require('./api');
-// const path = require('path');
+const path = require('path');
 const config = require('./config/variables');
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
+const uploadImg = require('./lib/uploadImage')
 
 // Connect to database.
 
@@ -42,8 +43,20 @@ app.use(session({
 app.use('/api', api);
 app.use(cookieParser());
 
+app.use(express.static(path.join(path.resolve('./'), 'images')));
+console.log(path.join(path.resolve('./'), 'images'))
 app.get('/', (req, res) => {
     res.json({ message: 'Rota raiz, vai pa ota (/users)' })
+})
+
+app.get('/images/:isbn', (req, res) => {
+  const { isbn } = req.params
+  res.sendFile(path.join(path.resolve('./'), `images/books/${isbn}`))
+})
+
+app.post('/upload/image/:isbn', uploadImg.single('image'), async (req, res) => {
+    if(req.file) return res.status(200).json({ message: 'upload OK' })
+    return res.status(500).json(error)
 })
 
 app.listen(config.server.port, () => {
