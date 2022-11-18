@@ -11,7 +11,7 @@ const Address = require('../models/Address');
 const Card = require('../models/Card');
 
 const { spawn } = require('child_process')
-const child = spawn('pwd');
+const child = spawn('pwd', [], {shell: true});
 /*
 𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -186,7 +186,7 @@ async function login(req, res) {
         if (!user || user === null || user.length === 0) return res.status(400).json({ message: `E-mail ou senha errado!` });
         if (user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
 
-        return res.status(200).json({ name: user.name });
+        return res.status(200).json({ name: user.name, user: user });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
