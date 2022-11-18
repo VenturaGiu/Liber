@@ -9,17 +9,163 @@ books = db.books
 users = db.users
 ads = db.ads
 
+book_pipeline= [
+    {
+        '$lookup': {
+            'from': 'genres', 
+            'localField': 'genre', 
+            'foreignField': '_id', 
+            'as': 'result'
+        }
+    }, {
+        '$unwind': {
+            'path': '$result'
+        }
+    }, {
+        '$project': {
+            '_id': 0, 
+            'title': 1, 
+            'genres': '$result.name', 
+            'subtitle': 1, 
+            'authors': 1, 
+            'synopsis': 1, 
+            'publisher': 1, 
+            'year': 1, 
+            'location': 1, 
+            'language': 1, 
+            'page_count': 1, 
+            'key_words': 1
+        }
+    }
+]
 
-take_books = books.find({})
-df_books = pd.json_normalize(take_books, max_level=0)
+user_pipeline=[
+    {
+        '$lookup': {
+            'from': 'genres', 
+            'localField': 'genres', 
+            'foreignField': '_id', 
+            'as': 'result'
+        }
+    }, {
+        '$unwind': {
+            'path': '$result'
+        }
+    }, {
+        '$project': {
+            '_id': 0, 
+            'name': 1, 
+            'email': 1, 
+            'verified': 1, 
+            'activated': 1, 
+            'account_type': 1, 
+            'genres': '$result.name'
+        }
+    }
+]
+ads_pipelina=[
+    {
+        '$lookup': {
+            'from': 'users', 
+            'localField': 'id_user', 
+            'foreignField': '_id', 
+            'as': 'user'
+        }
+    }, {
+        '$lookup': {
+            'from': 'books', 
+            'localField': 'id_book', 
+            'foreignField': '_id', 
+            'as': 'book'
+        }
+    }, {
+        '$match': {
+            '$or': [
+                {
+                    'user.account_type': 'premium'
+                }, {
+                    'user.account_type': 'standard'
+                }
+            ]
+        }
+    }, {
+        '$project': {
+            'id_user': 1, 
+            'type_ad': 1, 
+            'price': 1, 
+            'user_name': '$user.name', 
+            'ads_type': '$user.account_type', 
+            'title': '$book.title', 
+            'book_year': '$book.year', 
+            'book_location': '$book.location', 
+            'publisher': '$book.publisher', 
+            'author': '$book.authors', 
+            'id_user_by': 1
+        }
+    }, {
+        '$unwind': {
+            'path': '$user_name'
+        }
+    }, {
+        '$unwind': {
+            'path': '$ads_type'
+        }
+    }, {
+        '$unwind': {
+            'path': '$title'
+        }
+    }, {
+        '$unwind': {
+            'path': '$book_year'
+        }
+    }, {
+        '$unwind': {
+            'path': '$book_location'
+        }
+    }, {
+        '$unwind': {
+            'path': '$publisher'
+        }
+    }, {
+        '$unwind': {
+            'path': '$author'
+        }
+    }, {
+        '$unwind': {
+            'path': '$author'
+        }
+    }, {
+        '$project': {
+            '_id': 0, 
+            'id_user': 0
+        }
+    }
+]
+
+book_list=[]
+for book in books.aggregate(book_pipeline):
+    book_list.append(book)
+df_books = pd.json_normalize(book_list, max_level=0)
 profile_books = ProfileReport(df_books, title='Books overview')
 
-take_users = users.find({})
-df_users = pd.json_normalize(take_users, max_level=0)
+
+
+
+
+
+user_list=[]
+for use in users.aggregate(user_pipeline):
+    user_list.append(use)
+
+df_users = pd.json_normalize(user_list, max_level=0)
 profile_users = ProfileReport(df_users, title='Users overview')
 
-take_ads = ads.find({})
-df_ads = pd.json_normalize(take_ads, max_level=0)
+
+
+ads_list=[]
+for ad in ads.aggregate(ads_pipelina):
+    ads_list.append(ad)
+df_ads = pd.json_normalize(ads_list, max_level=0)
 profile_ads = ProfileReport(df_ads , title='Ads overview')
 
 # profile_books.to_file('booksReport.html')
