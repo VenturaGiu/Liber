@@ -38,20 +38,38 @@ book_pipeline= [
 user_pipeline=[
     {
         '$lookup': {
-            'from': 'genres', 
-            'localField': 'genres', 
-            'foreignField': '_id', 
+            'from': 'ads', 
+            'localField': '_id', 
+            'foreignField': 'id_user', 
             'as': 'result'
         }
     }, {
+        '$lookup': {
+            'from': 'genres', 
+            'localField': 'genres', 
+            'foreignField': '_id', 
+            'as': 'genre'
+        }
+    }, {
         '$project': {
-           '_id': 0, 
+            '_id': 0, 
             'name': 1, 
             'email': 1, 
             'verified': 1, 
             'activated': 1, 
-            'account_type': 1,
-            'genre':'$result.name'
+            'account_type': 1, 
+            'genre': '$genre.name', 
+            'ads_count': {
+                '$cond': {
+                    'if': {
+                        '$isArray': '$result'
+                    }, 
+                    'then': {
+                        '$size': '$result'
+                    }, 
+                    'else': 'NA'
+                }
+            }
         }
     }
 ]

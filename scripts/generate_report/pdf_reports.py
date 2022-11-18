@@ -113,20 +113,22 @@ for ads in ads.aggregate(ads_pipeline):
 
 df = pd.json_normalize(bank, max_level=0)
 
-#image Dirs
-troca_venda_table_path = 'scripts/generate_report/images/troca_venda_table.png'
-troca_venda_chart_path = 'scripts/generate_report/images/troca_venda_chart.png'
 
-best_publisher_tab_path = 'scripts/generate_report/images/best_publisher_table.png'
-best_publisher_chart_path = 'scripts/generate_report/images/best_publisher_chart.png'
 
-author_tro_ven_tab_path = 'scripts/generate_report/images/author_tro_ven_tab.png'
-author_tro_ven_chart_path = 'scripts/generate_report/images/author_tro_ven_chart.png'
+def ads_pdf():
+    #image Dirs
+    troca_venda_table_path = 'scripts/generate_report/images/troca_venda_table.png'
+    troca_venda_chart_path = 'scripts/generate_report/images/troca_venda_chart.png'
 
-livros_caros_tab_path = 'scripts/generate_report/images/maiores_anunciadores_tab.png'
-livros_caros_chart_path = 'scripts/generate_report/images/maiores_anunciadores_chart.png'
+    best_publisher_tab_path = 'scripts/generate_report/images/best_publisher_table.png'
+    best_publisher_chart_path = 'scripts/generate_report/images/best_publisher_chart.png'
 
-def analisys_pdf():
+    author_tro_ven_tab_path = 'scripts/generate_report/images/author_tro_ven_tab.png'
+    author_tro_ven_chart_path = 'scripts/generate_report/images/author_tro_ven_chart.png'
+
+    livros_caros_tab_path = 'scripts/generate_report/images/maiores_anunciadores_tab.png'
+    livros_caros_chart_path = 'scripts/generate_report/images/maiores_anunciadores_chart.png'
+    
     process_day = datetime.now()
     datetime_str = process_day.strftime('%d-%m-%Y')
     time = process_day.strftime("%H:%M:%S")
@@ -279,4 +281,4 @@ def analisys_pdf():
     pdf.ln(2)
     pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}analysis_report_{datetime_str}.pdf','F')
 
-analisys_pdf()
+ads_pdf()
