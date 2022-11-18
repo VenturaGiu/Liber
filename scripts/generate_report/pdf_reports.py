@@ -114,17 +114,17 @@ for ads in ads.aggregate(ads_pipeline):
 df = pd.json_normalize(bank, max_level=0)
 
 #image Dirs
-troca_venda_table_path = 'scripts/generate_report/reports/images/troca_venda_table.png'
-troca_venda_chart_path = 'scripts/generate_report/reports/images/troca_venda_chart.png'
+troca_venda_table_path = 'scripts/generate_report/images/troca_venda_table.png'
+troca_venda_chart_path = 'scripts/generate_report/images/troca_venda_chart.png'
 
-best_publisher_tab_path = 'scripts/generate_report/reports/images/best_publisher_table.png'
-best_publisher_chart_path = 'scripts/generate_report/reports/images/best_publisher_chart.png'
+best_publisher_tab_path = 'scripts/generate_report/images/best_publisher_table.png'
+best_publisher_chart_path = 'scripts/generate_report/images/best_publisher_chart.png'
 
-author_tro_ven_tab_path = 'scripts/generate_report/reports/images/author_tro_ven_tab.png'
-author_tro_ven_chart_path = 'scripts/generate_report/reports/images/author_tro_ven_chart.png'
+author_tro_ven_tab_path = 'scripts/generate_report/images/author_tro_ven_tab.png'
+author_tro_ven_chart_path = 'scripts/generate_report/images/author_tro_ven_chart.png'
 
-livros_caros_tab_path = 'scripts/generate_report/reports/images/maiores_anunciadores_tab.png'
-livros_caros_chart_path = 'scripts/generate_report/reports/images/maiores_anunciadores_chart.png'
+livros_caros_tab_path = 'scripts/generate_report/images/maiores_anunciadores_tab.png'
+livros_caros_chart_path = 'scripts/generate_report/images/maiores_anunciadores_chart.png'
 
 def analisys_pdf():
     process_day = datetime.now()
@@ -133,7 +133,7 @@ def analisys_pdf():
 
     class MyFPDF(FPDF, HTMLMixin):
         def header(self):
-            self.image('scripts\generate_report\logo-min.png',10,6,22)
+            self.image(f'public{os.sep}src{os.sep}lib{os.sep}images{os.sep}logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
             self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
