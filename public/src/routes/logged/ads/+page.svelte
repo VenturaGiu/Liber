@@ -1,17 +1,17 @@
 <script>
-	import { requiresLogin } from "./+page";
+	import { requiresLogin } from "../+page";
 
 
 	requiresLogin()
 </script>
 
 <svelte:head>
-	<title>Usuários</title>
+	<title>Anúncios</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section>
-	<iframe class="iframeGrafico" title="grafico" src="http://localhost:3000/reports/users" frameborder="0"></iframe>
+	<iframe class="iframeGrafico" title="grafico" src="http://localhost:3000/reports/ads" frameborder="0"></iframe>
 </section>
 
 <style>

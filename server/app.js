@@ -44,7 +44,8 @@ app.use('/api', api);
 app.use(cookieParser());
 
 app.use(express.static(path.join(path.resolve('./'), 'images')));
-console.log(path.join(path.resolve('./'), 'images'))
+app.use(express.static(path.join(path.resolve('./'), 'server')));
+
 app.get('/', (req, res) => {
     res.json({ message: 'Rota raiz, vai pa ota (/users)' })
 })
@@ -52,6 +53,11 @@ app.get('/', (req, res) => {
 app.get('/images/:isbn', (req, res) => {
   const { isbn } = req.params
   res.sendFile(path.join(path.resolve('./'), `images/books/${isbn}`))
+})
+
+app.get('/reports/:page', (req, res) => {
+  const { page } = req.params
+  res.sendFile(path.join(path.resolve('./'), `scripts/generate_report/reports/${page}Report.html`))
 })
 
 app.post('/upload/image/:isbn', uploadImg.single('image'), async (req, res) => {

@@ -51,10 +51,9 @@
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden} class="order-1">
-		<NavLi href="/" active={true}>Início</NavLi>
-		<NavLi href="/about">Usuários</NavLi>
-		<NavLi href="/services">Anúncios</NavLi>
-		<NavLi href="/pricing">Livros</NavLi>
+		<NavLi href="/logged">Usuários</NavLi>
+		<NavLi href="/logged/ads">Anúncios</NavLi>
+		<NavLi href="/logged/books">Livros</NavLi>
 	</NavUl>
 </Navbar>
 
