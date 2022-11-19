@@ -9,6 +9,7 @@ const {
     forgotPassword,
     changePass,
     settingsAccount,
+    generateDataReports
 } = require('../controllers/UserController');
 const { 
     requiresLogin
@@ -33,5 +34,8 @@ router.route('/changePass')
 
 router.route('/settings')
     .put(settingsAccount);
+
+router.route('/generateDataReports')
+    .get(generateDataReports);
 
 module.exports = router;

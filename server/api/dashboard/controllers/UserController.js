@@ -4,6 +4,8 @@ const config = require('../../../config/variables')
 const Mailer = require('../../../lib/mailer/Mailer')
 const fs = require('fs');
 
+const { exec } = require('node:child_process');
+
 /*
     𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -273,6 +275,42 @@ async function settingsAccount(req, res){
     }
 }
 
+/** CHAMANDO SISTEMA DE RECOMENDAÇÃO
+* OBS: o usuário precisa estar logado
+* @author Arthur Rocha
+* @date 19/11/2022
+* @param {Request} req requisição node
+* @param {Response} res resposta node
+* @return {Json} mensagem de sucesso caso de certo ou de erro
+*/
+async function generateDataReports(req, res) {
+    try {
+        const py = spawn('python3.8', ['/home/giulia/Documentos/Liber/scripts/generate_report/generate_data_reports.py'], {
+        });
+        py.stdout
+            .on('data', async(data) => {
+                const foi = data
+                console.log(foi);
+                res.type('application/json')
+                res.send(json)
+            })
+        py.stderr
+            .on('data', async(data) => {
+                console.log('Deu ruim');
+                // res.type('application/json')
+                res.send(String(data))
+            })
+
+        // python.stdout.on('recommends', (recommends) => {
+        //     res.send(recommends);
+        // });
+        // return res.status(200).json(result)
+    } catch (error) {
+        /*deixei essa linha pq n sabia oq significava :)*/ 
+        return res.status(500).json({ message: `Erro na rota api/app_user (generateDataReports)` });
+    }
+}
+
 module.exports = {
     getByEmail,
     listAll,
@@ -283,4 +321,5 @@ module.exports = {
     forgotPassword,
     changePass,
     settingsAccount,
+    generateDataReports
 }
