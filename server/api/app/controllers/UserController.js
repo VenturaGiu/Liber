@@ -328,45 +328,58 @@ async function settingsAccount(req, res) {
 async function listAllIfosUser(req, res) {
     try {
         const { email } = req.params
-        const address = await User.aggregate([
-            {
-                '$match': {
-                  'email': email
+        const user = await User.findOne({ email })
+
+        const pipeline= [{
+            '$match': {
+              'email': email
+            }
+        }]
+
+        if(!_.isEmpty(user.address) === true){
+            pipeline.push({
+                '$lookup': {
+                    'from': 'address', 
+                    'localField': 'address', 
+                    'foreignField': '_id', 
+                    'as': 'address'
                 }
-            },
-            {
-              '$lookup': {
-                'from': 'address', 
-                'localField': 'address', 
-                'foreignField': '_id', 
-                'as': 'address'
-              }
-            }, {
-              '$unwind': {
-                'path': '$address'
-              }
-            }, {
-              '$match': {
-                'address.main': true
-              }
-            }, {
-              '$lookup': {
+            })
+            pipeline.push({
+                '$unwind': {
+                    'path': '$address'
+                  }
+            })
+            pipeline.push({
+                '$match': {
+                    'address.main': true
+                  }
+            })  
+        }
+
+        if(!_.isEmpty(user.address) === true){
+            pipeline.push({
+                '$lookup': {
                 'from': 'cards', 
                 'localField': 'cards', 
                 'foreignField': '_id', 
                 'as': 'cards'
-              }
-            }, {
-              '$unwind': {
-                'path': '$cards'
-              }
-            }, {
-              '$match': {
+                }
+            })
+            pipeline.push({
+                '$unwind': {
+                    'path': '$cards'
+                    }
+            }) 
+            pipeline.push({
+                '$match': {
                 'cards.main': true
-              }
-            }
-          ])
-        return res.status(200).json(address); 
+                }
+            })  
+        }
+        
+        const address = await User.aggregate(pipeline)
+        return res.status(200).json(address[0]); 
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
