@@ -65,9 +65,19 @@ app.get('/', (req, res) => {
     res.json({ message: 'Rota raiz, vai pa ota (/users)' })
 })
 
-app.get('/images/:isbn', (req, res) => {
+app.get('/books/:isbn', (req, res) => {
   const { isbn } = req.params
   res.sendFile(path.join(path.resolve('./'), `images/books/${isbn}`))
+})
+
+app.get('/users/:email', (req, res) => {
+  const { email } = req.params;
+  const path_ = path.join(path.resolve('./'), `images/users/${email}.jpeg`);
+  if (fs.existsSync(path_)) {
+    res.sendFile(path_)
+  } else {
+    res.sendFile(path.join(path.resolve('./'), `images/defaultUser.png`));
+  }
 })
 
 app.get('/reports/:page', (req, res) => {
@@ -80,6 +90,16 @@ app.post('/image/:isbn', (req, res) => {
   const { image } = req.body
   if (image != null) {
     fs.writeFileSync(`./images/books/${isbn}.jpeg`, Buffer.from(image));
+    return res.status(200);
+  }
+  return res.status(500);
+})
+
+app.post('/user/:email', (req, res) => {
+  const { email } = req.params
+  const { image } = req.body
+  if (image != null) {
+    fs.writeFileSync(`./images/users/${email}.jpeg`, Buffer.from(image));
     return res.status(200);
   }
   return res.status(500);
