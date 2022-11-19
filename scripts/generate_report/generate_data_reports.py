@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from pymongo import MongoClient
 import os
+import json
 import matplotlib as mlp
 mlp.rcParams.update({'figure.max_open_warning': 0})
 
@@ -387,4 +388,6 @@ fig.savefig(maiores_generos_tab_path)
 fig = plt.figure()
 maiores_generos.plot(kind='barh', figsize=(9,7), colormap='tab20')
 plt.tight_layout() 
-plt.savefig( maiores_generos_chart_path) 
+plt.savefig( maiores_generos_chart_path)
+
+print(json.dumps({'mensagem':'deu bom!'}))

@@ -2,10 +2,11 @@
 	import { Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button, P } from 'flowbite-svelte'
 	import { DarkMode } from "flowbite-svelte";
 	import { browser } from '$app/environment';
-	import { getData } from '../routes/+page';
+	import { getData, postData } from '../routes/+page';
 	import { goto } from '$app/navigation';
 	import { redirect } from '@sveltejs/kit';
 	import logo_icon from '../lib/images/icon.png'
+
 	
 	let name = ''
 	if(browser){ 
@@ -26,6 +27,11 @@
 		}
 	}
 
+	async function genData() {
+		if(browser) {
+			return await getData('http://localhost:3000/api/dash_user/generateDataReports');
+		}
+	}
 </script>
 
 <DarkMode {btnClass} />
@@ -54,6 +60,7 @@
 		<NavLi href="/logged">Usuários</NavLi>
 		<NavLi href="/logged/ads">Anúncios</NavLi>
 		<NavLi href="/logged/books">Livros</NavLi>
+		<NavLi on:click={genData} href="/logged/books">gerar PDF</NavLi>
 	</NavUl>
 </Navbar>
 
