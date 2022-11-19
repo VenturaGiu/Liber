@@ -230,7 +230,7 @@ async function updateUserInformation(req, res) {
         const obj = req.body
         const user = await User.partialUpdate(obj.email, obj)
         if (!user) return res.status(403).json({ message: `Operação não realizada, informe o administrador!` });
-        return res.status(200).json({ message: `Dados atualizados com sucesso!` });
+        return res.status(200).json({ message: `Dados atualizados com sucesso!`, 'user': user });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -329,13 +329,13 @@ async function listAllIfosUser(req, res) {
     try {
         const { email } = req.params
         const user = await User.findOne({ email })
-
+        
         const pipeline= [{
             '$match': {
-              'email': email
+                'email': email
             }
         }]
-
+        
         if(!_.isEmpty(user.address) === true){
             pipeline.push({
                 '$lookup': {
@@ -349,22 +349,21 @@ async function listAllIfosUser(req, res) {
                 '$unwind': {
                     'path': '$address'
                   }
-            })
+                })
             pipeline.push({
                 '$match': {
                     'address.main': true
-                  }
+                }
             })  
         }
-
-        if(!_.isEmpty(user.address) === true){
+        if(!_.isEmpty(user.cards) === true){
             pipeline.push({
                 '$lookup': {
-                'from': 'cards', 
+                    'from': 'cards', 
                 'localField': 'cards', 
                 'foreignField': '_id', 
                 'as': 'cards'
-                }
+            }
             })
             pipeline.push({
                 '$unwind': {
@@ -395,7 +394,7 @@ async function saveNewAddress(req, res) {
     try {
         const address = req.body
         const { email } = req.body
-        const cleanObj = _.omit(address, ['email']);
+        const cleanObj = _.omit(address, ['email','_id']);
         const addA = new Address(cleanObj)
         await addA.save()
 
@@ -504,7 +503,7 @@ async function saveNewCard(req, res) {
     try {
         const card = req.body
         const { email } = req.body
-        const cleanObj = _.omit(card, ['email']);
+        const cleanObj = _.omit(card, ['email', '_id']);
         const addC = new Card(cleanObj)
         await addC.save()
 
