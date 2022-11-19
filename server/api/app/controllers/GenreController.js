@@ -62,9 +62,27 @@ async function saveGenreByName(req, res) {
     
 }
 
+async function getAllGenres(req, res) {
+    try {
+        const resp = await Genre.aggregate([
+            {
+                '$project': {
+                    _id: 1,
+                    name: 1
+                }
+            }
+        ])
+        if(!res) return res.status(403).json({ message: 'Nenhum gênero cadastrado :(' })
+        return res.status(200).json(resp)
+    } catch (error) {
+        return res.status(500).json(error)
+    }
+}
+
 module.exports = {
     register,
     saveGenreByName,
     getGenreByTag,
     createTag,
+    getAllGenres,
 } ;
