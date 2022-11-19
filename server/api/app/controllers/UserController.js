@@ -185,8 +185,8 @@ async function login(req, res) {
         const user = await User.findOne({ email, password });
         if (!user || user === null || user.length === 0) return res.status(400).json({ message: `E-mail ou senha errado!` });
         if (user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
-
-        return res.status(200).json({ name: user.name, user: user });
+        console.log({ name: user.name, user, genre: user.genres })
+        return res.status(200).json({ name: user.name, user, genre: user.genres });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -227,11 +227,8 @@ async function validate(req, res) {
 */
 async function updateUserInformation(req, res) {
     try {
-        const { token } = req.query
         const obj = req.body
-        const userVerified = jwt.verify(token);
-        if (!userVerified || !userVerified.email) return res.status(403).json({ message: `Token de validação inválido!` });
-        const user = await User.partialUpdate(userVerified.email, obj)
+        const user = await User.partialUpdate(obj.email, obj)
         if (!user) return res.status(403).json({ message: `Operação não realizada, informe o administrador!` });
         return res.status(200).json({ message: `Dados atualizados com sucesso!` });
     } catch (error) {

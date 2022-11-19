@@ -69,10 +69,16 @@ async function getAllGenres(req, res) {
                 '$project': {
                     _id: 1,
                     name: 1
+                },
+            },
+            {
+                '$sample': {
+                    'size': 8
                 }
             }
         ])
-        if(!res) return res.status(403).json({ message: 'Nenhum gênero cadastrado :(' })
+        if(!resp) return res.status(403).json({ message: 'Nenhum gênero cadastrado :(' })
+        console.log(resp)
         return res.status(200).json(resp)
     } catch (error) {
         return res.status(500).json(error)
