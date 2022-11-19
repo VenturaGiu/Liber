@@ -149,7 +149,7 @@ async function register(req, res) {
 
         const user = new User(obj);
         const resp = await user.save()
-        const token = '1234';
+        const token = String(parseInt(Math.random() * 10000));
         // Envio de e-mail para confirmação
         const messages = {
             confirmation: {
