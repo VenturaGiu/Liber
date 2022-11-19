@@ -285,20 +285,20 @@ async function settingsAccount(req, res){
 */
 async function generateDataReports(req, res) {
     try {
-        const py = spawn('python3.8', ['/home/giulia/Documentos/Liber/scripts/generate_report/generate_data_reports.py'], {
+        const py = spawn('python3.8', ['scripts/generate_report/generate_data_reports.py'], {
         });
         py.stdout
             .on('data', async(data) => {
                 const foi = data
                 console.log(foi);
-                res.type('application/json')
-                res.send(json)
+                // res.type('application/json')
+                res.send(data)
             })
         py.stderr
             .on('data', async(data) => {
                 console.log('Deu ruim');
                 // res.type('application/json')
-                res.send(String(data))
+                res.send(data)
             })
 
         // python.stdout.on('recommends', (recommends) => {

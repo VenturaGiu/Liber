@@ -91,7 +91,7 @@ def ads_pdf():
         def footer(self):
             self.set_y(-15)
             self.set_font('Arial', 'I', 8)
-            self.cell(175, 10, 'Todos os direitos reservados por Liber', 0, 0, 'L')
+            self.cell(175, 10, 'Todos os direitos reservados © 2022. Liber', 0, 0, 'L')
             self.cell(15,10,f'Page {str(self.page_no())}', 0,0,'R')
             self.line(10,280,200,280)
 
@@ -216,7 +216,7 @@ def user_pdf():
         def footer(self):
             self.set_y(-15)
             self.set_font('Arial', 'I', 8)
-            self.cell(175, 10, 'Todos os direitos reservados por Liber', 0, 0, 'L')
+            self.cell(175, 10, 'Todos os direitos reservados © 2022. Liber', 0, 0, 'L')
             self.cell(15,10,f'Page {str(self.page_no())}', 0,0,'R')
             self.line(10,280,200,280)
         
@@ -334,7 +334,7 @@ def books_pdf():
         def footer(self):
             self.set_y(-15)
             self.set_font('Arial', 'I', 8)
-            self.cell(175, 10, 'Todos os direitos reservados por Liber', 0, 0, 'L')
+            self.cell(175, 10, 'Todos os direitos reservados © 2022. Liber', 0, 0, 'L')
             self.cell(15,10,f'Page {str(self.page_no())}', 0,0,'R')
             self.line(10,280,200,280)
         
