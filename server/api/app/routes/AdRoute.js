@@ -8,7 +8,7 @@ const {
     buyOrswap,
     acceptSolicitation,
     removeSolicitation,
-    getSolicitationsByUserId,
+    getSolicitationsByUserEmail,
 } = require('../controllers/AdController');
 
 router.route('/')
@@ -29,7 +29,7 @@ router.route('/solicitation/accept/:_id')
 router.route('/solicitation/:_id')
     .put(removeSolicitation)
 
-router.route('/solicitation/user/:_id')
-    .get(getSolicitationsByUserId)
+router.route('/solicitation/user/:email')
+    .get(getSolicitationsByUserEmail)
 
 module.exports = router;

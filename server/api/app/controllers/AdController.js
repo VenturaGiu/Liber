@@ -218,21 +218,21 @@ async function acceptSolicitation(req, res) {
     }
 }
 
-async function getSolicitationsByUserId(req, res) {
+async function getSolicitationsByUserEmail(req, res) {
     try {
-        const { _id } = req.params
+        const { email } = req.params
         const resp = await Solicitation.aggregate([
             {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'id_user', 
+                  'foreignField': '_id', 
+                  'as': 'id_user'
+                }
+            }, {
               '$match': {
                 'status': 'analisando', 
-                'id_user': new ObjectId(_id)
-              }
-            }, {
-              '$lookup': {
-                'from': 'users', 
-                'localField': 'id_user', 
-                'foreignField': '_id', 
-                'as': 'id_user'
+                'id_user.email': email
               }
             }, {
               '$unwind': {
@@ -330,5 +330,5 @@ module.exports = {
     buyOrswap,
     acceptSolicitation,
     removeSolicitation,
-    getSolicitationsByUserId,
+    getSolicitationsByUserEmail,
 }
