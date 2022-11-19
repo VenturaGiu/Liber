@@ -5,6 +5,10 @@ const {
     createAd,
     editAd,
     deteleAd,
+    buyOrswap,
+    acceptSolicitation,
+    removeSolicitation,
+    getSolicitationsByUserId,
 } = require('../controllers/AdController');
 
 router.route('/')
@@ -17,5 +21,15 @@ router.route('/:_id')
 
 router.route('/buy/:_id')
     .get(getAdByUserBuy)
+    .post(buyOrswap)
 
-module.exports = router ;
+router.route('/solicitation/accept/:_id')
+    .put(acceptSolicitation)
+
+router.route('/solicitation/:_id')
+    .put(removeSolicitation)
+
+router.route('/solicitation/user/:_id')
+    .get(getSolicitationsByUserId)
+
+module.exports = router;

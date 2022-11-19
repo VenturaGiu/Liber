@@ -22,7 +22,7 @@ const SolicitationSchema = Schema({
     },
     status: {
         type: String,
-        default: 'Em análise'
+        default: 'analisando'
     }
 },
 {

@@ -596,7 +596,6 @@ async function deleteCardById(req, res) {
     }
 }
 
-
 /** CHAMANDO SISTEMA DE RECOMENDAÇÃO
 * OBS: o usuário precisa estar logado
 * @author Arthur Rocha
@@ -624,11 +623,6 @@ async function getRecommendations(req, res) {
                 res.type('application/json')
                 res.send(data)
             })
-
-        // python.stdout.on('recommends', (recommends) => {
-        //     res.send(recommends);
-        // });
-        // return res.status(200).json(result)
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });

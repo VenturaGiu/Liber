@@ -18,14 +18,6 @@ async function swap(obj) {
     }
 }
 
-async function buy(obj) {
-    try {
-        
-    } catch (error) {
-        return error
-    }
-}
-
 // save_ads('scripts/datas/fake_datas_AD.json')
 async function save_ads(path) {
     try {
@@ -150,7 +142,7 @@ async function editAd(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_ad (getAdByUserBuy)` });
+        return res.status(500).json({ message: `Erro na rota api/app_ad (editAd)` });
     }
 }
 
@@ -164,23 +156,168 @@ async function deteleAd(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_ad (getAdByUserBuy)` });
+        return res.status(500).json({ message: `Erro na rota api/app_ad (deteleAd)` });
     }
 }
 
 async function buyOrswap(req, res) {
     try {
-        const { type_ad } = req.params
+        const { _id } = req.params
         const obj = req.body
-        if(type_ad === 'troca'){
-            const resp = await swap(obj)
-            return res.status(200).json(resp)
+        if(obj.type_ad === 'troca'){
+            const cleanObj = _.omit(obj, ['type_ad']);
+            cleanObj.id_ad = _id
+            const resp = await swap(cleanObj)
+            if(!resp) res.status(403).json({ message: "Solicitação não realizada :(" })
+            return res.status(200).json({ message: "Solicitação enviada :)" })
         }else{
-            const resp = await buy(obj)
-            return res.status(200).json(resp)
+            const respAd = await Ad.findByIdAndUpdate({ _id }, { id_user_buy: ObjectId(obj.id_user_buy) }, { new: true })
+            if(!respAd) res.status(403).json({ message: 'Compra não realizada :( \n tente novamente mais tarde' })
+            return res.status(200).json({ message: 'Compra realizada com sucesso :) \n Converse com o vendedor para definir o método de entrega!' })
         }
     } catch (error) {
-        
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_ad (buyOrswap)` });   
+    }
+}
+
+async function removeSolicitation(req, res) {
+    try {
+        const { _id } = req.params
+        const resp = await Solicitation.findByIdAndUpdate({ _id }, { status: 'recusado' })
+        if(resp) return res.status(200).json({ message: 'Solicitação recusada!' })
+        return res.status(403).json({ message: 'Houve um problema ao recusar a solicitação :(' })
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_ad (removeSolicitation)` });
+    }
+}
+
+async function acceptSolicitation(req, res) {
+    try {
+        const { _id } = req.params
+        const obj = req.body
+
+        const adUpdate = await Ad.findByIdAndUpdate({ _id: obj.id_ad }, { id_user_buy: obj.id_user_solicitation })
+        const adUpdateSolicitation = await Ad.findByIdAndUpdate({ _id: obj.id_ad_solicitation }, { id_user_buy: obj.id_user })
+
+        if(adUpdate && adUpdateSolicitation){
+            const resp = await Solicitation.findByIdAndUpdate({ _id }, { status: 'aceito' })
+            if(resp) return res.status(200).json({ message: 'Livro trocado com sucesso!' })
+        }
+        return res.status(403).json({ message: 'Houve um problema ao aceitar a solicitação! :(' })
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_ad (acceptSolicitation)` });
+    }
+}
+
+async function getSolicitationsByUserId(req, res) {
+    try {
+        const { _id } = req.params
+        const resp = await Solicitation.aggregate([
+            {
+              '$match': {
+                'status': 'analisando', 
+                'id_user': new ObjectId(_id)
+              }
+            }, {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'id_user', 
+                'foreignField': '_id', 
+                'as': 'id_user'
+              }
+            }, {
+              '$unwind': {
+                'path': '$id_user'
+              }
+            }, {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'id_user_solicitation', 
+                'foreignField': '_id', 
+                'as': 'id_user_solicitation'
+              }
+            }, {
+              '$unwind': {
+                'path': '$id_user_solicitation'
+              }
+            }, {
+              '$lookup': {
+                'from': 'ads', 
+                'localField': 'id_ad', 
+                'foreignField': '_id', 
+                'as': 'id_ad'
+              }
+            }, {
+              '$unwind': {
+                'path': '$id_ad'
+              }
+            }, {
+              '$lookup': {
+                'from': 'books', 
+                'localField': 'id_ad.id_book', 
+                'foreignField': '_id', 
+                'as': 'book_ad'
+              }
+            }, {
+              '$unwind': {
+                'path': '$book_ad'
+              }
+            }, {
+              '$lookup': {
+                'from': 'ads', 
+                'localField': 'id_ad_solicitation', 
+                'foreignField': '_id', 
+                'as': 'id_ad_solicitation'
+              }
+            }, {
+              '$unwind': {
+                'path': '$id_ad_solicitation'
+              }
+            }, {
+              '$lookup': {
+                'from': 'books', 
+                'localField': 'id_ad_solicitation.id_book', 
+                'foreignField': '_id', 
+                'as': 'book_ad_solicitation'
+              }
+            }, {
+              '$unwind': {
+                'path': '$book_ad_solicitation'
+              }
+            }, {
+              '$project': {
+                'id_user._id': 1, 
+                'id_user.name': 1, 
+                'id_user.email': 1, 
+                'id_user_solicitation._id': 1, 
+                'id_user_solicitation.name': 1, 
+                'id_user_solicitation.email': 1, 
+                'id_ad._id': 1, 
+                'id_ad_solicitation._id': 1, 
+                'book_ad._id': 1, 
+                'book_ad.title': 1, 
+                'book_ad.path_img': 1, 
+                'book_ad_solicitation._id': 1, 
+                'book_ad_solicitation.title': 1
+              }
+            }
+          ]) 
+        if(!resp) return res.status(403).json({ message: 'Sem solicitações por enquanto :)' }) 
+        return res.status(200).json(resp) 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_ad (acceptSolicitation)` });   
     }
 }
 
@@ -190,4 +327,8 @@ module.exports = {
     createAd,
     editAd,
     deteleAd,
+    buyOrswap,
+    acceptSolicitation,
+    removeSolicitation,
+    getSolicitationsByUserId,
 }
