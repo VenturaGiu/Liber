@@ -8,6 +8,7 @@
 	import logo_icon from '../lib/images/icon.png'
 
 	
+	
 	let name = ''
 	if(browser){ 
 		name = document.cookie.split(';').filter(value => value.includes('user'))[0] === undefined ? '' 
