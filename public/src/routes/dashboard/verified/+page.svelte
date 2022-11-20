@@ -2,7 +2,7 @@
 	import { browser } from "$app/environment";
 	import { goto } from "$app/navigation";
 	import { A, Heading } from "flowbite-svelte";
-	import { getData } from "../+page";
+	import { getData } from "../../+page";
 	import logo_icon from "../../lib/images/icon.png"
 	
 	if(browser){
@@ -10,7 +10,7 @@
 		const urlParams = new URLSearchParams(queryString);
 		const token = urlParams.get('token')
 
-		getData(`http://localhost:3000/api/app_user/validate/email?token=${token}`).then(async (data) => {
+		getData(`http://localhost:3000/api/dash_user/validate?token=${token}`).then(async (data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 			const location = '/';
 			return await goto(location);

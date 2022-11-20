@@ -9,6 +9,8 @@ const {
     acceptSolicitation,
     removeSolicitation,
     getSolicitationsByUserEmail,
+    getAdsPaginate,
+    getAdsById,
 } = require('../controllers/AdController');
 
 router.route('/')
@@ -31,5 +33,11 @@ router.route('/solicitation/:_id')
 
 router.route('/solicitation/user/:email')
     .get(getSolicitationsByUserEmail)
+
+router.route('/get/all/books')
+    .get(getAdsPaginate)
+
+router.route('/get/:_id')
+    .get(getAdsById)
 
 module.exports = router;

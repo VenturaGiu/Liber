@@ -6,26 +6,25 @@
 		Heading,
 		Alert,
 		Spinner, 
-	} from '../../node_modules/flowbite-svelte'
+	} from '../../../node_modules/flowbite-svelte'
 	import {ifLogged, postData} from './+page' 
 	import { redirect } from '@sveltejs/kit';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
-	import Copyright from '../components/Copyright.svelte';
+	import Copyright from '../../components/Copyright.svelte';
 	import {  
 		Img
 	} from 'flowbite-svelte'
 
 	ifLogged()
 		
-	const imgUrl = new URL('../lib/images/logo_white.png', import.meta.url).href
+	const imgUrl = new URL('../../lib/images/logo_white.png', import.meta.url).href
 
 	let email = '', password = '', forgout = true, loading = false;
 	interface Resp {
 		message: String,
 		name: String,
 		token: String
-		id: String
 	}
 	
 	/**
@@ -35,7 +34,6 @@
 		message: '',
 		name: '',
 		token: '',
-		id: '',
 	};
 
 	async function doLogin() {
@@ -48,7 +46,7 @@
 
 	async function resetPass() {
 		loading = true
-		postData('http://localhost:3000/api/app_user/forgotpassword', {
+		postData('http://localhost:3000/api/dash_user/forgotpassword', {
 			"email": email,
 		}).then(async (data) => {
 			loading = false
@@ -58,18 +56,17 @@
 	
 	async function login() {
 		loading = true
-		postData('http://localhost:3000/api/app_user/login', {
+		postData('http://localhost:3000/api/dash_user/login', {
 			"email": email,
 			"password": password,
 		}).then(async (data) => {
 			loading = false 	 	
 			resp = data
-			const location = '/logged';
+			const location = '/dashboard/logged';
 			console.log(resp.token.length)
 			if(resp.token.length > 0){
 				window.sessionStorage.setItem('token', resp.token as string)
 				window.sessionStorage.setItem('name', resp.name as string)
-				window.sessionStorage.setItem('id', resp.id as string)
 				if (browser) return await goto(location);
 				else throw redirect(302, location);
 			}
@@ -91,7 +88,7 @@
 	<div class="content form">
 		<div class="vertical_center">
 			<div class="grid gap-12 items-end md:grid-cols-1">
-				<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Acesse o Liber e encontre os livros que procura!</Heading>
+				<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Acesse para gerenciar os dados do Liber!</Heading>
 				<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1">
 					<FloatingLabelInput bind:value={email} style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
 					{#if forgout}

@@ -1,6 +1,7 @@
 <script>
-	import Header from '../../components/Header.svelte';
-	
+	import Copyright from '../../../src/components/Copyright.svelte';
+	import Header from '../../../src/components/Header.svelte';
+
 </script>
 
 <div class="app">
@@ -12,6 +13,7 @@
 
 	<footer>
 	</footer>
+	<Copyright />
 </div>
 
 <style>

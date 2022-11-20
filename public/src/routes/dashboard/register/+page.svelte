@@ -9,12 +9,12 @@
 		A,
 		P,
 		Spinner,
-	} from '../../../node_modules/flowbite-svelte'
-	import Copyright from '../../components/Copyright.svelte';
+	} from '../../../../node_modules/flowbite-svelte'
+	import Copyright from '../../../components/Copyright.svelte';
 	import {  
 		Img
 	} from 'flowbite-svelte'
-	import {postData} from '../+page' 
+	import {postData} from '../../+page' 
 	
 	const imgUrl = new URL('../../lib/images/logo_white.png', import.meta.url).href
 	
@@ -31,7 +31,7 @@
 	};
 	function register() {
 		loading = true
-		postData('http://localhost:3000/api/app_user/', {
+		postData('http://localhost:3000/api/dash_user/', {
 			"name": name,
 			"email": email,
 			"password": password,

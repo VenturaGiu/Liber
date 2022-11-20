@@ -147,28 +147,30 @@ async function register(req, res) {
         if (obj.password !== obj.confirmPass) return res.status(400).json({ message: `As senhas precisam ser iguais!` });
 
         const userExist = await getByEmail(obj.email)
-        if (userExist) return res.status(200).json({ message: `Endereço de e-mail (${userExist.email}) já cadastrado` });
+        if(userExist) return res.status(200).json({ message: `Endereço de e-mail (${userExist.email}) já cadastrado` });
 
         const user = new User(obj);
-        const resp = await user.save()
-        const token = String(parseInt(Math.random() * 10000));
+        const resp = await user.save();
         // Envio de e-mail para confirmação
+        const token = jwt.sign({ email: user.email });
         const messages = {
             confirmation: {
                 subject: `Bem-vindo ao Liber, ${user.name}!`,
-                message: "Muito obrigada por se inscrever!",
-                message2: "Confirme o token recebido no aplicativo!",
-                link: token,
+                message: "Muito obrigada por se cadastrar!",
+                message2: "Primeiro você precisa confirmar sua conta. Apenas clique no botão abaixo!",
+                link: `http://${config.server.host}:5173/verified?token=${token}`,
                 username: `${user.name}`,
+                button: `Confirmar E-mail`,
             },
         };
         await sendConfirmationMail(user, messages);
-        return res.status(201).json({ token, message: `Enviamos um código para: ${resp.email}, por favor confirme seu e-mail antes de realizar o login` });
+        return res.status(201).json({ message: `Enviamos um e-mail para: ${resp.email}, por favor confirme seu e-mail antes de realizar o login` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (register)` });
+        console.log(error)
+        return res.status(500).json({ message: error });
     }
 }
 
@@ -179,16 +181,20 @@ async function register(req, res) {
 * @param {Response} res resposta node
 * @return {Json} token e nome de usuário ou mensagem de erro 
 */
-async function login(req, res) {
+async function login(req, res){
     try {
         const { email, password } = req.body;
         if (!email || !email) return res.status(400).json({ message: `Por favor, preencha todos os campos!` });
-
-        const user = await User.findOne({ email, password });
+        
+        const user = await User.findOne({email, password});
         if (!user || user === null || user.length === 0) return res.status(400).json({ message: `E-mail ou senha errado!` });
-        if (user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
-        console.log({ name: user.name, user, genre: user.genres })
-        return res.status(200).json({ name: user.name, user });
+        if(user.verified === false) return res.status(403).json({ message: `Confirme seu e-mail antes de acessar!` });
+        
+        const token = jwt.sign({ email: user.email })
+
+        res.cookie('token', token)
+        
+        return res.status(200).json({ token, name: user.name, id: user._id });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -204,18 +210,19 @@ async function login(req, res) {
 * @param {Response} res resposta node
 * @return {Json} mensagem de sucesso caso de certo ou de erro
 */
-async function validate(req, res) {
+async function validate(req, res){
     try {
-        const { email } = req.body
-        if (!email) return res.status(403).json({ message: `Token de validação inválido!` });
-        const user = await User.findOneAndUpdate({ email }, { verified: true });
+        const { token } = req.query
+        const userVerified = jwt.verify(token);
+        if (!userVerified || !userVerified.email) return res.status(403).json({ message: `Token de validação inválido!` });
+        const user =    await User.findOneAndUpdate({ email: userVerified.email }, { verified: true });
         if (!user) return res.status(406).json({ message: `Usuário inválido!` });
         return res.status(200).json({ message: `E-mail verificado com sucesso!` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (validate)` });
+        return res.status(500).json({ message: `Erro na rota api/dash_user (validate)` });
     }
 }
 
@@ -249,18 +256,20 @@ async function updateUserInformation(req, res) {
 * @param {Response} res resposta node
 * @return {Json} mensagem de sucesso caso de certo ou de erro
 */
-async function changePass(req, res) {
+async function changePass(req, res){
     try {
-        const { email } = req.query
+        const { token } = req.body
         const { password } = req.body
-        if (!email) return res.status(403).json({ message: `Token de validação inválido!` });
-        const user = await User.findOneAndUpdate({ email }, { password });
-        if (!user) return res.status(403).json({ message: `E-mail não encontrado!` })
+        const userVerified = jwt.verify(token);
+        if (!userVerified || !userVerified.email) return res.status(403).json({ message: `Token de validação inválido!` });
+        const user = await User.findOneAndUpdate({ email: userVerified.email }, { password });
+        if(!user) return res.status(403).json({ message: `E-mail não encontrado!` })
         return res.status(200).json({ message: `Senha alterada com sucesso!` })
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
+        console.log(error)
         return res.status(500).json({ message: `Erro na rota api/app_user (changePass)` });
     }
 }
@@ -273,27 +282,27 @@ async function changePass(req, res) {
 * @param {Response} res resposta node
 * @return {Json} mensagem de sucesso caso de certo ou de erro
 */
-async function forgotPassword(req, res) {
+async function forgotPassword(req, res){
     try {
         const { email } = req.body
-        const user = await User.findOne({ email })
-        if (!user) return res.status(403).json({ message: `E-mail não cadastrado!` })
-        if (user.verified === false) return res.status(403).json({ message: `Verifique seu e-mail primeiro!` })
-
+        const user = await User.findOne({email})
+        if(!user) return res.status(403).json({ message: `E-mail não cadastrado!` })
+        if(user.verified === false) return res.status(403).json({ message: `Verifique seu e-mail primeiro!` })
+        
         // Envio de e-mail para confirmação
-        const token = '1234';
+        const token = jwt.sign({ email: user.email });
         const messages = {
             confirmation: {
                 subject: 'Esqueceu sua senha?',
                 message: "Se você não solicitou a alteração de senha desconsidere essa mensagem!",
                 message2: "Caso você tenha solicitado, clique no link abaixo para alterar sua senha:",
-                link: `link do app (da página de alterar senha)`,
-                username: token,
+                link: `http://${config.server.host}:5173/reset?token=${token}`,
+                username: `${user.name}`,
                 button: `Alterar senha`,
             },
         };
         await sendConfirmationMail(user, messages);
-        return res.status(201).json({ token, message: `Enviamos um e-mail para: ${user.email} :)` });
+        return res.status(201).json({ message: `Enviamos um e-mail para: ${user.email} :)` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -617,9 +626,7 @@ async function deleteCardById(req, res) {
 */
 async function getRecommendations(req, res) {
     try {
-        // const py = spawn('python3.10', [`${path.resolve()}/scripts/recommendation.py`, '-uid', String(_id)], {
-        // });
-        const { _id } = req.body
+        const { _id } = req.params
         const user = await User.findOne({ id: ObjectId(_id) })
         const py = spawn(process.env.PYTHON_V, [`${path.resolve()}/scripts/recommendation.py`, '-uid', String(user._id)], {
         });
@@ -627,22 +634,25 @@ async function getRecommendations(req, res) {
             .on('data', async(data) => {
                 const json = data.toString()
                 console.log(json);
-                res.type('application/json')
-                res.send(json)
+                try {
+                    res.type('application/json')
+                    res.send(json)
+                } catch (error) {
+                    console.log('a')                    
+                }
             })
         py.stderr
             .on('data', async(data) => {
                 console.log('Deu ruim');
-                res.type('application/json')
-                res.send(data)
             })
-
     } catch (error) {
-        if (error.name === 'MongoError' && error.code === 11000) {
-            return res.status(500).json({ message: `Erro no Mongo` });
-        }
-        /*deixei essa linha pq n sabia oq significava :)*/ 
-        return res.status(500).json({ message: `Erro na rota api/app_user (getRecommendations)` });
+        console.log('a')
+        // if (error.name === 'MongoError' && error.code === 11000) {
+        //     return res.status(500).json({ message: `Erro no Mongo` });
+        // }
+        // /*deixei essa linha pq n sabia oq significava :)*/ 
+        // return res.status(500).json({ message: `Erro na rota api/app_user (getRecommendations)` });
+        
     }
 }
 

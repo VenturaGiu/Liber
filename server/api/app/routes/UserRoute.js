@@ -32,8 +32,8 @@ router.route('/:email')
 router.route('/login')
     .post(login);
 
-router.route('/validate')
-    .post(validate);
+router.route('/validate/email')
+    .get(validate);
 
 router.route('/forgotpassword')
     .post(forgotPassword);
@@ -60,7 +60,7 @@ router.route('/card')
 router.route('/card/:email')
     .get(listCardsByUser)
 
-router.route('/ia/recommendations')
+router.route('/ia/recommendations/:_id')
     .get(getRecommendations)
 
 module.exports = router;

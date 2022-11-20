@@ -1,7 +1,8 @@
 body {
 	min-height: 100vh;
 	margin: 0;
-	overflow: hidden;
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
 }
 
 .vertical_center{
@@ -56,4 +57,27 @@ body {
 
 .justify-center{
 	width: 100%;
+}
+
+#slidy_cards{
+	--slideh: 50vh !important;
+	--wraph: 50vh !important;
+}
+
+.active button{
+	color: cyan !important;
+	background-color: cyan !important;
+}
+
+.dots-arrow-right button{
+	color: cyan !important;
+}
+.dots-arrow-left button{
+	color: cyan !important;
+}
+#slidy_cards .slidy-ul li{
+	width: 10vw !important;
+}
+#slidy_cards .slidy-ul li img{
+	min-height: 300px;
 }

@@ -321,6 +321,89 @@ async function getSolicitationsByUserEmail(req, res) {
     }
 }
 
+async function getAdsPaginate(req, res) {
+    try {
+        const ads = await Ad.aggregate([
+            {
+                '$sample': {
+                    size: 30
+                }
+            }, {
+                '$lookup': {
+                    'from': 'books',
+                    'localField': 'id_book',
+                    'foreignField': '_id',
+                    'as': 'id_book'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$id_book'
+                }
+            }, {
+                '$lookup': {
+                    'from': 'users',
+                    'localField': 'id_user',
+                    'foreignField': '_id',
+                    'as': 'id_user'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$id_user'
+                }
+            }
+        ])
+
+        return res.status(200).json(ads)
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_ad (acceptSolicitation)` });   
+    }
+}
+
+async function getAdsById(req, res) {
+    try {
+        const { _id } = req.params
+        const ads = await Ad.aggregate([
+            {
+                '$match': {
+                    _id: ObjectId(_id)
+                }
+            }, {
+                '$lookup': {
+                    'from': 'books',
+                    'localField': 'id_book',
+                    'foreignField': '_id',
+                    'as': 'id_book'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$id_book'
+                }
+            }, {
+                '$lookup': {
+                    'from': 'users',
+                    'localField': 'id_user',
+                    'foreignField': '_id',
+                    'as': 'id_user'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$id_user'
+                }
+            }
+        ])
+
+        return res.status(200).json(ads[0])
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_ad (acceptSolicitation)` });   
+    }
+}
+
 module.exports = {
     getAdByUser,
     getAdByUserBuy,
@@ -331,4 +414,6 @@ module.exports = {
     acceptSolicitation,
     removeSolicitation,
     getSolicitationsByUserEmail,
+    getAdsPaginate,
+    getAdsById,
 }

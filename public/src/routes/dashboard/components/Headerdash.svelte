@@ -4,7 +4,7 @@
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { redirect } from '@sveltejs/kit';
-	import logo_icon from '../lib/images/icon.png'
+	import logo_icon from '../../../lib/images/icon.png'
 
 	
 	
@@ -21,7 +21,7 @@
 	async function logout() {
 		if(browser) {
 			window.sessionStorage.clear()
-			const location = '/'
+			const location = '/dashboard'
 			if (browser) return await goto(location);
 			else throw redirect(302, location);
 		}
@@ -51,11 +51,9 @@
 		<NavHamburger on:click={toggle} />
 	</div>
 	<NavUl {hidden} class="order-1">
-		<NavLi href="/logged">Home</NavLi>
-		<NavLi href="/logged/ads">Perfil</NavLi>
-		<NavLi href="/logged/books">Anúnciar</NavLi>
-		<NavLi href="/logged/books">Meus anúncios</NavLi>
-		<NavLi href="/logged/books">Meus livros</NavLi>
+		<NavLi href="/dashboard/logged">Usuários</NavLi>
+		<NavLi href="/dashboard/logged/ads">Anúncios</NavLi>
+		<NavLi href="/dashboard/logged/books">Livros</NavLi>
 	</NavUl>
 </Navbar>
 

@@ -220,12 +220,12 @@ def get_ads_recommendations(query=ads.aggregate(ads_pipeline)):
             elif ad["user"]["account_type"]=="standard" or ad["user"]["account_type"]=="premium":
                 if len(rest_recommendation) <=20:
                     rest_recommendation.append(ad)     
-    return {"premium": premium_recommend, "res_recommend":rest_recommendation}
+    return premium_recommend
 
 
 # get_ads_recommendations()
 
 reco = get_ads_recommendations()
-print(reco)
+# print(reco)
 # print("___"*30)
-# print(json.dumps(reco["res_recommend"]))
+print(json.dumps(reco))

@@ -8,12 +8,12 @@
 		Checkbox,
 		A,
 		P,
-	} from '../../../node_modules/flowbite-svelte'
-	import Copyright from '../../components/Copyright.svelte';
+	} from '../../../../node_modules/flowbite-svelte'
+	import Copyright from '../../../components/Copyright.svelte';
 	import {  
 		Img
 	} from 'flowbite-svelte'
-	import { putData} from '../+page' 
+	import { putData} from '../../+page' 
 	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { redirect } from '@sveltejs/kit';
@@ -43,7 +43,7 @@
 	}
 
 	async function resetPass() {
-		putData('http://localhost:3000/api/app_user/changePass', {
+		putData('http://localhost:3000/api/dash_user/changePass', {
 			"token": token,
 			"password": password,
 		}).then(async (data) => {
