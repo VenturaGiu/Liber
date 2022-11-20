@@ -9,8 +9,9 @@ const Ad = require('../models/Ad');
 const _ = require('underscore');
 const Address = require('../models/Address');
 const Card = require('../models/Card');
+const path = require('path');
 
-const { spawn } = require('child_process')
+const { spawn } = require('child_process');
 const child = spawn('pwd', [], {shell: true});
 /*
 𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
@@ -615,13 +616,15 @@ async function deleteCardById(req, res) {
 */
 async function getRecommendations(req, res) {
     try {
+        // const py = spawn('python3.10', [`${path.resolve()}/scripts/recommendation.py`, '-uid', String(_id)], {
+        // });
         const { _id } = req.body
         const user = await User.findOne({ id: ObjectId(_id) })
-        const py = spawn('python3.8', ['/home/giulia/Documentos/Liber/scripts/recommendation.py', '-uid', String(user._id)], {
+        const py = spawn('python3.10', ['/home/giulia/Documentos/liber/scripts/recommendation.py', '-uid', String(user._id)], {
         });
         py.stdout
             .on('data', async(data) => {
-                const json = JSON.parse(data.toString())
+                const json = data.toString()
                 console.log(json);
                 res.type('application/json')
                 res.send(json)
@@ -632,6 +635,7 @@ async function getRecommendations(req, res) {
                 res.type('application/json')
                 res.send(data)
             })
+
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });

@@ -9,16 +9,14 @@ import argparse
 import json
 
 #RECEBE O ID DO USUÁRIO
-    #O id do usuário deve ser passado como string 
-    #EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
-# parser = argparse.ArgumentParser()
-# parser.add_argument("-uid", "--userId",type=str)
-# args = parser.parse_args()
+#O id do usuário deve ser passado como string 
+#EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
+parser = argparse.ArgumentParser()
+parser.add_argument("-uid", "--userId",type=str)
+args = parser.parse_args()
 
-# id = args.userId
-# id= ObjectId(id)
-
-id= ObjectId('63729f16011783b55d9423f5')
+id = args.userId
+id= ObjectId(id)
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -27,8 +25,8 @@ books = db.books
 users = db.users
 ads = db.ads
 
-# user_id = users.find_one({"_id": id})
-# id = user_id["_id"]
+user_id = users.find_one({"_id": id})
+id = user_id["_id"]
 
 
 #PIPELINES
@@ -153,11 +151,19 @@ ads_pipeline = [
             'as': 'user'
         }
     }, {
+        '$unwind': {
+            'path': '$user', 
+        }
+    }, {
         '$lookup': {
             'from': 'books', 
             'localField': 'id_book', 
             'foreignField': '_id', 
             'as': 'book'
+        }
+    }, {
+        '$unwind': {
+            'path': '$book', 
         }
     }, {
         '$match': {
@@ -175,7 +181,24 @@ ads_pipeline = [
                 }
             ]
         }
-    }
+    }, {
+        '$project': {
+            'createdAt': 0, 
+            'updatedAt': 0, 
+            'user.createdAt': 0, 
+            'user.updatedAt': 0,
+            'book.genre': 0,
+            'book.createdAt': 0, 
+            'book.updatedAt': 0,
+            'book.dimensions': 0,
+            'book.page_count': 0,
+            'book.language': 0,
+            'book.location': 0,
+            'book.year': 0,
+            'book.publisher': 0,
+            'book.synopsis': 0,
+        }
+    }, 
 ]
 
 def get_ads_recommendations(query=ads.aggregate(ads_pipeline)):
@@ -183,26 +206,26 @@ def get_ads_recommendations(query=ads.aggregate(ads_pipeline)):
     rest_recommendation =[]
     for  ad in query:
         ad['_id'] = str(ad['_id'])
+        ad['book']['_id'] = str(ad['book']['_id'])
         ad['id_user'] = str(ad['id_user'])
         ad['id_book'] = str(ad['id_book'])
-        ad['user'][0]['_id'] = str(ad['user'][0]['_id'])
-        if "id_user_buy" in ad != None: ad['id_user_buy'] = str(ad['id_user_buy'])
-        for key,adUser in enumerate(ad['user'][0]['genres']):
-            ad['user'][0]['genres'][key] = str(adUser)
-        if len(premium_recommend) <=14:
-            if ad["user"][0]["account_type"]=="premium":
-                premium_recommend.append(ad)
-        elif ad["user"][0]["account_type"]=="standard" or ad["user"][0]["account_type"]=="premium":
-            rest_recommendation.append(ad)     
+        ad['user']['_id'] = str(ad['user']['_id'])
+        for key,adUser in enumerate(ad['user']['genres']):
+            ad['user']['genres'][key] = str(adUser)
+
+        if "id_user_buy" not in ad: 
+            if len(premium_recommend) <=10:
+                if ad["user"]["account_type"]=="premium":
+                    premium_recommend.append(ad)
+            elif ad["user"]["account_type"]=="standard" or ad["user"]["account_type"]=="premium":
+                if len(rest_recommendation) <=20:
+                    rest_recommendation.append(ad)     
     return {"premium": premium_recommend, "res_recommend":rest_recommendation}
 
 
 # get_ads_recommendations()
 
 reco = get_ads_recommendations()
-
-
-
-print(json.dumps(reco))
+print(reco)
 # print("___"*30)
 # print(json.dumps(reco["res_recommend"]))
