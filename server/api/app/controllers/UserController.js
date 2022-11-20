@@ -10,6 +10,7 @@ const _ = require('underscore');
 const Address = require('../models/Address');
 const Card = require('../models/Card');
 const path = require('path');
+require('dotenv').config();
 
 const { spawn } = require('child_process');
 const child = spawn('pwd', [], {shell: true});
@@ -620,7 +621,7 @@ async function getRecommendations(req, res) {
         // });
         const { _id } = req.body
         const user = await User.findOne({ id: ObjectId(_id) })
-        const py = spawn('python3.10', ['/home/giulia/Documentos/liber/scripts/recommendation.py', '-uid', String(user._id)], {
+        const py = spawn(process.env.PYTHON_V, [`${path.resolve()}/scripts/recommendation.py`, '-uid', String(user._id)], {
         });
         py.stdout
             .on('data', async(data) => {
