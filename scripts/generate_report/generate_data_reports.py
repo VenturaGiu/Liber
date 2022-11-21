@@ -264,7 +264,9 @@ for use in users.aggregate(user_pipeline):
 
 df_users = pd.json_normalize(user_bank, max_level=0)
 for ind, x in enumerate(df_users['genre']):
-    df_users.at[ind, 'genre'] = x[0]
+    if len(x)>0:
+        df_users.at[ind, 'genre'] = x[0]
+    else: ''.join(x)
 
 #cRIAR TABELA GENEROS PREFERIDOS
 generos_populares = df_users['genre'].value_counts().sort_values(ascending=False).head(10)

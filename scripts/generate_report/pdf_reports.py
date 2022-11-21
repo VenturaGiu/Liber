@@ -6,11 +6,11 @@ from fpdf import FPDF, HTMLMixin
 from pymongo import MongoClient
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-url", "--page",type=str)
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-url", "--page",type=str)
+# args = parser.parse_args()
 
-signal= args.page
+signal= 'ads'
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -138,7 +138,6 @@ def ads_pdf():
     pdf.set_font('Times', size=11, style='B')
 
     #Terceiro tabela gráfico - Livros mais caros
-    pdf.add_page()
     pdf.set_font('')
     pdf.set_font('Times', size = 14, style = '')
     pdf.cell(190, 5, txt = 'Livros mais caros anunciados', ln=1, align='C')
@@ -205,7 +204,7 @@ def user_pdf():
             self.image(f'scripts/generate_report/logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
-            self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
+            self.cell(100,32,f'Relatório de Usuários Liber', 0, 0, 'R')
             self.ln(20)
             self.line(10,30,200,30)
             self.ln(3)
@@ -324,7 +323,7 @@ def books_pdf():
             self.image(f'scripts/generate_report/logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
-            self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
+            self.cell(100,32,f'Relatório de Livros Liber', 0, 0, 'R')
             self.ln(20)
             self.line(10,30,200,30)
             self.ln(3)

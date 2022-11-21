@@ -12,12 +12,12 @@ import json
 # O id do usuário deve ser passado como string 
 # EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-uid", "--userId",type=str)
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-uid", "--userId",type=str)
+# args = parser.parse_args()
 
-id = args.userId
-id= ObjectId(id)
+# id = args.userId
+id= ObjectId('63729f17011783b55d9423fb')
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -96,18 +96,31 @@ def get_books_recommendations(user_id, cosine_sim):
     # Get the index of the movie that matches the title
     idx = indices[user_id]
 
-    # Get the pairwsie similarity scores of all movies with that movie
-    # Sort the movies based on the similarity scores
-    sim_scores = df2[idx].sort_values(ascending=False)
-    # sim_scores = df2.loc[df2[idx]>=0].sort_values(ascending=False, by=idx)
+    # Get the pairwsie similarity scores of all books with that movie
+    # Sort the books based on the similarity scores
 
-    # Get the scores of the 10 most similar movies
-    sim_scores = sim_scores[1:50]
-
+    sim_scores_rec = df2.loc[df2[idx]>0].sort_values(ascending=False, by=idx)
+    
+    sim_scores = sim_scores_rec
     # Get the movie indices
     books_indices = [i for i in sim_scores.index]
+    next_ind = 1
+    while len (books_indices ) <=15:
+        idx = sim_scores.index[next_ind]
+        sim_scores = df2.loc[df2[idx]>0].sort_values(ascending=False, by=idx)
+        nb = [i for i in sim_scores.index]
+        for a in nb:
+            if a not in books_indices:
+                books_indices.append(a)
+        next_ind+=1
 
-    # Return the top 10 most similar movies
+    if len(books_indices) >= 50:
+        sim_scores = sim_scores[1:40]
+        books_indices = [i for i in sim_scores.index]
+    # Get the scores of the 10 most similar books
+    # sim_scores = sim_scores[1:30]
+
+    # Return the top 10 most similar books
     return books_indices
 
 
