@@ -7,15 +7,10 @@ from pymongo import MongoClient
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-ads", "--ads",type=str)
-parser.add_argument("-use", "--user",type=str)
-parser.add_argument("-boo", "--books",type=str)
+parser.add_argument("-url", "--page",type=str)
 args = parser.parse_args()
 
-ads_signal = args.ads
-user_signal = args.user
-book_signal = args.books
-
+signal= args.page
 
 #MONGO CONECCTION
 client = MongoClient()
@@ -416,11 +411,11 @@ def books_pdf():
     pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}books_report_{datetime_str}.pdf','F')
     return "OK"
 
-if ads_signal=='T':
+if signal=='T':
     ads_pdf()
-elif user_signal=='T':
+elif signal=='T':
     user_pdf()
-elif book_signal=='T':
+elif signal=='T':
     books_pdf()
 else:
     print('User not in a page')

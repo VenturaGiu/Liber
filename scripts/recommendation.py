@@ -8,9 +8,10 @@ from bson.objectid import ObjectId
 import argparse
 import json
 
-#RECEBE O ID DO USUÁRIO
-#O id do usuário deve ser passado como string 
-#EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
+# RECEBE O ID DO USUÁRIO
+# O id do usuário deve ser passado como string 
+# EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-uid", "--userId",type=str)
 args = parser.parse_args()
@@ -97,10 +98,11 @@ def get_books_recommendations(user_id, cosine_sim):
 
     # Get the pairwsie similarity scores of all movies with that movie
     # Sort the movies based on the similarity scores
-    sim_scores = df2[idx].sort_values(ascending=False)
+    sim_scores = df2[idx].sort_values(ascending=False, by=idx)
+    # sim_scores = df2.loc[df2[idx]>=0].sort_values(ascending=False, by=idx)
 
     # Get the scores of the 10 most similar movies
-    sim_scores = sim_scores[1:60]
+    sim_scores = sim_scores[1:50]
 
     # Get the movie indices
     books_indices = [i for i in sim_scores.index]
