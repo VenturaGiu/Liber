@@ -98,7 +98,7 @@ def get_books_recommendations(user_id, cosine_sim):
 
     # Get the pairwsie similarity scores of all movies with that movie
     # Sort the movies based on the similarity scores
-    sim_scores = df2[idx].sort_values(ascending=False, by=idx)
+    sim_scores = df2[idx].sort_values(ascending=False)
     # sim_scores = df2.loc[df2[idx]>=0].sort_values(ascending=False, by=idx)
 
     # Get the scores of the 10 most similar movies

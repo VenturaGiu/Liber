@@ -76,7 +76,7 @@ def ads_pdf():
 
     class MyFPDF(FPDF, HTMLMixin):
         def header(self):
-            self.image(f'logo-min.png',10,6,22)
+            self.image(f'scripts/generate_report/logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
             self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
@@ -201,7 +201,7 @@ def user_pdf():
 
     class MyFPDF(FPDF, HTMLMixin):
         def header(self):
-            self.image(f'logo-min.png',10,6,22)
+            self.image(f'scripts/generate_report/logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
             self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')
@@ -319,7 +319,7 @@ def books_pdf():
 
     class MyFPDF(FPDF, HTMLMixin):
         def header(self):
-            self.image(f'logo-min.png',10,6,22)
+            self.image(f'scripts/generate_report/logo-min.png',10,6,22)
             self.set_font('Arial', 'B', 10)
             self.cell(80)
             self.cell(100,32,f'Relatório de Anúncios Liber', 0, 0, 'R')

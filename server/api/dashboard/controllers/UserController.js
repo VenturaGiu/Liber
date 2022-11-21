@@ -289,18 +289,17 @@ async function generateDataReports(req, res) {
         const py = spawn(process.env.PYTHON_V, [`${path.resolve()}/scripts/generate_report/pdf_reports.py`, '-url', String(type)], {
         });
         py.stdout
-        .on('data', async(data) => {
-            const json = JSON.parse(data.toString())
-            console.log(json);
-            res.type('text/plain')
-            res.send(json)
-        })
-    py.stderr
-        .on('data', async(data) => {
-            console.log('Deu ruim');
-            res.type('application/json')
-            res.send(data)
-        })
+            .on('close', async() => {
+                res.type('text/plain')
+                res.send('ok')
+            })
+        py.stderr
+            .on('data', async(data) => {
+                console.log('Deu ruim');
+                res.type('application/json')
+                res.send(data.message)
+            })
+            
     } catch (error) {
         /*deixei essa linha pq n sabia oq significava :)*/ 
         return res.status(500).json({ message: `Erro na rota api/app_user (generateDataReports)` });
