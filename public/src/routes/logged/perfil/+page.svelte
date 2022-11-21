@@ -6,7 +6,7 @@
 	import { redirect } from "@sveltejs/kit";
 	import { Alert, Button, ButtonGroup, Hr, Input, Label, Modal, Radio, Select, Spinner } from "flowbite-svelte";
 	import { bind } from "svelte/internal";
-	import { requiresLogin, getData, putData, postData, deleteData } from "../+page";
+	import { requiresLogin, getData, putData, postData, deleteData, postImg } from "../+page";
 
 
 	requiresLogin()
@@ -34,12 +34,11 @@
 	]
 	let selected_card = false
 
-	let  avatar, fileinput;
 	const imgUrl = new URL('../../../lib/images/default-img.png', import.meta.url).href
 	const addImg = new URL('../../../lib/images/add.png', import.meta.url).href
 	const bookImg = new URL('../../../lib/images/bookIcon.png', import.meta.url).href
-
-	let image
+	
+	let  avatar, fileinput, img, id, image;
 	const onFileSelected =(e)=>{
 		image = e.target.files[0];
 		let reader = new FileReader();
@@ -47,6 +46,16 @@
 		reader.onload = e => {
 			avatar = e.target.result
 		};
+	}
+
+	async function uploadImage(image, idUser) {
+		const formData = new FormData();
+    	formData.append("image", image);
+		postImg(`http://localhost:3000/upload/image/${idUser}`, formData).then((data) => {
+			console.log(data)
+			resp = data
+			loading = false
+		});
 	}
 
 	async function getUser(id) {
@@ -60,13 +69,13 @@
 			console.log(address)
 			console.log(cards)
 			console.log(user)
-			avatar = `http://localhost:3000/users/${id}`
+			avatar = `http://localhost:3000/users/${id}.png`
 		})
 	}
 
 	let tempo2 = setInterval(() => {
 		if (browser) {
-    		const id = window.sessionStorage.getItem('id') === undefined ? '' : window.sessionStorage.getItem('id')
+    		id = window.sessionStorage.getItem('id') === undefined ? '' : window.sessionStorage.getItem('id')
 			getUser(id)
 		}
 		if (tempo2) {
@@ -74,17 +83,18 @@
 		}
 	}, 200);
 
-	async function updateUser(name, email, selected) {
+	async function updateUser(name, email, selected, image, id) {
 		loading = true
 		putData('http://localhost:3000/api/app_user/update/infos', {
 			"name": name,
-			"email": email,
+			"_id": id,
 			"account_type": selected,
 		}).then(async (data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 			resp = data
 			alert = true
 			loading = false
+			uploadImage(image, id) 
 			let tempAlert = setInterval(() => {
 				alert = false
 				if(tempAlert) clearInterval(tempAlert)
@@ -244,7 +254,7 @@
 					<div class="text-center"><Spinner/></div>
 					<br>
 				{/if}
-				<Button gradient color="greenToBlue" on:click={updateUser(name, email, selected)} >Salvar alterações</Button>
+				<Button gradient color="greenToBlue" on:click={updateUser(name, email, selected, image, id)} >Salvar alterações</Button>
 				<br><br>
 				<Button gradient color="redToYellow" >Desativar conta</Button>
 			</section>

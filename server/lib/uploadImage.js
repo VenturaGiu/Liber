@@ -5,7 +5,8 @@ module.exports = (multer({
         destination: (req, file, cb) => { cb(null, './images/books') },
         filename: (req, file, cb) => { 
             const { isbn } = req.params
-            cb(null, isbn + '.' + file.mimetype.replace('image/', '') ) 
+            cb(null, isbn + '.png' ) 
+            // cb(null, isbn + '.' + file.mimetype.replace('image/', '') ) 
         },
     }),
     fileFilter: (req, file, cb) => { 

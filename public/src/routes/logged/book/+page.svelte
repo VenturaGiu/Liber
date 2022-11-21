@@ -109,7 +109,7 @@
 	{#if books && books.length !== 0 }
 	<div id="container">
 		<article class="article group">
-			<img class="image book left" src="http://localhost:3000/books/{books.id_book.isbn}.png" alt="Image">
+			<img class="image book left" src="http://localhost:3000/books/{books.id_book.isbn}/{books._id}" alt="Image">
 			<section class="content">
 				<h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{books.id_book.title}</h5>
 				{#if books.id_book.subtitle}
@@ -270,7 +270,7 @@
 							<Card padding="none" style="margin: 25px">
 								<a href="/logged/book?id={ads._id}">
 									<center>
-										<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{ads.id_book.isbn}.png" alt="product 1" />
+										<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{ads.id_book.isbn}/{ads._id}" alt="product 1" />
 									</center>
 								</a>
 								<div class="px-5 pb-5">

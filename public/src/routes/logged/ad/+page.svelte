@@ -16,6 +16,14 @@
 
 	if(browser) id = window.sessionStorage.getItem('id') === undefined ? '' : window.sessionStorage.getItem('id')
 
+	async function uploadImage(image, idAd) {
+		const formData = new FormData();
+    	formData.append("image", image);
+		postImg(`http://localhost:3000/upload/image/${idAd}`, formData).then((data) => {
+			resp = data
+		});
+	}
+
 	async function getBook(isbn) {
 		getData(`http://localhost:3000/api/app_book/${isbn}`,).then(async (data) => {
 			book = data
@@ -58,6 +66,7 @@
 			"price": price
 		}).then((data) => {
 			resp = data
+			uploadImage(image, data._id)
 		});
 	}
 
@@ -69,6 +78,7 @@
 			"type_ad": selected,
 		}).then((data) => {
 			resp = data
+			uploadImage(image, data._id)
 		});
 	}
 
@@ -97,7 +107,7 @@
 	{#if book}
 		<div id="container">
 			<article class="article group">
-				<img class="image book left" src="http://localhost:3000/books/{book.isbn}.png" alt="Image">
+				<img class="image book left" src="http://localhost:3000/books/{book.isbn}/{book._id}" alt="Image">
 				<section class="content">
 					<h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
 					{#if book.subtitle}
@@ -182,11 +192,11 @@
 						</ButtonGroup>
 					</div>	
 					<br>
-					<Button style="width: 100%;" outline gradient color="cyanToBlue" on:click={saveBook(book._id)} >Salvar</Button>
+					<Button style="width: 100%;" outline gradient color="cyanToBlue" on:click={saveBook(book._id, image)} >Salvar</Button>
 				{/if}
 				{#if selected === 'troca'}
 					<br>
-					<Button style="width: 100%;" outline gradient color="cyanToBlue" on:click={saveBookSwap(book._id)} >Salvar</Button>
+					<Button style="width: 100%;" outline gradient color="cyanToBlue" on:click={saveBookSwap(book._id, image)} >Salvar</Button>
 				{/if}
 				{#if resp}
 					<br>

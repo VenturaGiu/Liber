@@ -43,13 +43,13 @@
 		<P size="2xl">Anúncios cadastrados</P>
 	</div>
 	<div id="container" class="grid items-end md:grid-cols-4" >
-		{#if books && books.length !== 0}
+		{#if books}
 			{#each books as book}
 				{#if !book.id_user_buy}
 					<Card padding="none" style="margin: 25px">
 						<a href="/logged/book?id={book._id}">
 							<center>
-								<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{book.id_book.isbn}.png" alt="product 1" />
+								<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{book.id_book.isbn}/{book._id}" alt="product 1" />
 							</center>
 						</a>
 						<div class="px-5 pb-5">

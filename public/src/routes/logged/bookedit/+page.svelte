@@ -2,12 +2,13 @@
 // @ts-nocheck
 
 	import { browser } from "$app/environment";
-	import { Badge, Button, ButtonGroup, Input, Label, P, Select, Toggle } from "flowbite-svelte";
+	import { Alert, Badge, Button, ButtonGroup, Input, Label, P, Select, Spinner, Toggle } from "flowbite-svelte";
 
 	const imgUrl = new URL('../../../lib/images/user.png', import.meta.url).href
+	const addImg = new URL('../../../lib/images/add.png', import.meta.url).href
 	// @ts-nocheck
 	
-	import { requiresLogin, getData, putData, deleteData } from "../+page";
+	import { requiresLogin, getData, putData, deleteData, postImg } from "../+page";
 	
 	requiresLogin()
 	
@@ -15,7 +16,17 @@
 	let authors = '' 
 	let price = '0.0'
 	let selected;
-	
+	let  avatar, fileinput, image, loading = false, resp;
+		
+	const onFileSelected =(e)=>{
+		image = e.target.files[0];
+		let reader = new FileReader();
+		reader.readAsDataURL(image);
+		reader.onload = e => {
+			avatar = e.target.result
+		};
+	}
+
 	async function getBooks() {
 		if(browser){
 			const queryString = window.location.search;
@@ -58,8 +69,18 @@
 
 	let colors = ["red", "dark", "green", "yellow", "indigo", "purple", "pink"]
 
+	async function uploadImage(image, idAd) {
+		const formData = new FormData();
+    	formData.append("image", image);
+		postImg(`http://localhost:3000/upload/image/${idAd}`, formData).then((data) => {
+			console.log(data)
+			resp = data
+			loading = false
+		});
+	}
 
-	async function updateAd(id, price){
+	async function updateAd(id, price, image){
+		loading = true
 		if(selected === 'troca') price = ''
 		putData('http://localhost:3000/api/app_ad/', {
 			"_id": id,
@@ -67,6 +88,8 @@
 			"type_ad": selected,
 		}).then(async (data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
+			resp = data
+			uploadImage(image, data._id)
 		});
 	}
 
@@ -91,10 +114,25 @@
 
 <section>
 	<br><br>
-	{#if books && books.length !== 0 }
+	{#if books && books._id }
 	<div id="container">
 		<article class="article group">
-			<img class="image book left" src="http://localhost:3000/books/{books.id_book.isbn}.png" alt="Image">
+			<!-- <img class="image book left" src="http://localhost:3000/books/{books.id_book.isbn}/{books._id}" alt="Image"> -->
+			<div class="grid items-center md:grid-cols-2" >
+				<div class="containerImg">
+					{#if avatar}
+						<img class="avatar" src="{avatar}" alt="d" />
+					{:else}
+						<img class="avatar" src="http://localhost:3000/books/{books.id_book.isbn}/{books._id}" alt="" /> 
+					{/if}
+				<div class="selectImg">
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<img style="cursor: pointer !important;" class="upload" src={addImg} alt="" on:click={()=>{fileinput.click();}} />
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div class="chan" on:click={()=>{fileinput.click();}} style="cursor: pointer !important;" ></div>
+					<input style="display:none" type="file" accept=".jpg, .jpeg, .png" on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
+				</div>
+			</div>
 			<section class="content">
 				<h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{books.id_book.title}</h5>
 				{#if books.id_book.subtitle}
@@ -161,8 +199,22 @@
 			</section>
 		</article>
 		<article class="article group">
+			{#if resp && resp.message}
+				<br>
+				<Alert color="green">
+					<span slot="icon"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+					</span>
+					<span class="font-small">{resp.message}</span>
+				</Alert>
+				<br>
+			{/if}
+			{#if loading}
+				<br>
+				<div class="text-center"><Spinner/></div>
+				<br>
+			{/if}
 			<br>
-			<Button gradient color="greenToBlue" on:click={updateAd(books._id, price)} >Salvar</Button>
+			<Button gradient color="greenToBlue" on:click={updateAd(books._id, price, image)} >Salvar</Button>
 			<br><br>
 			<Button gradient color="redToYellow" on:click={deleteAd(books._id)} href="/logged/myads">Excluir</Button>
 		</article>
@@ -243,5 +295,26 @@
     clear: both;
   }
 }
+
+.containerImg{
+		max-width: 400px;
+		height: 500px;
+		position: relative;
+		background-color: rgb(235, 235, 235);
+	}
+
+	.avatar{
+		position: relative;
+	}
+
+	.selectImg{
+		position: absolute;
+		bottom: 0;
+		margin-right: -80px;
+		right: 0;
+		img{
+			width: 180px;
+		}
+	}
 
 </style>

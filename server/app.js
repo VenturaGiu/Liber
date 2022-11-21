@@ -66,28 +66,34 @@ app.get('/', (req, res) => {
     res.json({ message: 'Rota raiz, vai pa ota (/users)' })
 })
 
-app.get('/books/:isbn', (req, res) => {
+app.get('/books/:isbn/:_id', (req, res) => {
   const { isbn } = req.params
-  res.sendFile(path.join(path.resolve('./'), `images/books/${isbn}`))
-})
-
-app.get('/users/:_id', (req, res) => {
   const { _id } = req.params
-  file = path.join(path.resolve('./'), `images/users/${_id}`)
-  files = readFile = fs.readdirSync(path.resolve('./')+'/images/users')
-  if(!_.contains(files, _id)) {
-    return res.sendFile(path.resolve('./')+'/images/users/user.png')
+  
+  file = path.join(path.resolve('./'), `images/books/${_id}.png`)
+  files = readFile = fs.readdirSync(path.resolve('./')+'/images/books')
+
+  if(!_.contains(files, `${_id}.png`)) {
+    return res.sendFile(path.join(path.resolve('./'), `images/books/${isbn}.png`))
   }
   return res.sendFile(file)
 })
 
-app.get('/users/:email', (req, res) => {
-  const { email } = req.params;
-  const path_ = path.join(path.resolve('./'), `images/users/${email}.jpeg`);
+app.post('/upload/image/:isbn', uploadImg.single('image'), async (req, res) => {
+  try {
+    if(req.file) return res.status(200).json({ message: 'upload OK' })
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+})
+
+app.get('/users/:_id', (req, res) => {
+  const { _id } = req.params;
+  const path_ = path.join(path.resolve('./'), `images/books/${_id}`);
   if (fs.existsSync(path_)) {
-    res.sendFile(path_)
+    return res.sendFile(path_)
   } else {
-    res.sendFile(path.join(path.resolve('./'), `images/defaultUser.png`));
+    return res.sendFile(path.join(path.resolve('./'), `images/books/user.png`));
   }
 })
 
@@ -100,21 +106,21 @@ app.post('/image/:isbn', (req, res) => {
   const { isbn } = req.params
   const { image } = req.body
   if (image != null) {
-    fs.writeFileSync(`./images/books/${isbn}.jpeg`, Buffer.from(image));
+    fs.writeFileSync(`./images/books/${isbn}.png`, Buffer.from(image));
     return res.status(200);
   }
   return res.status(500);
 })
 
-app.post('/user/:email', (req, res) => {
-  const { email } = req.params
-  const { image } = req.body
-  if (image != null) {
-    fs.writeFileSync(`./images/users/${email}.jpeg`, Buffer.from(image));
-    return res.status(200);
-  }
-  return res.status(500);
-})
+// app.post('/user/:email', (req, res) => {
+//   const { email } = req.params
+//   const { image } = req.body
+//   if (image != null) {
+//     fs.writeFileSync(`./images/users/${email}.png`, Buffer.from(image));
+//     return res.status(200);
+//   }
+//   return res.status(500);
+// })
 
 app.listen(config.server.port, () => {
     console.log(`API Server running on PORT: ${config.server.port}`)

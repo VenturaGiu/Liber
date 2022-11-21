@@ -52,7 +52,7 @@
 	<div class="content form">
 		<div class="vertical_center">
 			<div id="" class="grid gap-12 items-end md:grid-cols-1">
-				<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Crie um conta para gerenciar os dados do Liber!</Heading>
+				<Heading tag="h1" class="mb-4" customSize="text-4xl font-extrabold  md:text-5xl lg:text-6xl">Crie um conta para accessar o Liber!</Heading>
 				<div id="exampleWrapper" class="grid gap-3 items-end md:grid-cols-1" >
 					<FloatingLabelInput bind:value={name} style="outlined" id="name" name="floating_outlined" type="text" label="Nome completo" />
 					<FloatingLabelInput bind:value={email} style="outlined" id="email" name="floating_outlined" type="text" label="E-mail" />
