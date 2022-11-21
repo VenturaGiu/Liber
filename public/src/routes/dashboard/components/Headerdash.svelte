@@ -7,14 +7,13 @@
 	import { goto } from '$app/navigation';
 	import { redirect } from '@sveltejs/kit';
 	import logo_icon from '../../../lib/images/icon.png'
+	import { getData, getFile } from '../+page';
 	
-	let name = ''
+	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
+	let name = '', path = ''
 	if(browser){ 
 		name = window.sessionStorage.getItem('name') === undefined ? '' : window.sessionStorage.getItem('name')
 	}
-
-	let btnClass = "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 fixed right-5 top-5 z-50"
-
 	async function logout() {
 		if(browser) {
 			window.sessionStorage.clear()
@@ -24,8 +23,20 @@
 		}
 	}
 
-	async function getPdf(params) {
-		
+	async function getPdf() {
+		path = window.location.pathname
+		path = path.replace('/dashboard/logged', '')
+		path = path === '' ? 'user' : path === '/books' ? 'book' : 'ads'
+		getData(`http://localhost:3000/api/dash_user/generateDataReports/${path}`).then(async (data) => {
+			if(data.message){
+				const link = document.createElement('a')
+				link.href = `http://localhost:3000/pdf/${data.message}`
+				link.target = '_blank'
+				document.body.appendChild(link)
+				link.click()
+				document.body.removeChild(link)
+			}
+		});
 	}
 </script>
 
@@ -43,7 +54,7 @@
 	</NavBrand>
 	<div class="flex md:order-3" style="text-align: center !important;">
 		<div id="container" class="grid items-center md:grid-cols-4" >
-			<Button on:click={getPdf} gradient color="purpleToBlue" size="sm">PDF</Button>
+			<Button on:click={getPdf(path)} gradient color="purpleToBlue" size="sm">PDF</Button>
 			<p></p>
 			<P size="xs">{ name }</P>
 			<Button on:click={logout} gradient color="cyanToBlue" size="sm">Sair</Button>
@@ -51,9 +62,9 @@
 		</div>
 	</div>
 	<NavUl {hidden} class="order-1">
-		<NavLi href="/dashboard/logged">Usuários</NavLi>
+		<NavLi href="/dashboard/logged" >Usuários</NavLi>
 		<NavLi href="/dashboard/logged/ads">Anúncios</NavLi>
-		<NavLi href="/dashboard/logged/books">Livros</NavLi>
+		<NavLi href="/dashboard/logged/books" >Livros</NavLi>
 	</NavUl>
 </Navbar>
 

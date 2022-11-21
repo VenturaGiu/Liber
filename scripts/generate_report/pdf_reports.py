@@ -176,6 +176,7 @@ def ads_pdf():
     # pdf.cell(w=0,h=3,ln=True, align='L')
     pdf.ln(2)
     pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}ads_report_{datetime_str}.pdf','F')
+    print(f'ads_report_{datetime_str}.pdf')
     return "OK"
 
 def user_pdf():
@@ -296,6 +297,7 @@ def user_pdf():
     pdf.cell(190, 5, txt = 'Distribuição de contas premium X padrão', align='C')
     pdf.ln(10)
     pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}users_report_{datetime_str}.pdf','F')
+    print(f'users_report_{datetime_str}.pdf')
     return "OK"
 
 def books_pdf():
@@ -409,6 +411,7 @@ def books_pdf():
     pdf.set_font('Times', size = 8, style = 'I')
     pdf.cell(190, 5, txt = 'Contagem de generos por livro', align='C')
     pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}books_report_{datetime_str}.pdf','F')
+    print(f'books_report_{datetime_str}.pdf')
     return "OK"
 
 if signal=='ads':

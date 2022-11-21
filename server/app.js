@@ -102,6 +102,15 @@ app.get('/reports/:page', (req, res) => {
   res.sendFile(path.join(path.resolve('./'), `scripts/generate_report/reports/${page}Report.html`))
 })
 
+app.get('/pdf/:page', (req, res) => {
+  const { page } = req.params
+  files = readFile = fs.readdirSync(path.resolve('./')+'/scripts/generate_report/pdf')
+  for(const file of files){
+    if(file) return res.sendFile(path.join(path.resolve('./'), `scripts/generate_report/pdf/${file}`))
+  }
+})
+
+
 app.post('/image/:isbn', (req, res) => {
   const { isbn } = req.params
   const { image } = req.body

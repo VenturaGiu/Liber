@@ -289,9 +289,9 @@ async function generateDataReports(req, res) {
         const py = spawn(process.env.PYTHON_V, [`${path.resolve()}/scripts/generate_report/pdf_reports.py`, '-url', String(type)], {
         });
         py.stdout
-            .on('close', async() => {
+            .on('data', async(data) => {
                 res.type('text/plain')
-                res.send('ok')
+                res.send({message: data.toString().replace('\n', '')})
             })
         py.stderr
             .on('data', async(data) => {
