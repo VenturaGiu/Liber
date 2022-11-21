@@ -29,7 +29,10 @@
 		}).then(async (data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 			modalMessageOk = true
-			if(data) resp = data
+			if(data){
+				resp = data
+				document.location.reload(true);
+			}
 		});
 	}
 	
@@ -64,17 +67,17 @@
 					</center>
 				</a>
 				<div class="px-5 pb-5">
-					<p>Deseja trocar esses livros?</p>
-					<p>Clique no link abaixo para ver mais!</p>
+					<P>Deseja trocar esses livros?</P>
+					<P>Clique no título abaixo para ver mais!</P>
 					<br>
-					<a href="/logged/book?id={books.book_ad_solicitation._id}">
+					<a href="/logged/book?id={books.id_ad_solicitation._id}">
 						<h5 class='text-xl font-semibold tracking-tight text-gray-900 dark:text-white'>
 							{books.book_ad_solicitation.title}
 						</h5>
 					</a>
 					<br>
 					<div class="flex justify-between items-center">
-						<p>Solicitação realizada por:</p>
+						<P>Solicitação realizada por:</P>
 						<br>
 						<h5 class='text-xl font-semibold tracking-tight text-gray-900 dark:text-white'>
 							{books.id_user_solicitation.name}

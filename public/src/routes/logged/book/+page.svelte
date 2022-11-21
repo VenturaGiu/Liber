@@ -100,7 +100,7 @@
 	</script>
 	
 	<svelte:head>
-	<title>Liber</title>
+	<title>Livro</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
@@ -190,43 +190,6 @@
 		<article class="article group" style="margin: 0 !important;" >
 			{#if useriBook}
 				<article class="article group" style="margin: 0 !important; border: 1px solid cyan" >
-					<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Cartão para pagamento</h5>
-					<br>
-					<div class="grid gap-3 mb-3 md:grid-cols-4" >
-						<Label class="space-y-2">
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Nome do cartão</h5>
-							<span>{useriBook.cards.name_card}</span>
-						</Label>
-						<Label>
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Tipo do cartão</h5>
-							<span>{useriBook.cards.main}</span>
-						</Label>
-						<Label class="space-y-2">
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Número do cartão</h5>
-							<span>{useriBook.cards.number}</span>
-						</Label>
-						<Label class="space-y-2">
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Data de validade</h5>
-							<span>{useriBook.cards.expiration_date}</span>
-						</Label>
-					</div>
-					<div class="grid gap-3 mb-3 md:grid-cols-3" >
-						<Label class="space-y-2">
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">CVV</h5>
-							<span>{useriBook.cards.cvv}</span>
-						</Label>
-						<Label class="space-y-2">
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">CPF</h5>
-							<span>{useriBook.cards.cpf}</span>
-						</Label>
-						<Label class="space-y-2">
-							<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Titular do cartão</h5>
-							<span>{useriBook.cards.cardholder}</span>
-						</Label>
-					</div>
-				</article>
-				<br>
-				<article class="article group" style="margin: 0 !important; border: 1px solid cyan" >
 						<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Endereço de entrega</h5>
 						<br>
 						<div class="grid gap-3 mb-3 md:grid-cols-4" >
@@ -315,18 +278,11 @@
 						<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Nome do cartão</h5>
 						<span>{useri.cards.name_card}</span>
 					</Label>
-					<Label>
-						<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Tipo do cartão</h5>
-						<span>{useri.cards.main}</span>
+					<Label class="space-y-2">
+						<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Número do cartão</h5>
+						<span>{useri.cards.number}</span>
 					</Label>
 				</div>
-				
-				<br>
-				<Label class="space-y-2">
-					<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Número do cartão</h5>
-					<span>{useri.cards.number}</span>
-				</Label>
-				<br>
 				<div class="grid gap-3 mb-3 md:grid-cols-2" >
 					<Label class="space-y-2">
 						<h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">Data de validade</h5>

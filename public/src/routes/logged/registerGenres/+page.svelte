@@ -43,7 +43,7 @@
 	</script>
 	
 	<svelte:head>
-	<title>Usuários</title>
+	<title>Registrar Gêneros</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
@@ -72,7 +72,6 @@
             <Button on:click={save(group)}>Register</Button>
         {/if}
     </div>
-      <div class="my-2 border border-gray-200 dark:border-gray-700 rounded-lg p-2 w-44">Group: {group}</div>
 </section>
 
 <style type="scss">

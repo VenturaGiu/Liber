@@ -85,7 +85,7 @@
 	</script>
 	
 	<svelte:head>
-	<title>Liber</title>
+	<title>Anúncio</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 

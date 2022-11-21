@@ -34,7 +34,7 @@
 	</script>
 	
 	<svelte:head>
-	<title>Usuários</title>
+	<title>Meus anúncios</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 

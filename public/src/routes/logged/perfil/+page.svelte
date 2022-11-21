@@ -206,7 +206,7 @@
 </script>
 
 <svelte:head>
-	<title>Usuários</title>
+	<title>Perfil</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 

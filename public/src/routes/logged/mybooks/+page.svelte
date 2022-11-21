@@ -34,13 +34,13 @@
 	</script>
 	
 	<svelte:head>
-	<title>Usuários</title>
+	<title>Meus livros</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
 <section>
 	<div id="container" class="grid items-end md:grid-cols-1" >
-		<P size="2xl">Anúncios cadastrados</P>
+		<P size="2xl">Meus livros</P>
 	</div>
 	<div id="container" class="grid items-end md:grid-cols-4" >
 		{#if books && books.length !== 0}

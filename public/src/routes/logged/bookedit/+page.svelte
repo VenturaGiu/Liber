@@ -89,6 +89,7 @@
 		}).then(async (data) => {
 			console.log(data); // JSON data parsed by `data.json()` call
 			resp = data
+			loading = false
 			uploadImage(image, data._id)
 		});
 	}
@@ -108,7 +109,7 @@
 	</script>
 	
 	<svelte:head>
-	<title>Liber</title>
+	<title>Editar Livro</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
