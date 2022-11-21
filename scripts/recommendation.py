@@ -12,12 +12,12 @@ import json
 # O id do usuário deve ser passado como string 
 # EXEMPLO DE CHAMADA "python recommendation.py -uid {id_usuario}"
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument("-uid", "--userId",type=str)
-# args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("-uid", "--userId",type=str)
+args = parser.parse_args()
 
-# id = args.userId
-id= ObjectId('63729f17011783b55d9423fb')
+id = args.userId
+id= ObjectId(id)
 
 #MONGO CONECCTION
 client = MongoClient()

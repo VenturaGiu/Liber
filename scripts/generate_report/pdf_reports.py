@@ -6,11 +6,11 @@ from fpdf import FPDF, HTMLMixin
 from pymongo import MongoClient
 import argparse
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument("-url", "--page",type=str)
-# args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("-url", "--page",type=str)
+args = parser.parse_args()
 
-signal= 'ads'
+signal= args.page
 
 #MONGO CONECCTION
 client = MongoClient()
