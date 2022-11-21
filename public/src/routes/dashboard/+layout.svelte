@@ -14,5 +14,7 @@
 </div>
 
 <style type="scss" >
-	
+	*{
+		overflow-y: hidden !important;
+	}
 </style>
