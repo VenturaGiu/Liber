@@ -3,9 +3,9 @@ const jwt = require('../../../config/jwt')
 const config = require('../../../config/variables')
 const Mailer = require('../../../lib/mailer/Mailer')
 const fs = require('fs');
-
+const { spawn } = require('child_process');
 const { exec } = require('node:child_process');
-
+const path = require('path');
 /*
     𝗙𝗨𝗡𝗖̧𝗢̃𝗘𝗦
 */
@@ -284,8 +284,9 @@ async function settingsAccount(req, res){
 * @return {Json} mensagem de sucesso caso de certo ou de erro
 */
 async function generateDataReports(req, res) {
+    const { type } = req.params
     try {
-        const py = spawn('python3.8', ['scripts/generate_report/generate_data_reports.py'], {
+        const py = spawn(process.env.PYTHON_V, [`${path.resolve()}/scripts/generate_report/pdf_reports.py`, '-url', String(type)], {
         });
         py.stdout
         .on('data', async(data) => {
@@ -297,13 +298,9 @@ async function generateDataReports(req, res) {
     py.stderr
         .on('data', async(data) => {
             console.log('Deu ruim');
-            //res.type('application/json')
+            res.type('application/json')
             res.send(data)
         })
-        // python.stdout.on('recommends', (recommends) => {
-        //     res.send(recommends);
-        // });
-        // return res.status(200).json(result)
     } catch (error) {
         /*deixei essa linha pq n sabia oq significava :)*/ 
         return res.status(500).json({ message: `Erro na rota api/app_user (generateDataReports)` });

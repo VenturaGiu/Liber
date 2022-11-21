@@ -411,11 +411,11 @@ def books_pdf():
     pdf.output(f'scripts{os.sep}generate_report{os.sep}pdf{os.sep}books_report_{datetime_str}.pdf','F')
     return "OK"
 
-if signal=='T':
+if signal=='ads':
     ads_pdf()
-elif signal=='T':
+elif signal=='user':
     user_pdf()
-elif signal=='T':
+elif signal=='book':
     books_pdf()
 else:
     print('User not in a page')

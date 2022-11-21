@@ -35,7 +35,7 @@ router.route('/changePass')
 router.route('/settings')
     .put(settingsAccount);
 
-router.route('/generateDataReports')
+router.route('/generateDataReports/:type')
     .get(generateDataReports);
 
 module.exports = router;

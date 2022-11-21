@@ -38,7 +38,7 @@
 					id: resp._id,
 					header: resp.book.title,
 					text: resp.type_ad === 'venda' ? `${resp.type_ad}: R$${resp.price}` : resp.type_ad,
-					src: `http://localhost:3000/books/${resp.book.isbn}.png`
+					src: `http://localhost:3000/books/${resp.book.isbn}/${resp._id}`
 				})
 			}
 			console.log(cards)
@@ -136,7 +136,7 @@
 				<Card padding="none" style="margin: 25px">
 					<a href="/logged/book?id={book._id}">
 						<center>
-							<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{book.id_book.isbn}.png" alt="product 1" />
+							<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{book.id_book.isbn}/${book._id}.png" alt="product 1" />
 						</center>
 					</a>
 					<div class="px-5 pb-5">
