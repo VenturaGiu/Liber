@@ -50,11 +50,4 @@ const UserSchema = Schema({
   timestamps: true,
 });
 
-UserSchema.statics.partialUpdate = async function partialUpdate(email, obj) {
-  const omittedAttributes = ['email', '_id', 'verified', 'account_type', 'activated'];
-  const cleanObj = _.omit(obj, omittedAttributes);
-  const res = await this.findOneAndUpdate(email, cleanObj);
-  return res;
-};
-
 module.exports = mongoose.model('User', UserSchema, 'users');

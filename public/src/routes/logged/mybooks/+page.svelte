@@ -1,10 +1,8 @@
 <script>
 	// @ts-nocheck
 	
-	import { requiresLogin, getData } from "./+page";
+	import { requiresLogin, getData } from "../+page";
 	
-	// @ts-ignore
-	import { Slidy } from '../../../node_modules/svelte-slidy';
 	
 	requiresLogin()
 	
@@ -12,88 +10,27 @@
 	import { redirect } from "@sveltejs/kit";
 	import { goto } from "$app/navigation";
 	import { Badge, Button, Card, P, Rating } from "flowbite-svelte";
-	let name = 'Slidy'
 	
-	let resps
 	let books
 	
-	/**
-	* @type {{ id: any; }[]}
-	*/
-	const cards = []
-	let slidy_cards
-	
-	async function getBooks() {
-		getData('http://localhost:3000/api/app_ad/get/all/books',).then(async (data) => {
+	async function getBooks(id) {
+		getData(`http://localhost:3000/api/app_ad/buy/${id}`,).then(async (data) => {
 			books = data
 			console.log(books)
 		})
 	}
 	
-	async function getRecommend(id) {
-		getData(`http://localhost:3000/api/app_user/ia/recommendations/${id}`,).then(async (data) => {
-			resps = data
-			for (const resp of resps){
-				cards.push({
-					id: resp._id,
-					header: resp.book.title,
-					text: resp.type_ad === 'venda' ? `${resp.type_ad}: R$${resp.price}` : resp.type_ad,
-					src: `http://localhost:3000/books/${resp.book.isbn}.png`
-				})
-			}
-			console.log(cards)
-		});
-		slidy_cards = {
-			slides: cards,
-			wrap: {
-				id: 'slidy_cards',
-				width: '100vw',
-				height: '100vh',
-				padding: '50px 0 50px',
-				align: 'middle',
-				alignmargin: 0,
-			},
-			slide: {
-				gap: 50,
-				width: '80vw',
-				height: '100vh',
-				backimg: false,
-				imgsrckey: 'src',
-				objectfit: 'contain',
-			},
-			controls: {
-				dots: true,
-				dotsnum: true,
-				dotsarrow: true,
-				dotspure: true,
-				arrows: false,
-				keys: true,
-				drag: true,
-				wheel: true,
-			},
-			options: {
-				axis: 'x',
-				loop: true,
-				duration: 350,
-			}
-		}
-	}
-	
 	let tempo = setInterval(() => {
-		getBooks()
+		if (browser) {
+    		const id = window.sessionStorage.getItem('id') === undefined ? '' : window.sessionStorage.getItem('id')
+			console.log(id)
+			getBooks(id)
+		}
 		if (tempo) {
 			clearInterval(tempo);
 		}
 	}, 100);
-	let tempo2 = setInterval(() => {
-		if (browser) {
-    		const id = window.sessionStorage.getItem('id') === undefined ? '' : window.sessionStorage.getItem('id')
-			getRecommend(id)
-		}
-		if (tempo2) {
-			clearInterval(tempo2);
-		}
-	}, 200);
+
 	</script>
 	
 	<svelte:head>
@@ -102,31 +39,8 @@
 </svelte:head>
 
 <section>
-	<!-- <Button on:click={getRecommend} >teste</Button> -->
-	<br>
-	<div id="container" class="grid items-end md:grid-cols-1">
-		<P size="2xl">Recomendações selecionadas especialmente pra você!</P>
-	</div>
-	{#if resps}
-	<Slidy {...slidy_cards} let:item >
-		<div class="slide">
-			<a href='/logged/book?id={item.id}'><img alt="{item.header}" src="{item.src}"/></a>
-			<article style="margin-top: 20px;">
-				<P class='font-bold' size="lg">
-					{item.header}
-				</P>
-				<P>
-					{item.text}
-				</P>
-			</article>
-		</div>
-	</Slidy>
-	{/if}
-	
-	<br>
-
 	<div id="container" class="grid items-end md:grid-cols-1" >
-		<P size="2xl">Mais livros para você!</P>
+		<P size="2xl">Anúncios cadastrados</P>
 	</div>
 	<div id="container" class="grid items-end md:grid-cols-4" >
 		{#if books && books.length !== 0}
@@ -161,11 +75,7 @@
 							</span>
 						</div>
 						<br>
-						<span class="text-small text-gray-900 dark:text-white">
-							Vendido por: {book.id_user.name}
-						</span>
-						<br>
-						<Button gradient color="cyanToBlue" href="/logged/book?id={book._id}">Ver mais</Button>
+						<Button gradient color="cyanToBlue" href="/logged/bookedit?id={book._id}">Editar</Button>
 					</div>
 				</Card>
 			{/each}

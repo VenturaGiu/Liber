@@ -21,6 +21,7 @@ const config = require('./config/variables');
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const uploadImg = require('./lib/uploadImage')
+const _ = require('underscore')
 
 // Connect to database.
 
@@ -68,6 +69,16 @@ app.get('/', (req, res) => {
 app.get('/books/:isbn', (req, res) => {
   const { isbn } = req.params
   res.sendFile(path.join(path.resolve('./'), `images/books/${isbn}`))
+})
+
+app.get('/users/:_id', (req, res) => {
+  const { _id } = req.params
+  file = path.join(path.resolve('./'), `images/users/${_id}`)
+  files = readFile = fs.readdirSync(path.resolve('./')+'/images/users')
+  if(!_.contains(files, _id)) {
+    return res.sendFile(path.resolve('./')+'/images/users/user.png')
+  }
+  return res.sendFile(file)
 })
 
 app.get('/users/:email', (req, res) => {

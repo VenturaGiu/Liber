@@ -237,9 +237,11 @@ async function validate(req, res){
 async function updateUserInformation(req, res) {
     try {
         const obj = req.body
-        const user = await User.partialUpdate(obj.email, obj)
+        const omittedAttributes = ['email', '_id', 'verified', 'activated'];
+        const cleanObj = _.omit(obj, omittedAttributes);
+        const user = await User.findOneAndUpdate({email: obj.email}, cleanObj)
         if (!user) return res.status(403).json({ message: `Operação não realizada, informe o administrador!` });
-        return res.status(200).json({ message: `Dados atualizados com sucesso!`, 'user': user });
+        return res.status(200).json({ message: `Dados atualizados com sucesso!` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -338,12 +340,12 @@ async function settingsAccount(req, res) {
 
 async function listAllIfosUser(req, res) {
     try {
-        const { email } = req.params
-        const user = await User.findOne({ email })
+        const { _id } = req.params
+        const user = await User.findById({ _id })
         
         const pipeline= [{
             '$match': {
-                'email': email
+                '_id': ObjectId(_id)
             }
         }]
         
@@ -356,16 +358,6 @@ async function listAllIfosUser(req, res) {
                     'as': 'address'
                 }
             })
-            pipeline.push({
-                '$unwind': {
-                    'path': '$address'
-                  }
-                })
-            pipeline.push({
-                '$match': {
-                    'address.main': true
-                }
-            })  
         }
         if(!_.isEmpty(user.cards) === true){
             pipeline.push({
@@ -375,17 +367,7 @@ async function listAllIfosUser(req, res) {
                 'foreignField': '_id', 
                 'as': 'cards'
             }
-            })
-            pipeline.push({
-                '$unwind': {
-                    'path': '$cards'
-                    }
             }) 
-            pipeline.push({
-                '$match': {
-                'cards.main': true
-                }
-            })  
         }
         
         const address = await User.aggregate(pipeline)
@@ -394,7 +376,7 @@ async function listAllIfosUser(req, res) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
         }
-        return res.status(500).json({ message: `Erro na rota api/app_user (saveNewAddress)` });
+        return res.status(500).json({ message: `Erro na rota api/app_user (listAllIfosUser)` });
     }
 }
 

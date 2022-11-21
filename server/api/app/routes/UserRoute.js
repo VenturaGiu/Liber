@@ -24,9 +24,11 @@ const {
 router.route('/')
     .get(listAll)
     .post(register)
+
+router.route('/update/infos')
     .put(updateUserInformation);
 
-router.route('/:email')
+router.route('/:_id')
     .get(listAllIfosUser)
 
 router.route('/login')

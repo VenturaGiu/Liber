@@ -52,10 +52,10 @@
 	</div>
 	<NavUl {hidden} class="order-1">
 		<NavLi href="/logged">Home</NavLi>
-		<NavLi href="/logged/ads">Perfil</NavLi>
-		<NavLi href="/logged/books">Anúnciar</NavLi>
-		<NavLi href="/logged/books">Meus anúncios</NavLi>
-		<NavLi href="/logged/books">Meus livros</NavLi>
+		<NavLi href="/logged/perfil">Perfil</NavLi>
+		<NavLi href="/logged/ad">Anúnciar</NavLi>
+		<NavLi href="/logged/myads">Meus anúncios</NavLi>
+		<NavLi href="/logged/mybooks">Meus livros</NavLi>
 	</NavUl>
 </Navbar>
 
