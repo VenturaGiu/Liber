@@ -18,7 +18,8 @@ const {
     updateCard,
     listCardsByUser,
     deleteCardById,
-    getRecommendations
+    getRecommendations,
+    listAllIfosUserBuy,
 } = require('../controllers/UserController');
 
 router.route('/')
@@ -30,6 +31,9 @@ router.route('/update/infos')
 
 router.route('/:_id')
     .get(listAllIfosUser)
+
+router.route('/listAllIfosUserBuy/:_id')
+    .get(listAllIfosUserBuy)
 
 router.route('/login')
     .post(login);

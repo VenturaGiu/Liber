@@ -220,20 +220,19 @@ async function acceptSolicitation(req, res) {
 
 async function getSolicitationsByUserEmail(req, res) {
     try {
-        const { email } = req.params
-        const resp = await Solicitation.aggregate([
-            {
+        const { _id } = req.params
+        const resp = await Solicitation.aggregate([{
+                '$match': {
+                    'status': 'analisando', 
+                    'id_user': ObjectId(_id)
+                }
+            }, {
                 '$lookup': {
                   'from': 'users', 
                   'localField': 'id_user', 
                   'foreignField': '_id', 
                   'as': 'id_user'
                 }
-            }, {
-              '$match': {
-                'status': 'analisando', 
-                'id_user.email': email
-              }
             }, {
               '$unwind': {
                 'path': '$id_user'
@@ -305,14 +304,16 @@ async function getSolicitationsByUserEmail(req, res) {
                 'id_ad_solicitation._id': 1, 
                 'book_ad._id': 1, 
                 'book_ad.title': 1, 
+                'book_ad.isbn': 1, 
                 'book_ad.path_img': 1, 
                 'book_ad_solicitation._id': 1, 
+                'book_ad.book_ad_solicitation.isbn': 1, 
                 'book_ad_solicitation.title': 1
               }
             }
           ]) 
         if(!resp) return res.status(403).json({ message: 'Sem solicitações por enquanto :)' }) 
-        return res.status(200).json(resp) 
+        return res.status(200).json(resp[0]) 
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });

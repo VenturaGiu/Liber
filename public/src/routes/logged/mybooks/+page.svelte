@@ -75,7 +75,7 @@
 							</span>
 						</div>
 						<br>
-						<Button gradient color="cyanToBlue" href="/logged/bookedit?id={book._id}">Editar</Button>
+						<Button gradient color="cyanToBlue" href="/logged/book?id={book._id}">Ver Mais Detalhes</Button>
 					</div>
 				</Card>
 			{/each}

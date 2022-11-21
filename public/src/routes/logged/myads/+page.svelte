@@ -45,39 +45,39 @@
 	<div id="container" class="grid items-end md:grid-cols-4" >
 		{#if books && books.length !== 0}
 			{#each books as book}
-				<!-- <p>${book._id}</p> -->
-
-				<Card padding="none" style="margin: 25px">
-					<a href="/logged/book?id={book._id}">
-						<center>
-							<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{book.id_book.isbn}.png" alt="product 1" />
-						</center>
-					</a>
-					<div class="px-5 pb-5">
-						<a href="/logged/book?id={book.id_book._id}">
-							<h5 class='text-xl font-semibold tracking-tight text-gray-900 dark:text-white'>
-								{book.id_book.title}
-							</h5>
+				{#if !book.id_user_buy}
+					<Card padding="none" style="margin: 25px">
+						<a href="/logged/book?id={book._id}">
+							<center>
+								<img class="p-8 rounded-t-lg" src="http://localhost:3000/books/{book.id_book.isbn}.png" alt="product 1" />
+							</center>
 						</a>
-						<br>
-						<div class="flex justify-between items-center">
-							{#if book.type_ad === 'troca'}
-								<span class="text-xl text-gray-900 dark:text-white">
-									Disponível para troca
+						<div class="px-5 pb-5">
+							<a href="/logged/book?id={book.id_book._id}">
+								<h5 class='text-xl font-semibold tracking-tight text-gray-900 dark:text-white'>
+									{book.id_book.title}
+								</h5>
+							</a>
+							<br>
+							<div class="flex justify-between items-center">
+								{#if book.type_ad === 'troca'}
+									<span class="text-xl text-gray-900 dark:text-white">
+										Disponível para troca
+									</span>
+								{/if}
+								{#if book.type_ad === 'venda'}
+									<span class="text-3xl text-gray-900 dark:text-white">
+										R${book.price}
+									</span>
+								{/if}
+								<span class="text-3xl font-bold text-gray-900 dark:text-white">
 								</span>
-							{/if}
-							{#if book.type_ad === 'venda'}
-								<span class="text-3xl text-gray-900 dark:text-white">
-									R${book.price}
-								</span>
-							{/if}
-							<span class="text-3xl font-bold text-gray-900 dark:text-white">
-							</span>
+							</div>
+							<br>
+							<Button gradient color="cyanToBlue" href="/logged/bookedit?id={book._id}">Editar</Button>
 						</div>
-						<br>
-						<Button gradient color="cyanToBlue" href="/logged/bookedit?id={book._id}">Editar</Button>
-					</div>
-				</Card>
+					</Card>
+				{/if}
 			{/each}
 		{/if}
 		

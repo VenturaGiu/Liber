@@ -73,7 +73,7 @@ async function getAllGenres(req, res) {
             },
             {
                 '$sample': {
-                    'size': 8
+                    'size': 30
                 }
             }
         ])

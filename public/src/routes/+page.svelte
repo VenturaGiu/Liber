@@ -26,6 +26,7 @@
 		name: String,
 		token: String
 		id: String
+		hasGenre: Boolean
 	}
 	
 	/**
@@ -36,6 +37,7 @@
 		name: '',
 		token: '',
 		id: '',
+		hasGenre: false,
 	};
 
 	async function doLogin() {
@@ -70,6 +72,11 @@
 				window.sessionStorage.setItem('token', resp.token as string)
 				window.sessionStorage.setItem('name', resp.name as string)
 				window.sessionStorage.setItem('id', resp.id as string)
+				console.log(resp.hasGenre)
+				if(!resp.hasGenre) {
+					if (browser) return await goto('/logged/registerGenres');
+					else throw redirect(302, '/logged/registerGenres');
+				}
 				if (browser) return await goto(location);
 				else throw redirect(302, location);
 			}

@@ -31,7 +31,7 @@ router.route('/solicitation/accept/:_id')
 router.route('/solicitation/:_id')
     .put(removeSolicitation)
 
-router.route('/solicitation/user/:email')
+router.route('/solicitation/user/:_id')
     .get(getSolicitationsByUserEmail)
 
 router.route('/get/all/books')

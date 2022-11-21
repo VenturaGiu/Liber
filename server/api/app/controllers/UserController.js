@@ -193,8 +193,8 @@ async function login(req, res){
         const token = jwt.sign({ email: user.email })
 
         res.cookie('token', token)
-        
-        return res.status(200).json({ token, name: user.name, id: user._id });
+        const hasGenre = user && user.genres && user.genres.length !== 0 ? true : false
+        return res.status(200).json({ token, name: user.name, id: user._id, hasGenre });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
             return res.status(500).json({ message: `Erro no Mongo` });
@@ -239,8 +239,15 @@ async function updateUserInformation(req, res) {
         const obj = req.body
         const omittedAttributes = ['email', '_id', 'verified', 'activated'];
         const cleanObj = _.omit(obj, omittedAttributes);
-        const user = await User.findOneAndUpdate({email: obj.email}, cleanObj)
-        if (!user) return res.status(403).json({ message: `Operação não realizada, informe o administrador!` });
+        const newG = []
+        if(obj && obj.genres){
+            for(const g of obj.genres){
+                newG.push(ObjectId(g))
+            }
+            cleanObj.genres = newG
+        }
+        const user = await User.findOneAndUpdate({_id: ObjectId(obj._id)}, cleanObj)
+        if (!user) return res.status(400).json({ message: `Operação não realizada, informe o administrador!` });
         return res.status(200).json({ message: `Dados atualizados com sucesso!` });
     } catch (error) {
         if (error.name === 'MongoError' && error.code === 11000) {
@@ -368,6 +375,64 @@ async function listAllIfosUser(req, res) {
                 'as': 'cards'
             }
             }) 
+        }
+        
+        const address = await User.aggregate(pipeline)
+        return res.status(200).json(address[0]); 
+    } catch (error) {
+        if (error.name === 'MongoError' && error.code === 11000) {
+            return res.status(500).json({ message: `Erro no Mongo` });
+        }
+        return res.status(500).json({ message: `Erro na rota api/app_user (listAllIfosUser)` });
+    }
+}
+
+async function listAllIfosUserBuy(req, res) {
+    try {
+        const { _id } = req.params
+        const user = await User.findById({ _id })
+        
+        const pipeline= [{
+            '$match': {
+                '_id': ObjectId(_id)
+            }
+        }]
+        
+        if(!_.isEmpty(user.address) === true){
+            pipeline.push({
+                '$lookup': {
+                    'from': 'address', 
+                    'localField': 'address', 
+                    'foreignField': '_id', 
+                    'as': 'address'
+                }
+            })
+            pipeline.push({
+                '$match': {
+                    'address.main': true
+                }
+            })
+            pipeline.push({
+                '$unwind': '$address'
+            })
+        }
+        if(!_.isEmpty(user.cards) === true){
+            pipeline.push({
+                '$lookup': {
+                    'from': 'cards', 
+                'localField': 'cards', 
+                'foreignField': '_id', 
+                'as': 'cards'
+            }
+            }) 
+            pipeline.push({
+                '$match': {
+                    'cards.main': true
+                }
+            })
+            pipeline.push({
+                '$unwind': '$cards'
+            })
         }
         
         const address = await User.aggregate(pipeline)
@@ -657,5 +722,6 @@ module.exports = {
     updateCard,
     listCardsByUser,
     deleteCardById,
-    getRecommendations
+    getRecommendations,
+    listAllIfosUserBuy
 }

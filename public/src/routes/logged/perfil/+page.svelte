@@ -55,8 +55,9 @@
 			name = data.name
 			email = data.email
 			selected = data.account_type
-			cards = user.cards
-			address = user.address
+			if(user.cards) cards = user.cards
+			if(user.address) address = user.address
+			console.log(address)
 			console.log(cards)
 			console.log(user)
 			avatar = `http://localhost:3000/users/${id}`
@@ -142,7 +143,7 @@
 	}
 
 	async function saveNewAddress(email, number_a, name_a, cep, road, city, state, complement, main_a) {
-		postData('http://localhost:3000/api/app_user/card', {
+		postData('http://localhost:3000/api/app_user/address', {
 			"email": email,
 			"name": name_a,
 			"cep": cep,
@@ -151,13 +152,43 @@
 			"state": state,
 			"number": number_a,
 			"complement": complement,
-			"main": false
+			"main": main_a
 		}).then(async (data) => {
 			loadingmodal = false
-			cardresp = data
 			const location = '/logged/perfil';
-			cards.push(data)
+			console.log(data)
+			address = data
 			if(browser){
+				document.location.reload(true);
+			}
+		});
+	}
+
+	async function updateAddress(id, number_a, name_a, cep, road, city, state, complement, main_a) {
+		putData('http://localhost:3000/api/app_user/address', {
+			"_id": id,
+			"name": name_a,
+			"cep": cep,
+			"road": road,
+			"city": city,
+			"state": state,
+			"number": number_a,
+			"complement": complement,
+			"main": main_a
+		}).then(async (data) => {
+			console.log(data)
+			if(browser){
+				document.location.reload(true);
+			}
+		});
+	}
+
+	async function deleteAddress(id) {
+		deleteData('http://localhost:3000/api/app_user/address', {
+			"_id": id
+		}).then(async (data) => {
+			console.log(data)
+			if(data){
 				document.location.reload(true);
 			}
 		});
@@ -230,51 +261,53 @@
 			</div>
 			<br>
 
-			{#each cards as card, index}
-				<article class="article group" style="margin: 0 !important;" >
-					<div class="grid gap-6 mb-6 md:grid-cols-2" >
-						<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cartão {index+1}</h5>
-						<Label>
-							<span>Tipo do cartão</span>
-							<Select class="mt-3" items={card_type} bind:value={card.main} />
+			{#if cards && cards.length !== 0}
+				{#each cards as card, index}
+					<article class="article group" style="margin: 0 !important;" >
+						<div class="grid gap-6 mb-6 md:grid-cols-2" >
+							<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cartão {index+1}</h5>
+							<Label>
+								<span>Tipo do cartão</span>
+								<Select class="mt-3" items={card_type} bind:value={card.main} />
+							</Label>
+						</div>
+						<br>
+						<Label class="space-y-2">
+							<span>Nome do cartão</span>
+							<Input bind:value={card.name_card} type="text" placeholder="Nome do cartão" size="lg" />
 						</Label>
-					</div>
+						<br>
+						<Label class="space-y-2">
+							<span>Número do cartão</span>
+							<Input bind:value={card.number} type="text" placeholder="Número do cartão" size="lg" />
+						</Label>
+						<br>
+						<div class="grid gap-6 mb-6 md:grid-cols-2" >
+							<Label class="space-y-2">
+								<span>Data de validade</span>
+								<Input bind:value={card.expiration_date} type="text" placeholder="00/00" size="lg" />
+							</Label>
+							<Label class="space-y-2">
+								<span>CVV</span>
+								<Input bind:value={card.cvv} type="text" placeholder="CVV" size="lg" />
+							</Label>
+							<Label class="space-y-2">
+								<span>CPF</span>
+								<Input bind:value={card.cpf} type="text" placeholder="CPF" size="lg" />
+							</Label>
+							<Label class="space-y-2">
+								<span>Titular do cartão</span>
+								<Input bind:value={card.cardholder} type="text" placeholder="Titular do cartão" size="lg" />
+							</Label>
+						</div>
+						<div class="grid gap-6 mb-6 md:grid-cols-2" >
+							<Button gradient color="greenToBlue" on:click={updateCard(card._id, card.number, card.cvv, card.cardholder, card.cpf, card.name_card, card.expiration_date, card.main)} >Salvar alterações</Button>
+							<Button gradient color="redToYellow" on:click={deleteCard(card._id)} >Excluir</Button>
+						</div>
+					</article>
 					<br>
-					<Label class="space-y-2">
-						<span>Nome do cartão</span>
-						<Input bind:value={card.name_card} type="text" placeholder="Nome do cartão" size="lg" />
-					</Label>
-					<br>
-					<Label class="space-y-2">
-						<span>Número do cartão</span>
-						<Input bind:value={card.number} type="text" placeholder="Número do cartão" size="lg" />
-					</Label>
-					<br>
-					<div class="grid gap-6 mb-6 md:grid-cols-2" >
-						<Label class="space-y-2">
-							<span>Data de validade</span>
-							<Input bind:value={card.expiration_date} type="text" placeholder="00/00" size="lg" />
-						</Label>
-						<Label class="space-y-2">
-							<span>CVV</span>
-							<Input bind:value={card.cvv} type="text" placeholder="CVV" size="lg" />
-						</Label>
-						<Label class="space-y-2">
-							<span>CPF</span>
-							<Input bind:value={card.cpf} type="text" placeholder="CPF" size="lg" />
-						</Label>
-						<Label class="space-y-2">
-							<span>Titular do cartão</span>
-							<Input bind:value={card.cardholder} type="text" placeholder="Titular do cartão" size="lg" />
-						</Label>
-					</div>
-					<div class="grid gap-6 mb-6 md:grid-cols-2" >
-						<Button gradient color="greenToBlue" on:click={updateCard(card._id, card.number, card.cvv, card.cardholder, card.cpf, card.name_card, card.expiration_date, card.main)} >Salvar alterações</Button>
-						<Button gradient color="redToYellow" on:click={deleteCard(card._id)} >Excluir</Button>
-					</div>
-				</article>
-				<br>
-			{/each}
+				{/each}
+			{/if}
 		</article>
 	</div>
 
@@ -292,11 +325,12 @@
 					<div class="grid gap-6 mb-6 md:grid-cols-2" >
 						<Label class="space-y-2">
 							<span>Nome do Endereço</span>
-							<Input bind:value={ad.name_a} type="text" placeholder="Nome do Endereço" size="lg" />
+							<Input bind:value={ad.name} type="text" placeholder="Nome do Endereço" size="lg" />
 						</Label>
 						<Label>
 							<span>Tipo do endereço</span>
-							<Select class="mt-3" items={ad.address_type} bind:value={ad.main} />
+							{ad.main}
+							<Select class="mt-3" items={address_type} bind:value={ad.main} />
 						</Label>
 					</div>
 					
@@ -334,6 +368,10 @@
 						<div class="text-center"><Spinner/></div>
 						<br>
 					{/if}
+					<div class="grid gap-6 mb-6 md:grid-cols-2" >
+						<Button gradient color="greenToBlue" on:click={updateAddress(ad._id,  ad.number_a, ad.name, ad.cep, ad.road, ad.city, ad.state, ad.complement, ad.main_a)} >Salvar alterações</Button>
+						<Button gradient color="redToYellow" on:click={deleteAddress(ad._id)} >Excluir</Button>
+					</div>
 				</article>
 			{/each}
 		</article>
@@ -386,7 +424,7 @@
 				<div class="text-center"><Spinner/></div>
 				<br>
 			{/if}
-			<Button gradient color="greenToBlue" on:click={saveNewCard(email, number, cvv, cardholder, cpf, name_card, expiration_date)} >Cadastrar</Button>
+			<Button gradient color="greenToBlue" on:click={saveNewAddress(email, number_a, name_a, cep, road, city, state, complement, main_a)} >Cadastrar</Button>
 		</article>
 	</Modal>
 

@@ -56,6 +56,7 @@
 		<NavLi href="/logged/ad">Anúnciar</NavLi>
 		<NavLi href="/logged/myads">Meus anúncios</NavLi>
 		<NavLi href="/logged/mybooks">Meus livros</NavLi>
+		<NavLi href="/logged/solicitations">Solicitações</NavLi>
 	</NavUl>
 </Navbar>
 
