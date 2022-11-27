@@ -106,7 +106,7 @@ app.get('/pdf/:page', (req, res) => {
   const { page } = req.params
   files = readFile = fs.readdirSync(path.resolve('./')+'/scripts/generate_report/pdf')
   for(const file of files){
-    if(file) return res.sendFile(path.join(path.resolve('./'), `scripts/generate_report/pdf/${file}`))
+    if(file.includes(page)) return res.sendFile(path.join(path.resolve('./'), `scripts/generate_report/pdf/${file}`))
   }
 })
 
